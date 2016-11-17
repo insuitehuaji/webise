@@ -1,20 +1,43 @@
-<!DOCTYPE html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<html>
-   <head> 
-  
-      <title>登陆</title>
-      
-   </head>
-   <body  >
-      <div style="padding: 50px 50px 10px;" class="row center-block" id="t1"> 
-    
-        <div class="col-xs-3"  id="a"> 
-            <input type="text" id="un" class="form-control" placeholder="ユーザー名"> 
-        </div> 
-        <div class="col-xs-3" id="b"> 
-            <input type="password" id="pw" class="form-control" placeholder="パスワード"> 
-        </div> 
-      </div>
-   </body>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #login{
+            margin: 350px auto;
+            text-align: center;
+        }
+        .login_input>span,.login_input>input{
+            /*width: ;*/
+        }
+
+    </style>
+</head>
+<body>
+<div id="login">
+    <div class="login_input input-prepend">
+        <span class="add-on"><i class="icon-user"></i></span>
+        <input type="text" id="user" class>
+    </div>
+    <div class="login_input input-prepend">
+        <span class="add-on"><i class="icon-lock"></i></span>
+        <input type="text" id="password">
+    </div>
+    <input type="button" value="提交"/>
+</div>
+
+</body>
 </html>
