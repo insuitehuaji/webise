@@ -1,43 +1,121 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>登录</title>
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/bmob.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/highcharts.js"></script>
+<script src="js/highcharts.src.js"></script>
+<script>
+function addproject(){       //这是新建项目的接口
+Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+var newcolumn = Bmob.Object.extend("project");
+var gameScore = new user();
+// 添加数据，第一个入口参数是Json数据
+gameScore.save({
+  testnm:document.getElementById("").value,
+  developnm:document.getElementById("").value,
+  name:document.getElementById("").value,
+  etime:document.getElementById("").value,
+  ltime:document.getElementById("").value,
+  stime:document.getElementById("").value,
+  active:true
+}, {
+  success: function(gameScore) {
+    console.log("success");
+  },
+  error: function(gameScore, error) {
+      console.log("fail");
+  }
+});}
 
+function addmission(){        //这是新建机能的接口
+Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+var newcolumn = Bmob.Object.extend("mission");
+var gameScore = new user();
+// 添加数据，第一个入口参数是Json数据
+gameScore.save({
+  testnm:document.getElementById("").value,
+  developnm:document.getElementById("").value,
+  name:document.getElementById("").value,
+  etime:document.getElementById("").value,
+  ltime:document.getElementById("").value,
+  stime:document.getElementById("").value,
+  active:true
+}, {
+  success: function(gameScore) {
+    console.log("success");
+  },
+  error: function(gameScore, error) {
+      console.log("fail");
+  }
+});}
+function listproject(){
+Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
 
-
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-        }
-        #login{
-            margin: 350px auto;
-            text-align: center;
-        }
-        .login_input>span,.login_input>input{
-            /*width: ;*/
-        }
-
-    </style>
-</head>
-<body>
-<div id="login">
-    <div class="login_input input-prepend">
-        <span class="add-on"><i class="icon-user"></i></span>
-        <input type="text" id="user" class>
-    </div>
-    <div class="login_input input-prepend">
-        <span class="add-on"><i class="icon-lock"></i></span>
-        <input type="text" id="password">
-    </div>
-    <input type="button" value="提交"/>
+var findcolumn = Bmob.Object.extend("project");
+var query = new Bmob.Query(findcolumn);
+// 查询所有数据
+query.find({
+  success: function(results) {
+    console.log("共查询到 " + results.length + " 条记录");
+    // 循环处理查询到的数据
+    for (var i = 0; i < results.length; i++) {
+      var object = "<img src='"+results[i].get('pic')['_url']+"' /><div>"+results[i].get('name')+results[i].get('etime')+results[i].get('ltime')+"</div>";
+	  if(results[i].get('active')==true)
+	  jQuery(object).appendTo(jQuery("#activity"));
+	  else
+	  jQuery(object).appendTo(jQuery("#finish"));
+    }
+  },
+  error: function(error) {
+    alert("查询失败: " + error.code + " " + error.message);
+  }
+});}
+</script>
+<script>
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: '进度燃尽图'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: '剩余进度'
+            }
+        },
+credits: {
+     enabled: false
+},
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        series: [{
+            name: '理想',
+            data: [100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0, 0]
+        }, {
+            name: '开发',
+            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+        },{
+            name: '测试o',
+            data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+        } ]
+    });
+});
+</script>
+<button onclick="listproject()">listproject</button>
+------------------------------------------激活中----------------------------------------------
+<div id="activity">
+<button >new</button>
 </div>
-
-</body>
-</html>
+------------------------------------------历史----------------------------------------------
+<div id="finish">
+</div>
+<div id="container" style="min-width:400px;height:400px"></div>
