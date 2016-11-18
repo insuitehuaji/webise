@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/jquery-3.1.1.js"></script>
+
+    <title>insuite进度管理</title>
+
+    <script>
+        $(function(){
+            $("#tab div").click(function(){
+                $(".tab_active").removeClass("tab_active");
+                $(this).addClass("tab_active");
+            })
+        })
+    </script>
+    <style>
+        *{
+            font-family: "Microsoft YaHei UI";
+        }
+        body{
+            padding: 0;
+            margin: 0;
+            background-color: #eeeeee;
+        }
+        #top{
+            width:1920px;
+            height: 71px;
+            background-color: white;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.13);
+        }
+        #logo{
+            height: 50px;
+            position: absolute;
+            top:10px;
+            left: 20px;
+        }
+        #tab{
+            text-align: center;
+            width: 200px;
+            margin: 30px  0 0 885px;
+            float: left;
+            overflow: hidden;
+        }
+        .tab{
+            cursor: pointer;
+            margin-right: 35px;
+            font-size: 25px;
+            /*font-weight:600;*/
+            text-align: center;
+            float: left;
+            width: 50px;
+            height: 36px;
+            /*background-color: red;*/
+        }
+        .tab:hover,.tab:focus{
+            color:#2CBBE7 ;
+            border-bottom:5px solid #2CBBE7 ;
+        }
+        .tab_active{
+            color:#2CBBE7 ;
+            border-bottom:5px solid #2CBBE7 ;
+        }
+        #user{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #2CBBE7;
+            font-size: 10px;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+        .title_first{
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #working{
+            margin: 33px 0 0 200px;
+        }
+        .project_list{
+            margin-top: 45px;
+            width: 288px;
+            height: 162px;
+            background-color: white;
+            cursor: pointer;
+            transition-duration: 0.5s;
+            float: left;
+            margin-right: 45px;
+        }
+        .project_list>img{
+            width: 288px;
+            height: 162px;
+        }
+        .project_list:hover{
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            transform:scale(1.05);
+        }
+        .project_list:hover>#icon_plus_bg{
+            background-color: #51cef5;
+        }
+        #new_project:hover>span{
+            color: #51cef5;
+        }
+        #new_project>span{
+            position: relative;
+            top:45px;
+            left:104px;
+            font-size: 20px;
+            color: #eeeeee;
+            transition-duration: 0.5s;
+        }
+        #icon_plus_bg{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #EEEEEE;
+            position: relative;
+            top:40px;
+            left: 113px;
+            transition-duration: 0.5s;
+        }
+        #icon_plus{
+            margin: 11px;
+        }
+        .cover{
+            width: 288px;
+            height: 162px;
+            background-color: rgba(0,0,0,0.38);
+            position: absolute;
+            color: white;
+        }
+        .cover:hover{
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+        }
+        .cover>div{
+            text-align: center;
+        }
+        .cover_name{
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <nav id="top">
+        <img src="img/LOGO.png" alt="" id="logo">
+        <div id="tab">
+            <div id="tab_project " class="tab tab_active">
+                项目
+            </div>
+            <div id="tab_my" class="tab">
+                我的
+            </div>
+        </div>
+        <div id="user">
+
+        </div>
+    </nav>
+    <div id="index">
+        <div id="working">
+            <div class="title_first">进行中的项目</div>
+            <div id="new_project" class="project_list"><!--新建-->
+                <div id="icon_plus_bg">
+                    <img id="icon_plus" src="img/plus.png">
+                </div>
+                <span>新建项目</span>
+            </div>
+            <div class="project_list"><!--已建立的项目-->
+                <div class="cover">
+                    <div class="cover_name">项目1</div>
+                    <div class="cover_deadline">距离截止日期还有<span>9天|19天</span></div>
+                </div>
+                <img src="img/123.jpg" alt="">
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+</body>
+</html>
