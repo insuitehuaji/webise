@@ -5,11 +5,49 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="js/jquery-3.1.1.js"></script>
 
+<script src="bmob.js"></script>
+<script src="jquery.js"></script>
     <title>insuite进度管理</title>
 
     <script>
+$(function () { // 查询所有数据
+
+Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+
+var findcolumn = Bmob.Object.extend("project");
+var query = new Bmob.Query(findcolumn);
+// 查询所有数据
+query.find({
+  success: function(results) {
+    console.log("共查询到 " + results.length + " 条记录");
+    // 循环处理查询到的数据
+    for (var i = 0; i < results.length; i++) {
+      
+                    
+                   
+               
+	  if(results[i].get('active')==true){
+var s2=new Date();
+var days1 = new Date(results[i].get('etime'));
+var days2 = new Date(results[i].get('ltime'));
+var edays = parseInt((days1.getTime() - s2.getTime())/(3600000*24));
+var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
+var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">距离截止日期还有<span>'+ edays+'天|'+ ldays+'天</span></div> </div><img src="'+results[i].get('pic')['_url']+'" alt="">';
+	  jQuery(object).appendTo(jQuery("#project1"));
+      process=results[i].get('process')      
+}
+else
+{
+var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">已关闭</div> </div><img src="'+results[i].get('pic')['_url']+'" alt="">';
+	  jQuery(object).appendTo(jQuery("#project2"));
+}
+    }
+  },
+  error: function(error) {
+    alert("查询失败: " + error.code + " " + error.message);
+  }
+});})
         $(function(){
             $("#tab div").click(function(){
                 $(".tab_active").removeClass("tab_active");
@@ -172,12 +210,16 @@
                 </div>
                 <span>新建项目</span>
             </div>
-            <div class="project_list"><!--已建立的项目-->
-                <div class="cover">
-                    <div class="cover_name">项目1</div>
-                    <div class="cover_deadline">距离截止日期还有<span>9天|19天</span></div>
-                </div>
-                <img src="img/123.jpg" alt="">
+            <div class="project_list" id="project1"><!--已建立的项目-->
+
+            </div>
+        </div>
+           <br/>
+         <div id="worked">
+            <div class="title_first">已完成的项目</div>
+           
+            <div class="project_list" id="project2"><!--已建立的项目-->
+
             </div>
         </div>
 
