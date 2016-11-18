@@ -14,18 +14,39 @@
             $("#tab div").click(function(){
                 $(".tab_active").removeClass("tab_active");
                 $(this).addClass("tab_active");
+            });
+            $(".triangle_down").click(function(){
+                $(".triangle_down").css("display","none");
+                $(".triangle_up").css("display","block");
+                $("#finish_cont").fadeIn();
+            });
+            $(".triangle_up").click(function(){
+                $(".triangle_up").css("display","none");
+                $(".triangle_down").css("display","block");
+                $("#finish_cont").fadeOut();
             })
         })
+
     </script>
     <style>
         *{
             font-family: "Microsoft YaHei UI";
         }
         body{
+            overflow-x: hidden;
             padding: 0;
             margin: 0;
             background-color: #eeeeee;
         }
+        /*解决子DIV溢出问题*/
+        #finish:after,#finish_title:after,#finish_cont:after,#working:after{
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        /*顶栏*/
         #top{
             width:1920px;
             height: 71px;
@@ -55,6 +76,7 @@
             width: 50px;
             height: 36px;
             /*background-color: red;*/
+            transition-duration: 0.2s;
         }
         .tab:hover,.tab:focus{
             color:#2CBBE7 ;
@@ -74,22 +96,24 @@
             right: 20px;
             top: 15px;
         }
-        .title_first{
+        /*目录*/
+        .index_title{
             font-size: 30px;
             font-weight: bold;
         }
         #working{
+            padding-bottom: 40px;
             margin: 33px 0 0 200px;
+            width:1520px;
         }
         .project_list{
-            margin-top: 45px;
+            margin: 45px 45px 20px 0;
             width: 288px;
             height: 162px;
             background-color: white;
             cursor: pointer;
             transition-duration: 0.5s;
             float: left;
-            margin-right: 45px;
         }
         .project_list>img{
             width: 288px;
@@ -135,7 +159,7 @@
         }
         .cover:hover{
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
-
+            transition-duration: 0.2s;
         }
         .cover>div{
             text-align: center;
@@ -145,7 +169,34 @@
             font-weight: bold;
             margin-top: 50px;
         }
+        #finish{
+            margin: 60px 0 0 200px;
+            width: 1520px;
+        }
+        .triangle_down {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 14px solid black;
+            cursor: pointer;
+        }
+        .triangle_up {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 14px solid black;
+            cursor: pointer;
+        }
+        #finish_title>div{
+            float: left;
+        }
 
+        /*新建项目*/
+
+
+        /*项目详情*/
     </style>
 
 </head>
@@ -165,9 +216,9 @@
 
         </div>
     </nav>
-    <div id="index">
-        <div id="working">
-            <div class="title_first">进行中的项目</div>
+    <div id="index"><!--最初的目录-->
+        <div id="working"><!--正在进行的项目-->
+            <div class="index_title">进行中的项目</div>
             <div id="new_project" class="project_list"><!--新建-->
                 <div id="icon_plus_bg">
                     <img id="icon_plus" src="img/plus.png">
@@ -176,14 +227,33 @@
             </div>
             <div class="project_list"><!--已建立的项目-->
                 <div class="cover">
-                    <div class="cover_name">项目1</div>
+                    <div class="cover_name">Ver3.5.0</div>
                     <div class="cover_deadline">距离截止日期还有<span>9天|19天</span></div>
                 </div>
                 <img src="img/123.jpg" alt="">
             </div>
+
         </div>
+        <div style="border-bottom: 1px solid #c2c2c2;width: 1000px;margin-left: 200px"></div>
+        <div id="finish"><!--项目归档-->
+            <div id="finish_title">
+                <div class="index_title" >项目归档</div>
+                <div class="triangle_down" style="margin:13px 0 0 8px "></div>
+                <div class="triangle_up" style="margin:13px 0 0 8px;display: none "></div>
+            </div>
+            <div id="finish_cont" style="display: none;">
+                <div class="project_list"><!--已建立的项目-->
+                    <div class="cover">
+                        <div class="cover_name">Ver3.4.0开发</div>
+                        <div class="cover_deadline"><span>2016.9.01</span>-<span>2016.9.30</span></div>
+                    </div>
+                    <img src="img/123.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 
-
+    <div id="creat">
 
     </div>
 
