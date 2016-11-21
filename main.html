@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="js/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="css/scoll.css">
 
     <title>insuite进度管理</title>
 
@@ -24,7 +25,20 @@
                 $(".triangle_up").css("display","none");
                 $(".triangle_down").css("display","block");
                 $("#finish_cont").fadeOut();
-            })
+            });
+            $("#new_project").click(function () {
+                $("#index").css("display","none");
+                $("#create").css("display","block")
+            });
+            $("#dev_man_plus_bg").click(function(){
+                $("#create_modal").slideToggle();
+                $("#cover").fadeToggle();
+                $("#cover").click(function () {
+                    $("#cover").fadeOut();
+                    $("#create_modal").slideUp();
+                });
+
+            });
         })
 
     </script>
@@ -38,8 +52,18 @@
             margin: 0;
             background-color: #eeeeee;
         }
+        #cover{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 5555;
+            position: absolute;
+            display: none;
+        }
         /*解决子DIV溢出问题*/
-        #finish:after,#finish_title:after,#finish_cont:after,#working:after{
+        #finish:after,#finish_title:after,#finish_cont:after,#working:after,#create:after,#create_date:after,
+        #create_left:after,#create_right:after,#date_left:after,#date_right:after,#create_man_top:after,#function_text:after,
+        .function_contents:after,#function_man_top:after{
             content: ".";
             display: block;
             height: 0;
@@ -120,7 +144,7 @@
             height: 162px;
         }
         .project_list:hover{
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            box-shadow: 0 0 10px rgba(44, 187, 231,0.2);
             transform:scale(1.05);
         }
         .project_list:hover>#icon_plus_bg{
@@ -158,7 +182,7 @@
             color: white;
         }
         .cover:hover{
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            box-shadow: 0 0 10px rgba(44, 187, 231,0.2);
             transition-duration: 0.2s;
         }
         .cover>div{
@@ -194,14 +218,160 @@
         }
 
         /*新建项目*/
+        #create{
+            display: none;
+            margin: 33px 0 0 200px;
 
+        }
+        #create_title{
+            width: 230px;
+            padding-bottom:5px;
+            border-bottom: 1px solid #c2c2c2;
+        }
+        #create_left{
+            width: 584px;
+            float: left;
+        }
+        .create_little_title{
+            font-size: 19px;
+            font-weight: bold;
+            margin: 25px 0 16px 0;
+        }
+        #create_name{
+            width: 573px;
+            height: 30px;
+            font-size: 17px;
+        }
+        input,textarea{
+            transition-duration: 0.2s;
+            outline:none;
+            border: none;
+            resize:none
+        }
+        input:focus,textarea:focus{
+            border-color: rgba(44, 187, 231, 0.8);
+            outline: thin dotted \9;
+            box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.075), 0 0 9px rgba(44, 187, 231, 0.4);
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        #create_describe{
+            width: 573px;
+            height: 185px;
+            font-size: 17px;
+        }
+        .date_text{
+            font-size: 15px;
+            font-weight: bold;
+        }
+        #date_left{
+            width: 268px;
+            float: left;
+        }
+        #date_right{
+            width: 268px;
+            float: left;
+            margin-left: 39px;
+        }
+        .date_input{
+            margin-top: 5px;
+            width: 268px;
+            height: 28px;
+            font-size: 14px;
+            /*font-weight: bold;*/
+        }
+        #create_man{
+            width: 573px;
+            height: 250px;
+            background-color: white;
+        }
+        .icon_plus_bg2{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #2CBBE7;
+            float: left;
+            margin: 3px 0 0 5px;
+            cursor: pointer;
+        }
+        .icon_plus2{
+            width: 12px;
+            margin: 0 0 3px 4px;
+        }
+        #create_modal{
+            width: 500px;
+            height: 500px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: absolute;
+            top: 150px;
+            left: 700px;
+            display: none;
+            z-index: 999999999;
+        }
+        #create_right{
+            margin-left: 180px;
+            /*width: 600px;*/
+            float: left;
+        }
+        .function_text{
+            font-size: 15px;
+            font-weight: bold;
+            float: left;
+        }
+        #function_text{
+            margin-bottom: 10px;
+        }
+        .function_describe_title{
+            margin-left: 163px;
+        }
+        .function_man_title{
+            margin-left: 429px;
+        }
+        .function_name_input{
+            width: 207px;
+            height: 30px;
+            font-size: 14px;
+        }
+        .function_name{
+            width: 207px;
+            height: 30px;
+            float: left;
+        }
+        .function_describe_input{
+            height: 30px;
+            width: 468px;
+            font-size: 14px;
+        }
+        .function_describe{
+            margin-left: 15px;
+            height: 30px;
+            width: 468px;
+            float: left;
+        }
+        .function_man_area{
+            height: 32px;
+            width: 119px;
+            background-color: white;
+            float: left;
+            margin-left: 15px;
+        }
+        .function_contents{
+            margin-bottom: 10px;
+        }
+        #function_man_top{
 
+        }
         /*项目详情*/
     </style>
 
 </head>
 
 <body>
+<div id="cover"></div>
+
     <nav id="top">
         <img src="img/LOGO.png" alt="" id="logo">
         <div id="tab">
@@ -253,10 +423,60 @@
         </div>
     </div>
 
-    <div id="creat">
+    <div id="create">
+        <div class="index_title" id="create_title">新建项目</div>
+        <div id="create_left">
+            <div class="create_little_title">项目名称</div>
+            <input type="text" id="create_name">
+            <div class="create_little_title">项目描述</div>
+            <textarea name="" id="create_describe" cols="30" rows="10"></textarea>
+            <div id="create_date">
+                <div class="create_little_title" style="margin-bottom: 5px">截止日期</div>
+                <div id="date_left">
+                    <div id="date_earliest" class="date_text">最早</div>
+                    <input type="date" class="date_input">
+                </div>
+                <div id="date_right">
+                    <div id="date_latest" class="date_text">最晚</div>
+                    <input type="date" class="date_input">
+                </div>
+            </div>
+            <div class="create_little_title" id="create_man_top">
+                <div style="float: left;">开发人员</div>
+                <div class="icon_plus_bg2" id="dev_man_plus_bg">
+                    <img class="icon_plus2" id="dev_man_plus" src="img/plus.png">
+                </div>
+            </div>
+            <div id="create_man"></div>
+
+        </div>
+        <div id="create_right">
+            <div class="create_little_title" id="function_man_top">
+                <div class="create_little_title" style="margin:0;float: left">功能与任务分配</div>
+                <div class="icon_plus_bg2" id="fun_man_plus_bg" style="">
+                    <img class="icon_plus2" id="fun_man_plus" src="img/plus.png">
+                </div>
+            </div>
+            <div id="function_text">
+                <div class="function_name_title function_text">功能名称</div>
+                <div class="function_describe_title function_text">功能描述</div>
+                <div class="function_man_title function_text">功能担当</div>
+            </div>
+            <div class="function_contents">
+                <div class="function_name">
+                    <input type="text" class="function_name_input">
+                </div>
+                <div class="function_describe">
+                    <input type="text" class="function_describe_input">
+                </div>
+                <div class="function_man_area"></div>
+            </div>
+        </div>
+        <div id="create_modal">
+
+        </div>
 
     </div>
-
 
 </body>
 </html>
