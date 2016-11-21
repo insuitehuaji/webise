@@ -6,27 +6,27 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="js/jquery-3.1.1.js"></script>
-    <script src="js/bmob.js"
+    <script src="js/bmob.js"</script>
     <title>insuite进度管理</title>
 
     <script>
-        $(function(){
+        $(document).ready(function(){
             $("#tab div").click(function(){
                 $(".tab_active").removeClass("tab_active");
                 $(this).addClass("tab_active");
             });
             $(".triangle_down").click(function(){
-                $(".triangle_down").css("display","none");
-                $(".triangle_up").css("display","block");
-                $("#finish_cont").fadeIn();
+                
             });
             $(".triangle_up").click(function(){
-                $(".triangle_up").css("display","none");
-                $(".triangle_down").css("display","block");
-                $("#finish_cont").fadeOut();
+              
             })
         })
-$(function () { // 查询所有数据
+
+       
+    </script>
+	<script>
+	$(function () { // 查询所有数据
 
 Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
 
@@ -54,8 +54,13 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
 }
 else
 {
-var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">已关闭</div> </div><img src="'+results[i].get('pic')['_url']+'" alt="">';
+var days1 = new Date(results[i].get('stime'));
+days1=days1.getFullYear()+'.'+(days1.getMonth()+1)+'.'+days1.getDate();
+var days2 = new Date(results[i].get('ltime'));
+days2=days2.getFullYear()+'.'+(days2.getMonth()+1)+'.'+days2.getDate();
+var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">'+days1+'-'+days2+'</div> </div><img src="'+results[i].get('pic')['_url']+'" alt="">';
 	  jQuery(object).appendTo(jQuery("#project2"));
+	  alert("b");
 }
     }
   },
@@ -63,8 +68,6 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
     alert("查询失败: " + error.code + " " + error.message);
   }
 });})
-       
-    </script>
     </script>
     <style>
         *{
@@ -269,12 +272,16 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
         <div id="finish"><!--项目归档-->
             <div id="finish_title">
                 <div class="index_title" >项目归档</div>
-                <div class="triangle_down" style="margin:13px 0 0 8px "></div>
-                <div class="triangle_up" style="margin:13px 0 0 8px;display: none "></div>
+                <div class="triangle_down" style="margin:13px 0 0 8px" onclick="$('.triangle_down').hide();
+                $('.triangle_up').show();
+                $('#finish_cont').fadeIn(); " ></div>
+                <div class="triangle_up" style="margin:13px 0 0 8px;display: none " onclick='  $(".triangle_up").css("display","none");
+                $(".triangle_down").css("display","block");
+                $("#finish_cont").fadeOut();'></div>
             </div>
             <div id="finish_cont" style="display: none;">
                 <div class="project_list" id="project2"><!--已建立的项目-->
-                    
+                   
                 </div>
             </div>
         </div>
