@@ -5,12 +5,27 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/jquery-3.1.1.js"></script>
 
-<script src="js/bmob.js"></script>
-<script src="js/jquery.js"></script>
     <title>insuite进度管理</title>
 
     <script>
+        $(function(){
+            $("#tab div").click(function(){
+                $(".tab_active").removeClass("tab_active");
+                $(this).addClass("tab_active");
+            });
+            $(".triangle_down").click(function(){
+                $(".triangle_down").css("display","none");
+                $(".triangle_up").css("display","block");
+                $("#finish_cont").fadeIn();
+            });
+            $(".triangle_up").click(function(){
+                $(".triangle_up").css("display","none");
+                $(".triangle_down").css("display","block");
+                $("#finish_cont").fadeOut();
+            })
+        })
 $(function () { // 查询所有数据
 
 Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
@@ -48,22 +63,28 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
     alert("查询失败: " + error.code + " " + error.message);
   }
 });})
-        $(function(){
-            $("#tab div").click(function(){
-                $(".tab_active").removeClass("tab_active");
-                $(this).addClass("tab_active");
-            })
-        })
+       
+    </script>
     </script>
     <style>
         *{
             font-family: "Microsoft YaHei UI";
         }
         body{
+            overflow-x: hidden;
             padding: 0;
             margin: 0;
             background-color: #eeeeee;
         }
+        /*解决子DIV溢出问题*/
+        #finish:after,#finish_title:after,#finish_cont:after,#working:after{
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        /*顶栏*/
         #top{
             width:1920px;
             height: 71px;
@@ -93,6 +114,7 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
             width: 50px;
             height: 36px;
             /*background-color: red;*/
+            transition-duration: 0.2s;
         }
         .tab:hover,.tab:focus{
             color:#2CBBE7 ;
@@ -112,22 +134,24 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
             right: 20px;
             top: 15px;
         }
-        .title_first{
+        /*目录*/
+        .index_title{
             font-size: 30px;
             font-weight: bold;
         }
         #working{
+            padding-bottom: 40px;
             margin: 33px 0 0 200px;
+            width:1520px;
         }
         .project_list{
-            margin-top: 45px;
+            margin: 45px 45px 20px 0;
             width: 288px;
             height: 162px;
             background-color: white;
             cursor: pointer;
             transition-duration: 0.5s;
             float: left;
-            margin-right: 45px;
         }
         .project_list>img{
             width: 288px;
@@ -173,6 +197,7 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
         }
         .cover:hover{
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            transition-duration: 0.2s;
         }
         .cover>div{
             text-align: center;
@@ -182,6 +207,31 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
             font-weight: bold;
             margin-top: 50px;
         }
+        #finish{
+            margin: 60px 0 0 200px;
+            width: 1520px;
+        }
+        .triangle_down {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 14px solid black;
+            cursor: pointer;
+        }
+        .triangle_up {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 14px solid black;
+            cursor: pointer;
+        }
+        #finish_title>div{
+            float: left;
+        }
+        /*新建项目*/
+        /*项目详情*/
     </style>
 
 </head>
@@ -201,9 +251,9 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
 
         </div>
     </nav>
-    <div id="index">
-        <div id="working">
-            <div class="title_first">进行中的项目</div>
+    <div id="index"><!--最初的目录-->
+        <div id="working"><!--正在进行的项目-->
+            <div class="index_title">进行中的项目</div>
             <div id="new_project" class="project_list"><!--新建-->
                 <div id="icon_plus_bg">
                     <img id="icon_plus" src="img/plus.png">
@@ -211,19 +261,26 @@ var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name
                 <span>新建项目</span>
             </div>
             <div class="project_list" id="project1"><!--已建立的项目-->
+                
+            </div>
 
+        </div>
+        <div style="border-bottom: 1px solid #c2c2c2;width: 1000px;margin-left: 200px"></div>
+        <div id="finish"><!--项目归档-->
+            <div id="finish_title">
+                <div class="index_title" >项目归档</div>
+                <div class="triangle_down" style="margin:13px 0 0 8px "></div>
+                <div class="triangle_up" style="margin:13px 0 0 8px;display: none "></div>
+            </div>
+            <div id="finish_cont" style="display: none;">
+                <div class="project_list" id="project2"><!--已建立的项目-->
+                    
+                </div>
             </div>
         </div>
-           <br/>
-         <div id="worked">
-            <div class="title_first">已完成的项目</div>
-           
-            <div class="project_list" id="project2"><!--已建立的项目-->
+    </div>
 
-            </div>
-        </div>
-
-
+    <div id="creat">
 
     </div>
 
