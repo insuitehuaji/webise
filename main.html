@@ -28,7 +28,11 @@
             });
             $("#new_project").click(function () {
                 $("#index").css("display","none");
-                $("#create").css("display","block")
+                $("#create").fadeIn()
+            });
+            $("#create_cancel").click(function () {
+                $("#index").fadeIn();
+                $("#create").css("display","none");
             });
             $("#dev_man_plus_bg").click(function(){
                 $("#create_modal").slideToggle();
@@ -37,8 +41,8 @@
                     $("#cover").fadeOut();
                     $("#create_modal").slideUp();
                 });
-
             });
+
         })
 
     </script>
@@ -63,7 +67,7 @@
         /*解决子DIV溢出问题*/
         #finish:after,#finish_title:after,#finish_cont:after,#working:after,#create:after,#create_date:after,
         #create_left:after,#create_right:after,#date_left:after,#date_right:after,#create_man_top:after,#function_text:after,
-        .function_contents:after,#function_man_top:after{
+        .function_contents:after,#function_man_top:after,#create_top:after{
             content: ".";
             display: block;
             height: 0;
@@ -221,12 +225,37 @@
         #create{
             display: none;
             margin: 33px 0 0 200px;
-
         }
         #create_title{
             width: 230px;
             padding-bottom:5px;
             border-bottom: 1px solid #c2c2c2;
+            float: left;
+        }
+        .create_button{
+            float: right;
+            width: 70px;
+            height: 25px;
+            color: white;
+            text-align: center;
+            padding-top: 2px;
+            cursor: pointer;
+        }
+        #create_submit{
+            background-color:#0091FE;
+            margin-right: 135px;
+            transition-duration: 0.3s;
+        }
+        #create_submit:hover{
+            box-shadow: 0 0 10px rgba(0,145,254,0.5);
+        }
+        #create_cancel{
+            background-color: #FF5534;
+            margin-right: 10px;
+            transition-duration: 0.3s;
+        }
+        #create_cancel:hover{
+            box-shadow: 0 0 10px rgba(255,85,52,0.5);
         }
         #create_left{
             width: 584px;
@@ -423,8 +452,12 @@
         </div>
     </div>
 
-    <div id="create">
-        <div class="index_title" id="create_title">新建项目</div>
+    <div id="create"><!--新建项目-->
+        <div id="create_top">
+            <div class="index_title" id="create_title">新建项目</div>
+            <div id="create_submit" class="create_button">提交</div>
+            <div id="create_cancel" class="create_button">取消</div>
+        </div>
         <div id="create_left">
             <div class="create_little_title">项目名称</div>
             <input type="text" id="create_name">
@@ -475,6 +508,9 @@
         <div id="create_modal">
 
         </div>
+
+    </div>
+    <div class="main">
 
     </div>
 
