@@ -289,7 +289,7 @@ input::-webkit-inner-spin-button {
     background-color: white;
     margin: 9px 0 0 5px;
 }
-#create_modal{
+.create_modal{
     width: 500px;
     height: 500px;
     background-color: white;
@@ -375,6 +375,15 @@ input::-webkit-inner-spin-button {
     height: 689px;
     width: 870px;
     overflow: auto;
+}
+.dev_man_plus_bg{
+    margin: 8px 0 0 43px;
+    cursor: pointer;
+    color: #51cef5;
+    transition-duration: 0.4s;
+}
+.dev_man_plus_bg:hover{
+    transform:scale(1.3);
 }
 #function_test_top{
 
