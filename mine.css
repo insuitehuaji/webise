@@ -1,0 +1,373 @@
+*{
+    font-family: "Microsoft YaHei UI";
+}
+body{
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    background-color: #eeeeee;
+}
+#cover{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 5555;
+    position: absolute;
+    display: none;
+}
+/*顶栏*/
+#top{
+    width:1920px;
+    height: 71px;
+    background-color: white;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.13);
+}
+#logo{
+    height: 45px;
+    position: absolute;
+    top:15px;
+    left: 20px;
+    cursor: pointer;
+}
+#tab{
+    text-align: center;
+    width: 200px;
+    margin: 30px  0 0 885px;
+    float: left;
+    overflow: hidden;
+}
+.tab{
+    cursor: pointer;
+    margin-right: 35px;
+    font-size: 25px;
+    /*font-weight:600;*/
+    text-align: center;
+    float: left;
+    width: 50px;
+    height: 36px;
+    /*background-color: red;*/
+    transition-duration: 0.2s;
+}
+.tab:hover,.tab:focus{
+    color:#2CBBE7 ;
+    border-bottom:5px solid #2CBBE7 ;
+}
+.tab_active{
+    color:#2CBBE7 ;
+    border-bottom:5px solid #2CBBE7 ;
+}
+#user{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #2CBBE7;
+    font-size: 10px;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+}
+/*目录*/
+.index_title{
+    font-size: 30px;
+    font-weight: bold;
+}
+#working{
+    padding-bottom: 40px;
+    margin: 33px 0 0 200px;
+    width:1520px;
+}
+.project_list{
+    margin: 45px 45px 20px 0;
+    width: 288px;
+    height: 162px;
+    background-color: white;
+    cursor: pointer;
+    transition-duration: 0.5s;
+    float: left;
+}
+.project_list>img{
+    width: 288px;
+    height: 162px;
+}
+.project_list:hover{
+    box-shadow: 0 0 10px rgba(44, 187, 231,0.2);
+    transform:scale(1.05);
+}
+.project_list:hover>#icon_plus_bg{
+    background-color: #51cef5;
+}
+#new_project:hover>span{
+    color: #51cef5;
+}
+#new_project>span{
+    position: relative;
+    top:45px;
+    left:104px;
+    font-size: 20px;
+    color: #eeeeee;
+    transition-duration: 0.5s;
+}
+#icon_plus_bg{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #EEEEEE;
+    position: relative;
+    top:40px;
+    left: 113px;
+    transition-duration: 0.5s;
+}
+#icon_plus{
+    margin: 11px;
+}
+.cover{
+    width: 288px;
+    height: 162px;
+    background-color: rgba(0,0,0,0.38);
+    position: absolute;
+    color: white;
+}
+.cover:hover{
+    box-shadow: 0 0 10px rgba(44, 187, 231,0.2);
+    transition-duration: 0.2s;
+}
+.cover>div{
+    text-align: center;
+}
+.cover_name{
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+#finish{
+    margin: 60px 0 0 200px;
+    width: 1520px;
+}
+.triangle_down {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 14px solid black;
+    cursor: pointer;
+}
+.triangle_up {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 14px solid black;
+    cursor: pointer;
+}
+#finish_title>div{
+    float: left;
+}
+
+/*新建项目*/
+#create{
+    width: 1715px;
+    display: none;
+    margin: 33px 0 0 200px;
+}
+#create_title{
+    width: 230px;
+    padding-bottom:5px;
+    border-bottom: 1px solid #c2c2c2;
+    float: left;
+}
+.create_button{
+    float: right;
+    width: 70px;
+    height: 25px;
+    color: white;
+    text-align: center;
+    padding-top: 2px;
+    cursor: pointer;
+}
+#create_submit{
+    background-color:#0091FE;
+    margin-right: 135px;
+    transition-duration: 0.3s;
+}
+#create_submit:hover{
+    box-shadow: 0 0 10px rgba(0,145,254,0.5);
+}
+#create_cancel{
+    background-color: #FF5534;
+    margin-right: 10px;
+    transition-duration: 0.3s;
+}
+#create_cancel:hover{
+    box-shadow: 0 0 10px rgba(255,85,52,0.5);
+}
+#create_left{
+    width: 584px;
+    float: left;
+}
+.create_little_title{
+    font-size: 19px;
+    font-weight: bold;
+    margin: 25px 0 16px 0;
+}
+#create_name{
+    width: 573px;
+    height: 30px;
+    font-size: 17px;
+}
+input,textarea{
+    transition-duration: 0.2s;
+    outline:none;
+    border: none;
+    resize:none
+}
+input:focus,textarea:focus{
+    border-color: rgba(44, 187, 231, 0.8);
+    outline: thin dotted \9;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.075), 0 0 9px rgba(44, 187, 231, 0.4);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+#create_describe{
+    width: 573px;
+    height: 185px;
+    font-size: 17px;
+}
+.date_text{
+    font-size: 15px;
+    font-weight: bold;
+}
+#date_left{
+    width: 268px;
+    float: left;
+}
+#date_right{
+    width: 268px;
+    float: left;
+    margin-left: 39px;
+}
+.date_input{
+    margin-top: 5px;
+    width: 268px;
+    height: 28px;
+    font-size: 14px;
+    /*font-weight: bold;*/
+}
+#create_man{
+    width: 573px;
+    height: 250px;
+    background-color: white;
+}
+.icon_plus_bg2{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #2CBBE7;
+    float: left;
+    margin: 3px 0 0 5px;
+    cursor: pointer;
+}
+.icon_plus2{
+    width: 12px;
+    margin: 0 0 3px 4px;
+}
+.icon_reduce_bg{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #FF5534;
+    float: left;
+    cursor: pointer;
+    margin: 5px 0 0 10px;
+}
+.icon_reduce{
+    width: 10px;
+    height: 1px;
+    background-color: white;
+    margin: 9px 0 0 5px;
+}
+#create_modal{
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 150px;
+    left: 700px;
+    display: none;
+    z-index: 999999999;
+}
+#create_right{
+    margin-left: 180px;
+    width: 860px;
+    float: left;
+}
+.function_text{
+    font-size: 15px;
+    font-weight: bold;
+    float: left;
+}
+#function_text{
+    margin-bottom: 5px;
+}
+.function_describe_title{
+    margin-left: 163px;
+}
+.function_style_title{
+    margin-left: 323px;
+}
+.function_man_title{
+    margin-left: 39px;
+}
+.function_name_input{
+    width: 207px;
+    height: 30px;
+    font-size: 14px;
+}
+.function_name{
+    width: 207px;
+    height: 30px;
+    float: left;
+}
+.function_describe_input{
+    height: 30px;
+    width: 368px;
+    font-size: 14px;
+}
+.function_describe{
+    margin-left: 15px;
+    height: 30px;
+    width: 368px;
+    float: left;
+}
+.function_style_input{
+    height: 30px;
+    width: 85px;
+    font-size: 14px;
+}
+.function_style{
+    margin-left: 15px;
+    height: 30px;
+    width: 85px;
+    float: left;
+}
+.function_man_area{
+    height: 32px;
+    width: 119px;
+    background-color: white;
+    float: left;
+    margin-left: 15px;
+}
+.function_contents{
+    margin-bottom: 10px;
+}
+#function_contents{
+    height: 689px;
+    width: 870px;
+    overflow: auto;
+}
+#function_man_top{
+
+}
