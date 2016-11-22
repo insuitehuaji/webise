@@ -21,6 +21,7 @@ body{
     height: 71px;
     background-color: white;
     box-shadow: 0 1px 1px rgba(0,0,0,0.13);
+    position: relative;
 }
 #logo{
     height: 45px;
@@ -315,11 +316,11 @@ input::-webkit-inner-spin-button {
 .function_describe_title{
     margin-left: 163px;
 }
-.function_style_title{
-    margin-left: 323px;
+.function_develop_title{
+    margin-left: 320px;
 }
-.function_man_title{
-    margin-left: 39px;
+.function_test_title{
+    margin-left: 59px;
 }
 .function_name_input{
     width: 207px;
@@ -342,20 +343,27 @@ input::-webkit-inner-spin-button {
     width: 368px;
     float: left;
 }
-.function_style_input{
+.function_develop_input{
     height: 30px;
     width: 85px;
     font-size: 14px;
 }
-.function_style{
+.function_develop{
     margin-left: 15px;
     height: 30px;
     width: 85px;
     float: left;
 }
-.function_man_area{
+.function_test_area{
     height: 32px;
-    width: 119px;
+    width: 100px;
+    background-color: white;
+    float: left;
+    margin-left: 15px;
+}
+.function_develop_area{
+    height: 32px;
+    width: 100px;
     background-color: white;
     float: left;
     margin-left: 15px;
@@ -368,6 +376,6 @@ input::-webkit-inner-spin-button {
     width: 870px;
     overflow: auto;
 }
-#function_man_top{
+#function_test_top{
 
 }
