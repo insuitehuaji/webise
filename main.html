@@ -8,59 +8,8 @@
     <script src="js/jquery-3.1.1.js"></script>
     <link rel="stylesheet" href="css/scoll.css">
     <link rel="stylesheet" href="css/mine.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <title>insuite进度管理</title>
-
-    <script>
-        $(function(){
-            $("#tab div").click(function(){
-                $(".tab_active").removeClass("tab_active");
-                $(this).addClass("tab_active");
-            });
-            $(".triangle_down").click(function(){
-                $(".triangle_down").css("display","none");
-                $(".triangle_up").css("display","block");
-                $("#finish_cont").fadeIn();
-            });
-            $(".triangle_up").click(function(){
-                $(".triangle_up").css("display","none");
-                $(".triangle_down").css("display","block");
-                $("#finish_cont").fadeOut();
-            });
-            $("#new_project").click(function () {
-                $("#index").css("display","none");
-                $("#create").fadeIn()
-            });
-            $("#create_cancel").click(function () {
-                $("#index").fadeIn();
-                $("#create").css("display","none");
-            });
-            $("#logo").click(function () {
-                $("#index").fadeIn();
-                $("#create").css("display","none");
-            });
-            $("#dev_man_plus_bg").click(function(){
-                $("#create_modal").slideToggle();
-                $("#cover").fadeToggle();
-                $("#cover").click(function () {
-                    $("#cover").fadeOut();
-                    $("#create_modal").slideUp();
-                });
-            });
-            $(document).keyup(function(event){
-                switch(event.keyCode) {
-                    case 27:
-                        $("#cover").fadeOut();
-                        $("#create_modal").slideUp();
-                }
-            });
-//            $ ("#fun_man_plus_bg").click (function ()
-//            {
-//                $("#function_contents").append('<div class="function_contents"><div class="function_name"><input type="text" class="function_name_input"></div><div class="function_describe"><input type="text" class="function_describe_input"></div><div class="function_man_area"></div><div class="icon_reduce_bg"><div class="icon_reduce"></div></div></div>');
-//            });
-
-        })
-
-    </script>
     <style>
         /*解决子DIV溢出问题*/
         #finish:after,#finish_title:after,#finish_cont:after,#working:after,#create:after,#create_date:after,
@@ -158,9 +107,9 @@
             </div>
             <div class="create_little_title" id="create_man_top">
                 <div style="float: left;">开发人员</div>
-                <div class="icon_plus_bg2" id="dev_man_plus_bg">
-                    <img class="icon_plus2" id="dev_man_plus" src="img/plus.png">
-                </div>
+                <!--<div class="icon_plus_bg2" id="dev_man_plus_bg">-->
+                    <!--<img class="icon_plus2" id="dev_man_plus" src="img/plus.png">-->
+                <!--</div>-->
             </div>
             <div id="create_man"></div>
 
@@ -186,15 +135,22 @@
                 <div class="function_describe">
                     <input type="text" class="function_describe_input">
                 </div>
-                <div class="function_develop_area"></div>
-                <div class="function_test_area"></div>
+                <div class="function_develop_area">
+                    <i class="fa fa-plus-circle dev_man_plus_bg" id="develop_modal" aria-hidden="true"></i>
+                </div>
+                <div class="function_test_area">
+                    <i class="fa fa-plus-circle dev_man_plus_bg" id="test_modal" aria-hidden="true"></i>
+                </div>
                 <div class="icon_reduce_bg">
                     <div class="icon_reduce"></div>
                 </div>
             </div>
             </div>
         </div>
-        <div id="create_modal">
+        <div id="create_develop_modal" class="create_modal">
+
+        </div>
+        <div id="create_test_modal" class="create_modal">
 
         </div>
 
@@ -204,4 +160,62 @@
     </div>
 
 </body>
+<script>
+    $(function(){
+        $("#tab div").click(function(){
+            $(".tab_active").removeClass("tab_active");
+            $(this).addClass("tab_active");
+        });
+        $(".triangle_down").click(function(){
+            $(".triangle_down").css("display","none");
+            $(".triangle_up").css("display","block");
+            $("#finish_cont").fadeIn();
+        });
+        $(".triangle_up").click(function(){
+            $(".triangle_up").css("display","none");
+            $(".triangle_down").css("display","block");
+            $("#finish_cont").fadeOut();
+        });
+        $("#new_project").click(function () {
+            $("#index").css("display","none");
+            $("#create").fadeIn()
+        });
+        $("#create_cancel").click(function () {
+            $("#index").fadeIn();
+            $("#create").css("display","none");
+        });
+        $("#logo").click(function () {
+            $("#index").fadeIn();
+            $("#create").css("display","none");
+        });
+        $("#develop_modal").click(function(){
+            $("#create_develop_modal").slideToggle();
+            $("#cover").fadeToggle();
+            $("#cover").click(function () {
+                $("#cover").fadeOut();
+                $("#create_develop_modal").slideUp();
+            });
+        });
+        $("#test_modal").click(function(){
+            $("#create_test_modal").slideToggle();
+            $("#cover").fadeToggle();
+            $("#cover").click(function () {
+                $("#cover").fadeOut();
+                $("#create_test_modal").slideUp();
+            });
+        });
+        $(document).keyup(function(event){
+            switch(event.keyCode) {
+                case 27:
+                    $("#cover").fadeOut();
+                    $("#create_modal").slideUp();
+            }
+        });
+//            $ ("#fun_man_plus_bg").click (function ()
+//            {
+//                $("#function_contents").append('<div class="function_contents"><div class="function_name"><input type="text" class="function_name_input"></div><div class="function_describe"><input type="text" class="function_describe_input"></div><div class="function_man_area"></div><div class="icon_reduce_bg"><div class="icon_reduce"></div></div></div>');
+//            });
+    })
+
+</script>
 </html>
