@@ -2,10 +2,19 @@
     font-family: "Microsoft YaHei UI";
 }
 body{
-    overflow-x: hidden;
     padding: 0;
     margin: 0;
     background-color: #eeeeee;
+    max-height: 1080px;
+}
+ul{
+    list-style: none;
+}
+li{
+    list-style: none;
+}
+button{
+    outline: none;
 }
 #cover{
     width: 100%;
@@ -18,13 +27,18 @@ body{
 /*顶栏*/
 #top{
     width:1920px;
-    height: 71px;
+    height: 61px;
     background-color: white;
     box-shadow: 0 1px 1px rgba(0,0,0,0.13);
-    position: relative;
+    position: fixed;
+    z-index: 99999999999;
+}
+#top2{
+    width:1920px;
+    height: 61px;
 }
 #logo{
-    height: 45px;
+    height: 35px;
     position: absolute;
     top:15px;
     left: 20px;
@@ -33,7 +47,7 @@ body{
 #tab{
     text-align: center;
     width: 200px;
-    margin: 30px  0 0 885px;
+    margin: 20px  0 0 885px;
     float: left;
     overflow: hidden;
 }
@@ -58,8 +72,8 @@ body{
     border-bottom:5px solid #2CBBE7 ;
 }
 #user{
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: #2CBBE7;
     font-size: 10px;
@@ -194,6 +208,9 @@ body{
 #create_submit:hover{
     box-shadow: 0 0 10px rgba(0,145,254,0.5);
 }
+#create_submit:focus,#create_submit:active{
+     box-shadow:inset 0 0 10px rgba(0,0,0,0.3);
+ }
 #create_cancel{
     background-color: #FF5534;
     margin-right: 10px;
@@ -201,6 +218,9 @@ body{
 }
 #create_cancel:hover{
     box-shadow: 0 0 10px rgba(255,85,52,0.5);
+}
+#create_cancel:focus,#create_cancel:active{
+    box-shadow:inset 0 0 10px rgba(0,0,0,0.3);
 }
 #create_left{
     width: 584px;
@@ -233,7 +253,7 @@ input::-webkit-inner-spin-button {
 }
 #create_describe{
     width: 573px;
-    height: 185px;
+    height: 112px;
     font-size: 17px;
 }
 .date_text{
@@ -257,9 +277,12 @@ input::-webkit-inner-spin-button {
     /*font-weight: bold;*/
 }
 #create_man{
+    border: 1px solid #c2c2c2;
     width: 573px;
-    height: 250px;
-    background-color: white;
+    height: 322px;
+    /*background-color: white;*/
+    /*background: url("../img/popy.jpg");*/
+    background-size: 573px 322px;
 }
 .icon_plus_bg2{
     width: 20px;
@@ -269,10 +292,14 @@ input::-webkit-inner-spin-button {
     float: left;
     margin: 3px 0 0 5px;
     cursor: pointer;
+    transition-duration: 0.2s;
+}
+.icon_plus_bg2:hover{
+    box-shadow: 0 0 5px rgba(44,187,231,0.5);
 }
 .icon_plus2{
     width: 12px;
-    margin: 0 0 3px 4px;
+    margin:3px 0 0 4px;
 }
 .icon_reduce_bg{
     width: 20px;
@@ -282,6 +309,10 @@ input::-webkit-inner-spin-button {
     float: left;
     cursor: pointer;
     margin: 5px 0 0 10px;
+    transition-duration: 0.2s;
+}
+.icon_reduce_bg:hover{
+    box-shadow: 0 0 5px rgba(255,85,52,0.5);
 }
 .icon_reduce{
     width: 10px;
@@ -289,6 +320,7 @@ input::-webkit-inner-spin-button {
     background-color: white;
     margin: 9px 0 0 5px;
 }
+/*弹出框*/
 .create_modal{
     width: 500px;
     height: 500px;
@@ -299,7 +331,94 @@ input::-webkit-inner-spin-button {
     left: 700px;
     display: none;
     z-index: 999999999;
+    border-radius: 10px;
 }
+.modal_close{
+    cursor: pointer;
+    position: absolute;
+    right: 7px;
+    top:7px;
+    transition-duration: 0.3s;
+}
+.modal_close:hover{
+    color: #FF5534;
+}
+.panel-heading{
+    height: 30px;
+    border-bottom: 1px solid #c2c2c2;
+    font-weight: bold;
+    text-align: center;
+    font-size: 17px;
+    padding-top: 4px;
+    position: relative;
+}
+.modal_title{
+    float: left;
+    text-align: left;
+    font-weight: bold;
+    /*margin-bottom: 10px;*/
+}
+#modal_title1,#modal_title2{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.task-list{
+    margin: 0;
+}
+.task_title{/*整体*/
+    margin: 0 30px;
+}
+.task_title_sp{/*姓名*/
+    font-size: 15px;
+    display: block;
+    float: left;
+    width: 150px;
+    margin-bottom: 5px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+.badge_sm{/*职位*/
+    font-size: 15px;
+    margin-left: 30px;
+    display: block;
+    float: left;
+    text-align: left;
+    width: 150px;
+    margin-bottom: 5px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+
+}
+.task_title_sp:hover,.badge_sm:hover{
+    font-weight: bold;
+    border-left: 5px solid #48DC6A;
+
+}
+.btn_success{/*确定按钮*/
+    margin-bottom: 5px;
+    height: 19px;
+    border: 0;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    border-radius: 100px;
+    color: white;
+}
+.btn_success:hover{
+    background-color:#48DC6A ;
+    transform:scale(1.05);
+}
+.btn_success:focus,.btn_success:active{
+    background-color:#48DC6A ;
+    transform:scale(1.05);
+}
+.btn_success:hover>.modal_select{
+    color: white;
+}
+/*弹出框*/
+
+
+
+
 #create_right{
     margin-left: 180px;
     width: 860px;
@@ -360,6 +479,9 @@ input::-webkit-inner-spin-button {
     background-color: white;
     float: left;
     margin-left: 15px;
+    cursor: pointer;
+    /*font-weight: bold;*/
+    box-sizing:border-box
 }
 .function_develop_area{
     height: 32px;
@@ -367,24 +489,61 @@ input::-webkit-inner-spin-button {
     background-color: white;
     float: left;
     margin-left: 15px;
+    cursor: pointer;
+    box-sizing:border-box
+}
+.select_man{
+    text-align: center;
+    /*font-weight: bold;*/
+    background-color: #ffffff;
+    box-shadow:0 0 1px rgba(0,0,0,0.2);
+    width: 80px;
+    height: 20px;
+    margin: 6px auto;
+    border-radius: 100px;
+    transition-duration: 0.2s;
+}
+.function_develop_area:hover>.select_man,
+.function_test_area:hover>.select_man{
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 .function_contents{
     margin-bottom: 10px;
 }
 #function_contents{
-    height: 689px;
+    height: 680px;
     width: 870px;
     overflow: auto;
 }
 .dev_man_plus_bg{
     margin: 8px 0 0 43px;
     cursor: pointer;
-    color: #51cef5;
     transition-duration: 0.4s;
+    color: #c2c2c2;
 }
-.dev_man_plus_bg:hover{
+.function_develop_area:hover>.dev_man_plus_bg,
+.function_test_area:hover>.dev_man_plus_bg{
+    color: #51cef5;
     transform:scale(1.3);
 }
 #function_test_top{
 
+}
+#metro_add{
+    cursor: pointer;
+    color: #51cef5;
+    transition-duration: 0.4s;
+    margin: 5px 0 0 5px;
+}
+#metro_add:hover{
+    transform:scale(1.3);
+}
+.main_metro_title{
+    margin: 5px auto 0 auto;
+    width: 300px;
+    font-size: 19px;
+    font-weight: bold;
+    padding-bottom:5px;
+    text-align: center;
+    border-bottom: 1px solid #dcdcdc;
 }
