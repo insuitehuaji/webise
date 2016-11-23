@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>项目详情</title>
     <script src="js/jquery-3.1.1.js"></script>
     <link rel="stylesheet" href="css/scoll.css">
@@ -50,11 +51,10 @@
             max-height: 988px;
         }
         .main_left_metro{
-            float: left;
             background-color: white;
-            height: 470px;
-            width: 340px;
-            margin: 0 9px 9px 0;
+            height: 380px;
+            width: 690px;
+            margin-bottom: 9px;
             overflow-y: auto;
             position: relative;
         }
@@ -197,7 +197,9 @@
             box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
         }
 
-    </style>
+
+
+        </style>
 </head>
 
 <body>
@@ -235,15 +237,15 @@
 
                 </div>
                 <div id="main_dev_ok" class="main_left_metro">
-                    <div class="main_metro_title"><input type="text" value="开发已完成" placeholder="请输入区块标题..."></div>
+                    <div class="main_metro_title"><input type="text" value="已完成功能" placeholder="请输入区块标题..."></div>
                     <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
 
                 </div>
-                <div id="main_test_ok" class="main_left_metro">
-                    <div class="main_metro_title"><input type="text" value="测试已完成" placeholder="请输入区块标题..."></div>
-                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
+                <!--<div id="main_test_ok" class="main_left_metro">-->
+                    <!--<div class="main_metro_title"><input type="text" value="测试已完成" placeholder="请输入区块标题..."></div>-->
+                    <!--<i class="fa fa-trash metro_delete" aria-hidden="true"></i>-->
 
-                </div>
+                <!--</div>-->
             </div>
         </div>
         <div id="main_right">
@@ -295,6 +297,7 @@
     });
     $("#metro_add").click(function () {
         $("#metro_area").append('<div class="main_left_metro"><div class="main_metro_title"><input type="text"placeholder="请输入区块标题..."></div><i class="fa fa-trash metro_delete" aria-hidden="true"></i></div>')
+
     })
 </script>
 </html>
