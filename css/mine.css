@@ -90,7 +90,7 @@ button{
 #working{
     padding-bottom: 40px;
     margin: 33px 0 0 200px;
-    width:1520px;
+    /*width:1820px;*/
 }
 .project_list{
     margin: 45px 45px 20px 0;
@@ -529,6 +529,11 @@ input::-webkit-inner-spin-button {
 #function_test_top{
 
 }
+
+
+
+
+/*项目详情*/
 #metro_add{
     cursor: pointer;
     color: #51cef5;
