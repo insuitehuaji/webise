@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目详情</title>
+    <script src="js/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="css/scoll.css">
+    <link rel="stylesheet" href="css/mine.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <style>
+        #main_left:after,#main_right:after,#main:after,
+        #metro_area:after,#main_right_info:after,#main_right_advice:after,#main_right_chart:after,#main_right_news:after{
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        /*项目详情*/
+        #main{
+            width: 1920px;
+            max-height: 1019px;
+            overflow: hidden;
+        }
+        .metro_plus{
+            margin-left: 30px;
+            color: #4a4a4a;
+        }
+        #main_left{
+            width: 753px;
+            float: left;
+            max-height: 1019px;
+            /*background-color: red;*/
+            /*height: 980px;*/
+            overflow-y: hidden;
+
+        }
+        #main_right{
+            width: 1167px;
+            height: 1019px;
+            float: right;
+            background-color: white;
+            overflow: hidden;
+        }
+        #metro_area{
+            margin: 3px 0 0 30px;
+            overflow-y: auto;
+            /*min-height: 960px;*/
+            min-height: 978px;
+            max-height: 988px;
+        }
+        .main_left_metro{
+            float: left;
+            background-color: white;
+            height: 470px;
+            width: 340px;
+            margin: 0 9px 9px 0;
+            overflow-y: auto;
+        }
+        #main_right_info{
+            height:126px ;
+            border-bottom: 1px solid #dcdcdc;
+        }
+        #main_right_chart{
+            height:310px ;
+            border-bottom: 1px solid #dcdcdc;
+        }
+        #main_right_advice{
+            height:295px ;
+            border-bottom: 1px solid #dcdcdc;
+        }
+        #main_right_news{
+            height:285px ;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cover"></div>
+    <nav id="top">
+        <a href="main.html"><img src="img/LOGO.png" alt="" id="logo"></a>
+        <div id="tab">
+            <div id="tab_project " class="tab tab_active">
+                项目
+            </div>
+            <div id="tab_my" class="tab">
+                我的
+            </div>
+        </div>
+        <div id="user">
+
+        </div>
+    </nav>
+    <nav id="top2"></nav>
+    <div id="main"><!--项目详情-->
+        <div id="main_left">
+            <div class="metro_plus">功能列表<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" ></i>
+            </div>
+            <div id="metro_area">
+                <div id="main_dev_no" class="main_left_metro">
+                    <div class="main_metro_title">开发未完成</div>
+                </div>
+                <div id="main_test_no" class="main_left_metro">
+                    <div class="main_metro_title">测试未完成</div>
+
+                </div>
+                <div id="main_dev_ok" class="main_left_metro">
+                    <div class="main_metro_title">开发已完成</div>
+
+                </div>
+                <div id="main_test_ok" class="main_left_metro">
+                    <div class="main_metro_title">测试已完成</div>
+
+                </div>
+            </div>
+        </div>
+        <div id="main_right">
+            <div id="main_right_info">
+
+            </div>
+            <div id="main_right_chart">
+
+            </div>
+            <div id="main_right_advice">
+
+            </div>
+            <div id="main_right_news">
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    $("#tab div").click(function(){
+        $(".tab_active").removeClass("tab_active");
+        $(this).addClass("tab_active");
+    });
+
+    $("#metro_add").click(function () {
+        $("#metro_area").append('<div id="main_test_ok" class="main_left_metro"></div>')
+    })
+</script>
+</html>
