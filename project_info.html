@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/mine.css">
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <style>
-        #main_left:after,#main_right:after,#main:after,
+        #main_left:after,#main_right:after,#main:after,.color1:after,
         #metro_area:after,#main_right_info:after,#main_right_advice:after,#main_right_chart:after,#main_right_news:after{
             content: ".";
             display: block;
@@ -56,22 +56,147 @@
             width: 340px;
             margin: 0 9px 9px 0;
             overflow-y: auto;
+            position: relative;
         }
         #main_right_info{
-            height:126px ;
+            height:120px ;
             border-bottom: 1px solid #dcdcdc;
+            box-sizing:border-box;
+            padding-top: 25px;
+            padding-left: 25px;
         }
         #main_right_chart{
-            height:310px ;
+            height:316px ;
             border-bottom: 1px solid #dcdcdc;
+            box-sizing:border-box;
         }
         #main_right_advice{
             height:295px ;
             border-bottom: 1px solid #dcdcdc;
+            box-sizing:border-box;
         }
         #main_right_news{
             height:285px ;
+            box-sizing:border-box;
         }
+        .main_title_four{/*四号加粗*/
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .main_title_five{/*五号加粗*/
+            font-size: 19px;
+            font-weight: bold;
+        }
+        .main_title_seven{/*七号加粗*/
+            font-size: 27px;
+            font-weight: bold;
+        }
+        .main_title_ten{/*十号不加粗*/
+            font-size: 38px;
+        }
+        #countdown_days{
+            font-size: 17px;
+            font-weight: bold;
+            margin-top: 3px;
+        }
+        #info_countdown,#info_proinfo,#info_color{
+            float: left;
+        }
+        .line{
+            font-size: 30px;
+            vertical-align: 5px;
+        }
+        #info_proinfo{
+            width: 800px;
+            /*background-color: red;*/
+            margin:0 auto;
+        }
+        #proinfo_name,#proinfo_deadline,#proinfo_text{
+            text-align: center;
+        }
+        .color1{
+            margin-top: 10px;
+            float: left;
+            width: 70px;
+        }
+        .color2{
+            margin-top: 35px;
+        }
+        .color_green{
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #48DC6A;
+            float: left;
+            margin-top: 3px;
+            margin-right: 4px;
+        }
+        .color_yellow{
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #FFD200;
+            float: left;
+            margin-top: 3px;
+            margin-right: 4px;
+        }
+        .color_red{
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #FF5534;
+            float: left;
+            margin-top: 4px;
+            margin-right: 5px;
+        }
+        #info_color{
+            margin-left: 30px;
+        }
+        .back{
+            color: #c2c2c2;
+            transition-duration: 0.2s;
+            cursor: pointer;
+        }
+        .back:hover{
+            transform:scale(1.3);
+            color: #51cef5;
+        }
+        .metro_delete{
+            position: absolute;
+            top:10px;
+            right:10px;
+            color: #c2c2c2;
+            cursor: pointer;
+        }
+        .metro_delete:hover{
+            color: #000;
+        }
+        .main_metro_title>input{
+            font-size: 19px;
+            font-weight: bold;
+            text-align: center;
+            transition-duration: 0.2s;
+        }
+        .main_metro_title>input::-webkit-input-placeholder{
+            font-size: 15px;
+            font-weight: normal;
+        }
+        .main_metro_title>input:-moz-placeholder{
+            font-size: 15px;
+            font-weight: normal;
+        }
+        .main_metro_title>input:-ms-input-placeholder{
+            font-size: 15px;
+            font-weight: normal;
+        }
+        .main_metro_title>input:hover{
+            background-color: #e5e5e5;
+        }
+        .main_metro_title>input:focus,.main_metro_title>input:active{
+            background-color: #e5e5e5;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+        }
+
     </style>
 </head>
 
@@ -94,29 +219,58 @@
     <nav id="top2"></nav>
     <div id="main"><!--项目详情-->
         <div id="main_left">
-            <div class="metro_plus">功能列表<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" ></i>
+            <div class="metro_plus">
+                <i class="fa fa-chevron-circle-left back" aria-hidden="true"></i>
+                功能列表<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" ></i>
             </div>
             <div id="metro_area">
                 <div id="main_dev_no" class="main_left_metro">
-                    <div class="main_metro_title">开发未完成</div>
+                    <div class="main_metro_title"><input type="text" value="开发未完成" placeholder="请输入区块标题..."></div>
+                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
+                    <div class="metro_container">功能名称 负责人 期望完成时间 当前进度</div>
                 </div>
                 <div id="main_test_no" class="main_left_metro">
-                    <div class="main_metro_title">测试未完成</div>
+                    <div class="main_metro_title"><input type="text" value="测试未完成" placeholder="请输入区块标题..."></div>
+                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
 
                 </div>
                 <div id="main_dev_ok" class="main_left_metro">
-                    <div class="main_metro_title">开发已完成</div>
+                    <div class="main_metro_title"><input type="text" value="开发已完成" placeholder="请输入区块标题..."></div>
+                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
 
                 </div>
                 <div id="main_test_ok" class="main_left_metro">
-                    <div class="main_metro_title">测试已完成</div>
+                    <div class="main_metro_title"><input type="text" value="测试已完成" placeholder="请输入区块标题..."></div>
+                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
 
                 </div>
             </div>
         </div>
         <div id="main_right">
             <div id="main_right_info">
-
+                <div id="info_countdown"><!--倒计时-->
+                    <div class="main_title_five">距离截止日期还有</div>
+                    <div id="countdown_days">
+                        <span class="main_title_ten" id="countdown_num1">9</span>天 <span class="line">|</span><span id="countdown_num2" class="main_title_ten">19</span>天
+                    </div>
+                </div>
+                <div id="info_proinfo"><!--项目名称和截止日-->
+                    <div class="main_title_seven" id="proinfo_name">Ver3.5.0开发</div>
+                    <div class="main_title_five" id="proinfo_deadline">2016.11.11|2016.11.21</div>
+                    <div class="main_title_four" id="proinfo_text">截止</div>
+                </div>
+                <div id="info_color">
+                    <div class="main_title_five">紧急度图例</div>
+                    <div class="color1">
+                        <div class="color_green"></div>正常
+                    </div>
+                    <div class="color1">
+                        <div class="color_yellow"></div>紧急
+                    </div>
+                    <div class="color2">
+                        <div class="color_red"></div>非常紧急
+                    </div>
+                </div>
             </div>
             <div id="main_right_chart">
 
@@ -136,9 +290,11 @@
         $(".tab_active").removeClass("tab_active");
         $(this).addClass("tab_active");
     });
-
+    $(".back").click(function () {
+        window.location.href="main.html"
+    });
     $("#metro_add").click(function () {
-        $("#metro_area").append('<div id="main_test_ok" class="main_left_metro"></div>')
+        $("#metro_area").append('<div class="main_left_metro"><div class="main_metro_title"><input type="text"placeholder="请输入区块标题..."></div><i class="fa fa-trash metro_delete" aria-hidden="true"></i></div>')
     })
 </script>
 </html>
