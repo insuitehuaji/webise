@@ -1,4 +1,4 @@
-<!doctype html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
         /*解决子DIV溢出问题*/
         #finish:after,#finish_title:after,#finish_cont:after,#working:after,#create:after,#create_date:after,
         #create_left:after,#create_right:after,#date_left:after,#date_right:after,#create_man_top:after,#function_text:after,
-        .function_contents:after,#function_man_top:after,#create_top:after{
+        .function_contents:after,#function_man_top:after,#create_top:after,#modal_title1:after,#modal_title2:after{
             content: ".";
             display: block;
             height: 0;
@@ -24,198 +24,318 @@
         /*顶栏*/
         /*目录*/
         /*新建项目*/
-        /*项目详情*/
+
     </style>
+    <script src="js/bmob.js"></script>
+    <script type="text/javascript">
+        var newnumber=1;
+        var thenumber;
+        $(document).ready(function(){
+            $("#tab div").click(function(){
+                $(".tab_active").removeClass("tab_active");
+                $(this).addClass("tab_active");
+            });
+            $("#new_project").click(function () {
+                $("#index").css("display","none");
+                listdevelop();
+                $("#create").fadeIn()
+            });
+            $("#create_cancel").click(function () {
+                $("#index").fadeIn();
+                $("#create").css("display","none");
+            });
+
+        })
+        function developclick(a){thenumber=a;
+            $("#modal1").slideToggle();
+            $("#cover").fadeToggle();
+            $("#cover").click(function () {
+                $("#cover").fadeOut();
+                $("#modal1").slideUp();
+            });
+        }
+        function testclick(a){
+            thenumbr=a;
+            $("#modal2").slideToggle();
+            $("#cover").fadeToggle();
+            $("#cover").click(function () {
+                $("#cover").fadeOut();
+                $("#modal2").slideUp();
+            });
+        }
+        function load(){
+
+
+            Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+
+            var findcolumn = Bmob.Object.extend("project");
+            var query = new Bmob.Query(findcolumn);
+// 查询所有数据
+            query.find({
+                success: function(results) {
+                    console.log("共查询到 " + results.length + " 条记录");
+                    // 循环处理查询到的数据
+                    for (var i = 0; i < results.length; i++) {
+
+
+
+
+                        if(results[i].get('active')==true){
+                            var s2=new Date();
+                            var days1 = new Date(results[i].get('etime'));
+                            var days2 = new Date(results[i].get('ltime'));
+                            var edays = parseInt((days1.getTime() - s2.getTime())/(3600000*24));
+                            var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
+                            var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">距离截止日期还有<span>'+ edays+'天|'+ ldays+'天</span></div> </div><img src="'+results[i].get('pic')['_url']+'" alt="">';
+                            jQuery(object).appendTo(jQuery("#project1"));
+                            process=results[i].get('process')
+                        }
+                        else
+                        {
+                            var days1 = new Date(results[i].get('stime'));
+                            days1=days1.getFullYear()+'.'+(days1.getMonth()+1)+'.'+days1.getDate();
+                            var days2 = new Date(results[i].get('ltime'));
+                            days2=days2.getFullYear()+'.'+(days2.getMonth()+1)+'.'+days2.getDate();
+                            var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">'+days1+'-'+days2+'</div> </div><img src="'+results[i].get('pic')['_url']+'" alt="">';
+                            jQuery(object).appendTo(jQuery("#project2"));
+                        }
+                    }
+                },
+                error: function(error) {
+                    alert("查询失败: " + error.code + " " + error.message);
+                }
+            });}
+        function changeview(a,b)
+        {   b='<div class="select_man">'+b+'</div>'
+            if(a==2)
+                $("#darea"+(thenumber).toString()).html(b);
+            else
+                $("#tarea"+(thenumber).toString()).html(b);
+        }
+        function hideinput(a)
+        {
+            $('#contents'+a.toString()).empty();
+            $('#contents'+a.toString()).hide();
+
+        }
+        function listdevelop()
+        {
+            $("#list1").empty();
+            $("#list2").empty();
+            Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var user = Bmob.Object.extend("user");
+            var query = new Bmob.Query(user);
+// 查询所有数据
+            query.find({
+                success: function(results) {
+                    console.log("共查询到 " + results.length + " 条记录");
+                    // 循环处理查询到的数据
+                    for (var i = 0; i < results.length; i++) {
+                        var object = results[i];
+                        if(object.get('type')!='开发人员')
+                        {
+                            var userid =2  ;
+                            var ob=$('<li><div class="task_title"> <span class="task_title_sp">'+object.get('userid')+ '</span><span class="badge_sm">'+object.get('type')+'</span><button class="btn_success" onclick= changeview(1,"'+object.get('userid')+'") >   <i class=" fa fa-check modal_select">  </i></button> </div></li>');
+                            ob.appendTo("#list2");
+                        }
+                        if(object.get('type')!='测试人员')
+                        {
+                            var ob=$('<li><div class="task_title"> <span class="task_title_sp">'+object.get('userid')+ '</span><span class="badge_sm">'+object.get('type')+'</span><button class="btn_success" onclick=changeview(2,"'+object.get('userid')+'")  >   <i class=" fa fa-check modal_select">  </i></button> </div></li>');
+                            ob.appendTo("#list1");
+                        }
+                    }
+                },
+                error: function(error) {
+                    alert("查询失败: " + error.code + " " + error.message);
+                }
+            });
+        }
+        function newinput()
+        { var ob=$('<div class="function_contents" id="contents'+newnumber.toString()+'">  <div class="function_name">  <input type="text" class="function_name_input">   </div>  <div class="function_describe">    <input type="text" class="function_describe_input"></div><div class="function_develop_area" id="darea'+newnumber.toString()+'" onclick= developclick('+newnumber+') > <i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true" ></i></div>  <div class="function_test_area" onclick= testclick('+newnumber+') id="tarea'+newnumber.toString()+'" ><i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true"></i></div> <div class="icon_reduce_bg" onclick="hideinput('+newnumber+')"><div class="icon_reduce"></div></div>  </div>');
+            newnumber++;
+            ob.appendTo("#function_contents")
+
+        }
+
+    </script>
+    <title>insuite进度管理</title>
+
 
 </head>
 
-<body>
+<body onload= load() >
 <div id="cover"></div>
-
-    <nav id="top">
-        <img src="img/LOGO.png" alt="" id="logo">
-        <div id="tab">
-            <div id="tab_project " class="tab tab_active">
-                项目
-            </div>
-            <div id="tab_my" class="tab">
-                我的
-            </div>
+<nav id="top">
+    <img src="img/LOGO.png" alt="" id="logo">
+    <div id="tab">
+        <div id="tab_project " class="tab tab_active">
+            项目
         </div>
-        <div id="user">
-
+        <div id="tab_my" class="tab">
+            我的
         </div>
-    </nav>
-    <div id="index"><!--最初的目录-->
-        <div id="working"><!--正在进行的项目-->
-            <div class="index_title">进行中的项目</div>
-            <div id="new_project" class="project_list"><!--新建-->
-                <div id="icon_plus_bg">
-                    <img id="icon_plus" src="img/plus.png">
-                </div>
-                <span>新建项目</span>
+    </div>
+    <div id="user">
+
+    </div>
+</nav>
+<nav id="top2"></nav>
+<div id="index"><!--最初的目录-->
+    <div id="working"><!--正在进行的项目-->
+        <div class="index_title">进行中的项目</div>
+        <div id="new_project" class="project_list"><!--新建-->
+            <div id="icon_plus_bg">
+                <img id="icon_plus" src="img/plus.png">
             </div>
-            <div class="project_list"><!--已建立的项目-->
-                <div class="cover">
-                    <div class="cover_name">Ver3.5.0</div>
-                    <div class="cover_deadline">距离截止日期还有<span>9天|19天</span></div>
-                </div>
-                <img src="img/123.jpg" alt="">
-            </div>
+            <span>新建项目</span>
+        </div>
+        <div class="project_list" id="project1"><!--已建立的项目-->
 
         </div>
-        <div style="border-bottom: 1px solid #c2c2c2;width: 1000px;margin-left: 200px"></div>
-        <div id="finish"><!--项目归档-->
-            <div id="finish_title">
-                <div class="index_title" >项目归档</div>
-                <div class="triangle_down" style="margin:13px 0 0 8px "></div>
-                <div class="triangle_up" style="margin:13px 0 0 8px;display: none "></div>
-            </div>
-            <div id="finish_cont" style="display: none;">
-                <div class="project_list"><!--已建立的项目-->
-                    <div class="cover">
-                        <div class="cover_name">Ver3.4.0开发</div>
-                        <div class="cover_deadline"><span>2016.9.01</span>-<span>2016.9.30</span></div>
-                    </div>
-                    <img src="img/123.jpg" alt="">
-                </div>
+
+    </div>
+    <div style="border-bottom: 1px solid #c2c2c2;width: 1000px;margin-left: 200px"></div>
+    <div id="finish"><!--项目归档-->
+        <div id="finish_title">
+            <div class="index_title" >项目归档</div>
+            <div class="triangle_down" style="margin:13px 0 0 8px" onclick="$('.triangle_down').hide();
+                $('.triangle_up').show();
+                $('#finish_cont').fadeIn(); " ></div>
+            <div class="triangle_up" style="margin:13px 0 0 8px;display: none " onclick='  $(".triangle_up").css("display","none");
+                $(".triangle_down").css("display","block");
+                $("#finish_cont").fadeOut();'></div>
+        </div>
+        <div id="finish_cont" style="display: none;">
+            <div class="project_list" id="project2"><!--已建立的项目-->
+
             </div>
         </div>
     </div>
-
-    <div id="create"><!--新建项目-->
-        <div id="create_top">
-            <div class="index_title" id="create_title">新建项目</div>
-            <div id="create_submit" class="create_button">提交</div>
-            <div id="create_cancel" class="create_button">取消</div>
+</div>
+<div id="create"><!--新建项目-->
+    <div id="create_top">
+        <div class="index_title" id="create_title">新建项目</div>
+        <div id="create_submit" class="create_button">提交</div>
+        <div id="create_cancel" class="create_button">取消</div>
+    </div>
+    <div id="create_left">
+        <div class="create_little_title">项目名称</div>
+        <input type="text" id="create_name">
+        <div class="create_little_title">项目描述</div>
+        <textarea name="" id="create_describe" cols="30" rows="10"></textarea>
+        <div id="create_date">
+            <div class="create_little_title" style="margin-bottom: 5px">截止日期</div>
+            <div id="date_left">
+                <div id="date_earliest" class="date_text">最早</div>
+                <input type="date" class="date_input">
+            </div>
+            <div id="date_right">
+                <div id="date_latest" class="date_text">最晚</div>
+                <input type="date" class="date_input">
+            </div>
         </div>
-        <div id="create_left">
-            <div class="create_little_title">项目名称</div>
-            <input type="text" id="create_name">
-            <div class="create_little_title">项目描述</div>
-            <textarea name="" id="create_describe" cols="30" rows="10"></textarea>
-            <div id="create_date">
-                <div class="create_little_title" style="margin-bottom: 5px">截止日期</div>
-                <div id="date_left">
-                    <div id="date_earliest" class="date_text">最早</div>
-                    <input type="date" class="date_input">
-                </div>
-                <div id="date_right">
-                    <div id="date_latest" class="date_text">最晚</div>
-                    <input type="date" class="date_input">
-                </div>
-            </div>
-            <div class="create_little_title" id="create_man_top">
-                <div style="float: left;">开发人员</div>
-                <!--<div class="icon_plus_bg2" id="dev_man_plus_bg">-->
-                    <!--<img class="icon_plus2" id="dev_man_plus" src="img/plus.png">-->
-                <!--</div>-->
-            </div>
-            <div id="create_man"></div>
-
+        <div class="create_little_title" id="create_man_top">
+            <div style="float: left;">项目封面</div>
+            <!--<div class="icon_plus_bg2" id="dev_man_plus_bg">-->
+                <!--<img class="icon_plus2" id="dev_man_plus" src="img/plus.png">-->
+            <!--</div>-->
         </div>
-        <div id="create_right">
-            <div class="create_little_title" id="function_man_top">
-                <div class="create_little_title" style="margin:0;float: left">功能与任务分配</div>
-                <div class="icon_plus_bg2" id="fun_man_plus_bg" style="">
-                    <img class="icon_plus2" id="fun_man_plus" src="img/plus.png">
-                </div>
+        <div id="create_man">
+            <img src="" alt="">
+        </div>
+
+    </div>
+    <div id="create_right">
+        <div class="create_little_title" id="function_man_top">
+            <div class="create_little_title" style="margin:0;float: left">功能与任务分配</div>
+            <div class="icon_plus_bg2" id="fun_man_plus_bg" style="" onclick="newinput()">
+                <img class="icon_plus2" id="fun_man_plus" src="img/plus.png">
             </div>
-            <div id="function_text">
-                <div class="function_name_title function_text">功能名称</div>
-                <div class="function_describe_title function_text">功能描述</div>
-                <div class="function_develop_title function_text">开发担当</div>
-                <div class="function_test_title function_text">测试担当</div>
-            </div>
-            <div id="function_contents">
-            <div class="function_contents">
+        </div>
+        <div id="function_text">
+            <div class="function_name_title function_text">功能名称</div>
+            <div class="function_describe_title function_text">功能描述</div>
+            <div class="function_develop_title function_text">开发担当</div>
+            <div class="function_test_title function_text">测试担当</div>
+        </div>
+        <div id="function_contents">
+            <div class="function_contents" id="contents0">
                 <div class="function_name">
                     <input type="text" class="function_name_input">
                 </div>
                 <div class="function_describe">
                     <input type="text" class="function_describe_input">
                 </div>
-                <div class="function_develop_area">
-                    <i class="fa fa-plus-circle dev_man_plus_bg" id="develop_modal" aria-hidden="true"></i>
-                </div>
-                <div class="function_test_area">
-                    <i class="fa fa-plus-circle dev_man_plus_bg" id="test_modal" aria-hidden="true"></i>
-                </div>
-                <div class="icon_reduce_bg">
+                <div class="function_develop_area" id="darea0" onclick= developclick(0) >
+                    <i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true"></i></div>
+                <div class="function_test_area" id="tarea0" onclick= testclick(0) >
+                    <i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true"></i></div>
+                <!--<div class="icon_reduce_bg" onclick="hideinput(0)">
                     <div class="icon_reduce"></div>
-                </div>
+                </div>  减号-->
             </div>
+        </div>
+    </div>
+    <div class="create_modal" id="modal1">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- START PANEL -->
+                <section class="panel tasks-widget">
+                    <header class="panel-heading">
+                        开发人员列表<i class="fa fa-times modal_close" aria-hidden="true"></i>
+                    </header>
+                    <div class="panel-body">
+                        <div class="task-content">
+                            <div id="modal_title1">
+                                <div class="modal_title" style="margin-left: 70px">姓名</div>
+                                <div class="modal_title" style="margin-left: 148px">角色</div>
+                                <div class="modal_title" style="margin-left: 115px;margin-right: 30px">操作</div>
+                            </div>
+                            <ul class="task-list" id="list1" >
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+                <!-- END PANEL -->
             </div>
         </div>
-        <div id="create_develop_modal" class="create_modal">
-
-        </div>
-        <div id="create_test_modal" class="create_modal">
-
-        </div>
-
     </div>
-    <div class="main">
+    <div class="create_modal"  id="modal2">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- START PANEL -->
+                <section class="panel tasks-widget">
+                    <header class="panel-heading">
+                        测试人员列表<i class="fa fa-times modal_close" aria-hidden="true"></i>
+                    </header>
 
+                    <div class="panel-body">
+                        <div class="task-content">
+                            <div id="modal_title2">
+                                <div class="modal_title" style="margin-left: 70px">姓名</div>
+                                <div class="modal_title" style="margin-left: 148px">角色</div>
+                                <div class="modal_title" style="margin-left: 115px">操作</div>
+                            </div>
+                            <ul class="task-list" id="list2">
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <!-- END PANEL -->
+            </div>
+        </div>
     </div>
-
+</div>
 </body>
-<script>
-    $(function(){
-        $("#tab div").click(function(){
-            $(".tab_active").removeClass("tab_active");
-            $(this).addClass("tab_active");
-        });
-        $(".triangle_down").click(function(){
-            $(".triangle_down").css("display","none");
-            $(".triangle_up").css("display","block");
-            $("#finish_cont").fadeIn();
-        });
-        $(".triangle_up").click(function(){
-            $(".triangle_up").css("display","none");
-            $(".triangle_down").css("display","block");
-            $("#finish_cont").fadeOut();
-        });
-        $("#new_project").click(function () {
-            $("#index").css("display","none");
-            $("#create").fadeIn()
-        });
-        $("#create_cancel").click(function () {
-            $("#index").fadeIn();
-            $("#create").css("display","none");
-        });
-        $("#logo").click(function () {
-            $("#index").fadeIn();
-            $("#create").css("display","none");
-        });
-        $("#develop_modal").click(function(){
-            $("#create_develop_modal").slideToggle();
-            $("#cover").fadeToggle();
-            $("#cover").click(function () {
-                $("#cover").fadeOut();
-                $("#create_develop_modal").slideUp();
-            });
-        });
-        $("#test_modal").click(function(){
-            $("#create_test_modal").slideToggle();
-            $("#cover").fadeToggle();
-            $("#cover").click(function () {
-                $("#cover").fadeOut();
-                $("#create_test_modal").slideUp();
-            });
-        });
-        $(document).keyup(function(event){
-            switch(event.keyCode) {
-                case 27:
-                    $("#cover").fadeOut();
-                    $("#create_modal").slideUp();
-            }
-        });
-//            $ ("#fun_man_plus_bg").click (function ()
-//            {
-//                $("#function_contents").append('<div class="function_contents"><div class="function_name"><input type="text" class="function_name_input"></div><div class="function_describe"><input type="text" class="function_describe_input"></div><div class="function_man_area"></div><div class="icon_reduce_bg"><div class="icon_reduce"></div></div></div>');
-//            });
-    })
-
-</script>
 </html>
+<script type="text/javascript">
+    $(".modal_close").click(function () {
+        $("#cover").fadeOut();
+        $(".create_modal").slideUp();
+    });
+    $("#logo").click(function () {
+        $("#index").fadeIn();
+        $("#create").css("display","none");
+    });
+</script>
