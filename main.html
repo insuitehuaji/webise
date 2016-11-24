@@ -6,8 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="js/jquery-3.1.1.js"></script>
-    <link rel="stylesheet" href="css/scoll.css">
     <link rel="stylesheet" href="css/mine.css">
+    <link rel="stylesheet" href="css/scoll.css">
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <title>insuite进度管理</title>
     <style>
@@ -24,10 +24,26 @@
         /*顶栏*/
         /*目录*/
         /*新建项目*/
-
     </style>
     <script src="js/bmob.js"></script>
+
+    <script>
+        window.onload=function(){
+            var file=document.getElementById("testpic")
+
+            file.onchange=function(){
+                var img=document.createElement("img")
+                img.src=window.URL.createObjectURL(file.files[0])
+
+                img.onload=function(){
+                    window.URL.revokeObjectURL(this.src)
+                }
+                document.getElementById('imgpreview').src =img.src;
+            }
+        }</script>
     <script type="text/javascript">
+        var darray=[];
+        var tarray=[];
         var newnumber=1;
         var thenumber;
         $(document).ready(function(){
@@ -44,7 +60,6 @@
                 $("#index").fadeIn();
                 $("#create").css("display","none");
             });
-
         })
         function developclick(a){thenumber=a;
             $("#modal1").slideToggle();
@@ -54,8 +69,60 @@
                 $("#modal1").slideUp();
             });
         }
+        function newfunction(a)
+        {
+            for(var i=0;i<$("#functionnm").html();i++)
+            {		var GameScore = Bmob.Object.extend("function");
+                var gameScore = new GameScore();
+                gameScore.save({
+                    projectid:a,
+                    testprocess:0,
+                    developprocess:0,
+                    testid:$(".testselect:eq("+i+")").html(),
+                    name:($(".function_name_input:eq("+i+")")).val(),
+                    describe:($(".function_describe_input:eq("+i+")")).val(),
+                    developid:$(".developselect:eq("+i+")").html()
+                }, {
+                    success: function(gameScore) {
+                    },
+                    error: function(gameScore, error) {
+                        console.log('failed2');
+                    }
+                });
+
+            }
+        }
+        function newproject()
+        {
+            Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var GameScore = Bmob.Object.extend("project");
+            var gameScore = new GameScore();
+            var Date1=new Date($("#earlytime").val());
+            var Date2=new Date($("#latetime").val());
+            var file = new Bmob.File("bk.jpg", $("#testpic")[0].files[0]);
+            gameScore.save({
+                developnm:parseInt($("#developnm").html()),
+                testnm:parseInt($("#testnm").html()),
+                active:true,
+                name:$("#create_name").val(),
+                describate:$("#create_describe").val(),
+                etime:Date1,
+                ltime:Date2,
+                pic:file
+            }, {
+                success: function(gameScore) {
+                    newfunction(gameScore.id);
+                },
+                error: function(gameScore, error) {
+                    for(i in error)
+                        console.log(i+error[i]);
+                }
+            });
+
+        }
+
         function testclick(a){
-            thenumbr=a;
+            thenumber=a;
             $("#modal2").slideToggle();
             $("#cover").fadeToggle();
             $("#cover").click(function () {
@@ -64,10 +131,7 @@
             });
         }
         function load(){
-
-
             Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
-
             var findcolumn = Bmob.Object.extend("project");
             var query = new Bmob.Query(findcolumn);
 // 查询所有数据
@@ -76,18 +140,14 @@
                     console.log("共查询到 " + results.length + " 条记录");
                     // 循环处理查询到的数据
                     for (var i = 0; i < results.length; i++) {
-
-
-
-
                         if(results[i].get('active')==true){
                             var s2=new Date();
                             var days1 = new Date(results[i].get('etime'));
                             var days2 = new Date(results[i].get('ltime'));
                             var edays = parseInt((days1.getTime() - s2.getTime())/(3600000*24));
                             var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
-                            var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">距离截止日期还有<span>'+ edays+'天|'+ ldays+'天</span></div> </div><img src="'+results[i].get('pic')['_url']+'" alt="">';
-                            jQuery(object).appendTo(jQuery("#project1"));
+                            var object =  '<div class="project_list"><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">距离截止日期还有<span>'+ edays+'天|'+ ldays+'天</span></div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
+                            jQuery(object).appendTo(jQuery("#working"));
                             process=results[i].get('process')
                         }
                         else
@@ -96,8 +156,8 @@
                             days1=days1.getFullYear()+'.'+(days1.getMonth()+1)+'.'+days1.getDate();
                             var days2 = new Date(results[i].get('ltime'));
                             days2=days2.getFullYear()+'.'+(days2.getMonth()+1)+'.'+days2.getDate();
-                            var object =  '<div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">'+days1+'-'+days2+'</div> </div><img src="'+results[i].get('pic')['_url']+'" alt="">';
-                            jQuery(object).appendTo(jQuery("#project2"));
+                            var object =  '<div class="project_list"><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">'+days1+'-'+days2+'</div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
+                            jQuery(object).appendTo(jQuery("#finish_cont"));
                         }
                     }
                 },
@@ -105,18 +165,81 @@
                     alert("查询失败: " + error.code + " " + error.message);
                 }
             });}
-        function changeview(a,b)
-        {   b='<div class="select_man">'+b+'</div>'
-            if(a==2)
-                $("#darea"+(thenumber).toString()).html(b);
+
+        function quchong(a,b)
+        {
+            if(a==1){
+                var pre=$("#darea"+(thenumber).toString()).html();
+                if(!isNaN(darray[pre]))
+                {
+                    darray[pre]=darray[pre]-1;
+                }
+                if(!isNaN(darray[b]))
+                {
+                    darray[b]++;
+                }
+                else
+                {
+                    darray[b]=1;}
+                var dnm=0;
+                for(i in darray){
+                    if(darray[i]>0)
+                        dnm++;}
+                $("#developnm").html(dnm);
+            }
+            else if(a==2){
+                var pre=$("#tarea"+(thenumber).toString()).html();
+                if(!isNaN(tarray[pre]))
+                    tarray[pre]=tarray[pre]-1;
+                if(!isNaN(tarray[b]))
+                {
+                    tarray[b]++;
+                }
+                else
+                {
+                    tarray[b]=1;}
+                var tnm=0;
+                for(i in tarray){
+                    if(tarray[i]>0)
+                        tnm++;}
+                $("#testnm").html(tnm);
+            }
             else
+            {
+                var tnm=0;
+                var dnm=0;
+                var pre=$("#darea"+b.toString()).html();
+                var tre=$("#tarea"+b.toString()).html();
+                darray[pre]--;
+                tarray[tre]--;
+                for(i in tarray){
+                    if(tarray[i]>0)
+                        tnm++;}
+                $("#testnm").html(tnm);
+                for(i in darray){
+                    if(darray[i]>0)
+                        dnm++;}
+                $("#developnm").html(dnm);
+            }
+        }
+        function changeview(a,b)
+        {
+            if(a==2){ b='<div class="select_man developselect">'+b+'</div>';
+                quchong(1,b);
+                $("#darea"+(thenumber).toString()).html(b);
+            }
+            else{
+                b='<div class="select_man testselect">'+b+'</div>';
+                quchong(2,b);
                 $("#tarea"+(thenumber).toString()).html(b);
+            }
         }
         function hideinput(a)
         {
+            quchong(3,a);
             $('#contents'+a.toString()).empty();
             $('#contents'+a.toString()).hide();
-
+            $("#functionnm").html(parseInt($("#functionnm").html())-1);
         }
         function listdevelop()
         {
@@ -151,12 +274,12 @@
             });
         }
         function newinput()
-        { var ob=$('<div class="function_contents" id="contents'+newnumber.toString()+'">  <div class="function_name">  <input type="text" class="function_name_input">   </div>  <div class="function_describe">    <input type="text" class="function_describe_input"></div><div class="function_develop_area" id="darea'+newnumber.toString()+'" onclick= developclick('+newnumber+') > <i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true" ></i></div>  <div class="function_test_area" onclick= testclick('+newnumber+') id="tarea'+newnumber.toString()+'" ><i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true"></i></div> <div class="icon_reduce_bg" onclick="hideinput('+newnumber+')"><div class="icon_reduce"></div></div>  </div>');
+        {
+            $("#functionnm").html(parseInt($("#functionnm").html())+1);
+            var ob=$('<div class="function_contents" id="contents'+newnumber.toString()+'">  <div class="function_name">  <input type="text" class="function_name_input">   </div>  <div class="function_describe">    <input type="text" class="function_describe_input"></div><div class="function_develop_area" id="darea'+newnumber.toString()+'" onclick= developclick('+newnumber+') > <i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true" ></i></div>  <div class="function_test_area" onclick= testclick('+newnumber+') id="tarea'+newnumber.toString()+'" ><i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true"></i></div> <div class="icon_reduce_bg" onclick="hideinput('+newnumber+')"><div class="icon_reduce"></div></div>  </div>');
             newnumber++;
-            ob.appendTo("#function_contents")
-
+            ob.appendTo("#input_contents")
         }
-
     </script>
     <title>insuite进度管理</title>
 
@@ -189,9 +312,9 @@
             </div>
             <span>新建项目</span>
         </div>
-        <div class="project_list" id="project1"><!--已建立的项目-->
+        <!--<div class="project_list" id="project1">&lt;!&ndash;已建立的项目&ndash;&gt;-->
 
-        </div>
+        <!--</div>-->
 
     </div>
     <div style="border-bottom: 1px solid #c2c2c2;width: 1000px;margin-left: 200px"></div>
@@ -206,16 +329,16 @@
                 $("#finish_cont").fadeOut();'></div>
         </div>
         <div id="finish_cont" style="display: none;">
-            <div class="project_list" id="project2"><!--已建立的项目-->
+            <!--<div class="project_list" id="project2">&lt;!&ndash;已建立的项目&ndash;&gt;-->
 
-            </div>
+            <!--</div>-->
         </div>
     </div>
 </div>
 <div id="create"><!--新建项目-->
     <div id="create_top">
         <div class="index_title" id="create_title">新建项目</div>
-        <div id="create_submit" class="create_button">提交</div>
+        <div id="create_submit" onclick = newfunction("92a0f1ad14") class="create_button">提交</div>
         <div id="create_cancel" class="create_button">取消</div>
     </div>
     <div id="create_left">
@@ -227,21 +350,22 @@
             <div class="create_little_title" style="margin-bottom: 5px">截止日期</div>
             <div id="date_left">
                 <div id="date_earliest" class="date_text">最早</div>
-                <input type="date" class="date_input">
+                <input type="date" class="date_input" id="earlytime">
             </div>
             <div id="date_right">
                 <div id="date_latest" class="date_text">最晚</div>
-                <input type="date" class="date_input">
+                <input type="date" class="date_input" id="latetime">
             </div>
         </div>
         <div class="create_little_title" id="create_man_top">
             <div style="float: left;">项目封面</div>
+            <input type="file" id="testpic"/>
             <!--<div class="icon_plus_bg2" id="dev_man_plus_bg">-->
-                <!--<img class="icon_plus2" id="dev_man_plus" src="img/plus.png">-->
+            <!--<img class="icon_plus2" id="dev_man_plus" src="img/plus.png">-->
             <!--</div>-->
         </div>
         <div id="create_man">
-            <img src="" alt="">
+            <img src="" alt="" id="imgpreview">
         </div>
 
     </div>
@@ -252,6 +376,7 @@
                 <img class="icon_plus2" id="fun_man_plus" src="img/plus.png">
             </div>
         </div>
+        <div id="messageshow">总共机能数为:<span id="functionnm">1</span> &nbsp 开发人数为:<span id="developnm">0</span> &nbsp 测试人数为:<span id="testnm">0</span></div>
         <div id="function_text">
             <div class="function_name_title function_text">功能名称</div>
             <div class="function_describe_title function_text">功能描述</div>
@@ -259,22 +384,25 @@
             <div class="function_test_title function_text">测试担当</div>
         </div>
         <div id="function_contents">
-            <div class="function_contents" id="contents0">
-                <div class="function_name">
-                    <input type="text" class="function_name_input">
+            <div id="input_contents">
+                <div class="function_contents" id="contents0">
+                    <div class="function_name">
+                        <input type="text" class="function_name_input">
+                    </div>
+                    <div class="function_describe">
+                        <input type="text" class="function_describe_input">
+                    </div>
+                    <div class="function_develop_area" id="darea0" onclick= developclick(0) >
+                        <i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true"></i></div>
+                    <div class="function_test_area" id="tarea0" onclick= testclick(0) >
+                        <i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true"></i></div>
+                    <!--<div class="icon_reduce_bg" onclick="hideinput(0)">
+                        <div class="icon_reduce"></div>
+                    </div>  减号-->
                 </div>
-                <div class="function_describe">
-                    <input type="text" class="function_describe_input">
-                </div>
-                <div class="function_develop_area" id="darea0" onclick= developclick(0) >
-                    <i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true"></i></div>
-                <div class="function_test_area" id="tarea0" onclick= testclick(0) >
-                    <i class="fa fa-plus-circle dev_man_plus_bg" aria-hidden="true"></i></div>
-                <!--<div class="icon_reduce_bg" onclick="hideinput(0)">
-                    <div class="icon_reduce"></div>
-                </div>  减号-->
             </div>
         </div>
+
     </div>
     <div class="create_modal" id="modal1">
         <div class="row">
