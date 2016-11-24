@@ -6,230 +6,234 @@
     <title>项目详情</title>
     <script src="js/bmob.js"></script>
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
-<script src="js/jquery-3.1.1.js"></script>
-<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
-<script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
-<script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
-<script>
-$(function () {
-    // 去掉这里的注释就是类似 Apple Watch 上的效果了
-    if (!Highcharts.theme) {
-        Highcharts.setOptions({
-            chart: {
-                backgroundColor: 'transparent'
-            },
-            colors: ['#48dc6a', '#ffd200', '#ff5534'],
-            title: {
-                style: {
-                    color: 'silver'
-                }
-            },
-            tooltip: {
-                style: {
-                    color: 'silver'
-                }
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
+    <script>
+        $(function () {
+            // 去掉这里的注释就是类似 Apple Watch 上的效果了
+            if (!Highcharts.theme) {
+                Highcharts.setOptions({
+                    chart: {
+                        backgroundColor: 'transparent'
+                    },
+                    colors: ['#48dc6a', '#ffd200', '#ff5534'],
+                    title: {
+                        style: {
+                            color: 'silver'
+                        }
+                    },
+                    tooltip: {
+                        style: {
+                            color: 'silver',
+                            fontWeight:'bold'
+                        }
+                    }
+                });
             }
+            Highcharts.chart('huantu', {
+                        chart: {
+                            type: 'solidgauge',
+                            marginTop: 40
+                        },
+                        credits: {
+                            enabled:false
+                        },
+                        title: {
+                            text: '进度图',
+                            style: {
+                                fontSize: '24px',
+                                color:'black',
+                                fontWeight:'bold'
+                            }
+                        },
+                        tooltip: {
+                            borderWidth: 0,
+                            backgroundColor: 'none',
+                            shadow: false,
+                            style: {
+                                fontSize: '16px'
+                            },
+                            pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}%</span>',
+                            positioner: function (labelWidth, labelHeight) {
+                                return {
+                                    x: 260,
+                                    y: 170
+                                };
+                            }
+                        },
+                        pane: {
+                            startAngle: 0,
+                            endAngle: 360,
+                            background: [{ // Track for Move
+                                outerRadius: '112%',
+                                innerRadius: '88%',
+                                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.3).get(),
+                                borderWidth: 0
+                            }, { // Track for Exercise
+                                outerRadius: '87%',
+                                innerRadius: '63%',
+                                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
+                                borderWidth: 0
+                            }, { // Track for Stand
+                                outerRadius: '62%',
+                                innerRadius: '38%',
+                                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[2]).setOpacity(0.3).get(),
+                                borderWidth: 0
+                            }]
+                        },
+                        yAxis: {
+                            min: 0,
+                            max: 100,
+                            lineWidth: 0,
+                            tickPositions: []
+                        },
+                        plotOptions: {
+                            solidgauge: {
+                                borderWidth: '34px',
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                linecap: 'round',
+                                stickyTracking: false
+                            }
+                        },
+                        series: [{
+                            name: '总进度',
+                            borderColor: Highcharts.getOptions().colors[0],
+                            data: [{
+                                color: Highcharts.getOptions().colors[0],
+                                radius: '100%',
+                                innerRadius: '100%',
+                                y: 80
+                            }]
+                        }, {
+                            name: '测试进度',
+                            borderColor: Highcharts.getOptions().colors[1],
+                            data: [{
+                                color: Highcharts.getOptions().colors[1],
+                                radius: '75%',
+                                innerRadius: '75%',
+                                y: 65
+                            }]
+                        }, {
+                            name: '开发进度',
+                            borderColor: Highcharts.getOptions().colors[2],
+                            data: [{
+                                color: Highcharts.getOptions().colors[2],
+                                radius: '50%',
+                                innerRadius: '50%',
+                                y: 50
+                            }]
+                        }]
+                    },
+                    /**
+                     * In the chart load callback, add icons on top of the circular shapes
+                     */
+                    function callback() {
+                        // Move icon
+                        this.renderer.text('<span style="color :white;font-weight:boLd" >总进度</span>')
+                                .translate(285, 30)
+                                .add(this.series[2].group);
+                        // Exercise icon
+                        this.renderer.text('<span style="color :white;font-weight:boLd" >测试进度</span>')
+                                .translate(285, 66)
+                                .add(this.series[2].group);
+                        // Stand icon
+                        this.renderer.text('<span style="color :white;font-weight:boLd" >开发进度</span>')
+                                .translate(285, 107)
+                                .add(this.series[2].group);
+                    });
+        });$(function () {
+            $('#xiantu').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '燃尽图'
+                },
+                credits:
+                {
+                    enabled : false
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: '进度'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: '预期',
+                    data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                }, {
+                    name: '实际',
+                    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+                }]
+            });
         });
-    }
-    Highcharts.chart('huantu', {
-        chart: {
-            type: 'solidgauge',
-            marginTop: 50
-        },
-        credits: {
-           enabled:false
-        },
-        title: {
-            text: '进度图',
-            style: {
-                fontSize: '24px'
-            }
-        },
-        tooltip: {
-            borderWidth: 0,
-            backgroundColor: 'none',
-            shadow: false,
-            style: {
-                fontSize: '16px'
-            },
-            pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}%</span>',
-            positioner: function (labelWidth, labelHeight) {
-                return {
-                    x: 295 - labelWidth / 2,
-                    y: 180
-                };
-            }
-        },
-        pane: {
-            startAngle: 0,
-            endAngle: 360,
-            background: [{ // Track for Move
-                outerRadius: '112%',
-                innerRadius: '88%',
-                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.3).get(),
-                borderWidth: 0
-            }, { // Track for Exercise
-                outerRadius: '87%',
-                innerRadius: '63%',
-                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
-                borderWidth: 0
-            }, { // Track for Stand
-                outerRadius: '62%',
-                innerRadius: '38%',
-                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[2]).setOpacity(0.3).get(),
-                borderWidth: 0
-            }]
-        },
-        yAxis: {
-            min: 0,
-            max: 100,
-            lineWidth: 0,
-            tickPositions: []
-        },
-        plotOptions: {
-            solidgauge: {
-                borderWidth: '34px',
-                dataLabels: {
-                    enabled: false
-                },
-                linecap: 'round',
-                stickyTracking: false
-            }
-        },
-        series: [{
-            name: '全部',
-            borderColor: Highcharts.getOptions().colors[0],
-            data: [{
-                color: Highcharts.getOptions().colors[0],
-                radius: '100%',
-                innerRadius: '100%',
-                y: 80
-            }]
-        }, {
-            name: '测试',
-            borderColor: Highcharts.getOptions().colors[1],
-            data: [{
-                color: Highcharts.getOptions().colors[1],
-                radius: '75%',
-                innerRadius: '75%',
-                y: 65
-            }]
-        }, {
-            name: '开发',
-            borderColor: Highcharts.getOptions().colors[2],
-            data: [{
-                color: Highcharts.getOptions().colors[2],
-                radius: '50%',
-                innerRadius: '50%',
-                y: 50
-            }]
-        }]
-    },
-                     /**
-     * In the chart load callback, add icons on top of the circular shapes
-     */
-                     function callback() {
-        // Move icon
-        this.renderer.text('<span style="color :white;font-weight:boLd" >全部</span>')
-            .translate(285, 27)
-            .add(this.series[2].group);
-        // Exercise icon
-        this.renderer.text('<span style="color :white;font-weight:boLd" >测试</span>')
-            .translate(285, 65)
-            .add(this.series[2].group);
-        // Stand icon
-               this.renderer.text('<span style="color :white;font-weight:boLd" >开发</span>')
-            .translate(285, 100)
-            .add(this.series[2].group);
-    });
-});$(function () {
-    $('#xiantu').highcharts({
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: '燃尽图'
-        },
-		credits:
-		{ 
-		enabled : false
-		},
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yAxis: {
-            title: {
-                text: '进度'
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: '预期',
-            data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-        }, {
-            name: '实际',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-        }]
-    });
-});
 
-</script>
-    <link rel="stylesheet" href="css/bootstrap.css">
+    </script>
+    <!--<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">-->
     <link rel="stylesheet" href="css/mine.css">
-	<script>
-	var projectid='92a0f1ad14';
-	var json;
-	$(function(){
-	 Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
-	var functionfind = Bmob.Object.extend("function");
-var query = new Bmob.Query(functionfind);
-query.equalTo("projectid", projectid); 
+    <link rel="stylesheet" href="css/scoll.css">
+    <script>
+        var projectid='92a0f1ad14';
+        var json;
+        $(function(){
+            Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var functionfind = Bmob.Object.extend("function");
+            var query = new Bmob.Query(functionfind);
+            query.equalTo("projectid", projectid);
 // 查询所有数据
-query.find({
-    success: function(results) {
-	    json=results;
-        newtable();
-    },
-    error: function(error) {
-        alert("查询失败: " + error.code + " " + error.message);
-    }
-});
-	
-	})
-	function newtable()
-	{
-		 jQuery("#databody").empty();
-		for(var i=0;i<json.length;i++)
-		{
-			var tr=jQuery("<tr></tr>");
-			if(json[i].get('developprocess')<100)
-			tr.appendTo(jQuery("#databody"));
-			else if(json[i].get('testprocess')<100)
-			tr.appendTo(jQuery("#databody1"));
-			else 
-			tr.appendTo(jQuery("#databody2"));
-			   var td=jQuery("<td>"+json[i].get('name')+"</td>");
-			   td.appendTo(tr);
-			   var td=jQuery("<td><span class='label label-success'>"+json[i].get('developprocess')+"</span></td>");
-			   td.appendTo(tr);
-			   var td=jQuery("<td><span class='label label-success'>"+json[i].get('testprocess')+"</span></td>");
-			   td.appendTo(tr);
-			   var td=jQuery("<td><span class='label label-success'>"+json[i].get('developid')+"</span></td>");
-			   td.appendTo(tr);
-			   var td=jQuery("<td><span class='label label-success'>"+json[i].get('testid')+"</span></td>");
-			   td.appendTo(tr);
-		}
-	}
-	</script>
+            query.find({
+                success: function(results) {
+                    json=results;
+                    newtable();
+                },
+                error: function(error) {
+                    alert("查询失败: " + error.code + " " + error.message);
+                }
+            });
+
+        })
+        function newtable()
+        {
+            jQuery("#databody").empty();
+            for(var i=0;i<json.length;i++)
+            {
+                var tr=jQuery("<tr></tr>");
+                if(json[i].get('developprocess')<100)
+                    tr.appendTo(jQuery("#databody"));
+                else if(json[i].get('testprocess')<100)
+                    tr.appendTo(jQuery("#databody1"));
+                else
+                    tr.appendTo(jQuery("#databody2"));
+                var td=jQuery("<td>"+json[i].get('name')+"</td>");
+                td.appendTo(tr);
+                var td=jQuery("<td><span class='label label-success'>"+json[i].get('developprocess')+"</span></td>");
+                td.appendTo(tr);
+                var td=jQuery("<td><span class='label label-success'>"+json[i].get('testprocess')+"</span></td>");
+                td.appendTo(tr);
+                var td=jQuery("<td><span class='label label-success'>"+json[i].get('developid')+"</span></td>");
+                td.appendTo(tr);
+                var td=jQuery("<td><span class='label label-success'>"+json[i].get('testid')+"</span></td>");
+                td.appendTo(tr);
+            }
+        }
+    </script>
     <style>
-        #main_left:after,#main_right:after,#main:after,.color1:after,
+        #main_left:after,#main_right:after,#main:after,.color1:after,#info_btn:after,
         #metro_area:after,#main_right_info:after,#main_right_advice:after,#main_right_chart:after,#main_right_news:after{
             content: ".";
             display: block;
@@ -254,6 +258,7 @@ query.find({
             /*background-color: red;*/
             /*height: 980px;*/
             overflow-y: hidden;
+
         }
         #main_right{
             width: 1167px;
@@ -278,10 +283,10 @@ query.find({
             position: relative;
         }
         #main_right_info{
-            height:120px ;
+            height:95px ;
             border-bottom: 1px solid #dcdcdc;
             box-sizing:border-box;
-            padding-top: 25px;
+            /*padding-top: 25px;*/
             padding-left: 25px;
         }
         #main_right_chart{
@@ -290,12 +295,12 @@ query.find({
             box-sizing:border-box;
         }
         #main_right_advice{
-            height:295px ;
+            height:267px ;
             border-bottom: 1px solid #dcdcdc;
             box-sizing:border-box;
         }
         #main_right_news{
-            height:201px ;
+            height:229px ;
             box-sizing:border-box;
         }
         .main_title_four{/*四号加粗*/
@@ -369,7 +374,7 @@ query.find({
             margin-right: 5px;
         }
         #info_color{
-            margin-left: 30px;
+            margin-left: 45px;
         }
         .back{
             color: #c2c2c2;
@@ -415,129 +420,176 @@ query.find({
             background-color: #e5e5e5;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
         }
+        .info_btn{
+            height: 20px;
+            width: 15px;
+            margin-top: 5px;
+            float: right;
+            margin-left: 15px;
+            /*background-color: red;*/
+            transition-duration: 0.9s;
+            color: #313131;
+            box-sizing: border-box;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        #info_btn{
+            margin-right: 25px;
+        }
+        .info_btn:hover{
+            color: white;
+            width: 90px;
+            padding-left: 7px;
+            border-radius: 100px;
+        }
+        .btn_edit:hover{
+            background-color: #2CBBE7;
+        }
+        .btn_folder:hover{
+            background-color: #FEA500;
+        }
+        .btn_delete:hover{
+            background-color: #FF5534;
+        }
+        .btn_linshi{
+            color: white;
+            font-size: 14px;
+        }
         </style>
 </head>
 
 <body>
-    <div id="cover"></div>
-    <nav id="top">
-        <a href="main.html"><img src="img/LOGO.png" alt="" id="logo"></a>
-        <div id="tab">
-            <div id="tab_project " class="tab tab_active">
-                项目
-            </div>
-            <div id="tab_my" class="tab">
-                我的
-            </div>
+<div id="cover"></div>
+<nav id="top">
+    <a href="main.html"><img src="img/LOGO.png" alt="" id="logo" title="返回首页"></a>
+    <div id="tab">
+        <div id="tab_project " class="tab tab_active">
+            项目
         </div>
-        <div id="user">
-
-        </div>
-    </nav>
-    <nav id="top2"></nav>
-    <div id="main"><!--项目详情-->
-        <div id="main_left">
-            <div class="metro_plus">
-                <i class="fa fa-chevron-circle-left back" aria-hidden="true"></i>
-                功能列表<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" ></i>
-            </div>
-            <div id="metro_area">
-                <div id="main_dev_no" class="main_left_metro">
-                    <div class="main_metro_title"><input type="text" value="开发未完成" placeholder="请输入区块标题..."></div>
-                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
-                   <table  class="table table-striped">
-				   <thead>
-				   <tr>
-									<th>名称</th>
-									<th>开发进度</th>
-									<th>测试进度</th>
-									<th>开发者</th>
-									<th>测试者</th>
-			       </tr>
-				   </thead>
-				   <tbody id="databody">
-				   </tbody>
-				   </table>
-                </div>
-                <div id="main_test_no" class="main_left_metro">
-                    <div class="main_metro_title"><input type="text" value="测试未完成" placeholder="请输入区块标题..."></div>
-                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
-                       <table  class="table table-striped">
-				   <thead>
-				   <tr>
-									<th>名称</th>
-									<th>开发进度</th>
-									<th>测试进度</th>
-									<th>开发者</th>
-									<th>测试者</th>
-			       </tr>
-				   </thead>
-				   <tbody id="databody1">
-				   </tbody>
-				   </table>
-                </div>
-                <div id="main_dev_ok" class="main_left_metro">
-                    <div class="main_metro_title"><input type="text" value="已完成功能" placeholder="请输入区块标题..."></div>
-                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
-      <table  class="table table-striped">
-				   <thead>
-				   <tr>
-									<th>名称</th>
-									<th>开发进度</th>
-									<th>测试进度</th>
-									<th>开发者</th>
-									<th>测试者</th>
-			       </tr>
-				   </thead>
-				   <tbody id="databody2">
-				   </tbody>
-				   </table>
-                </div>
-                <!--<div id="main_test_ok" class="main_left_metro">-->
-                    <!--<div class="main_metro_title"><input type="text" value="测试已完成" placeholder="请输入区块标题..."></div>-->
-                    <!--<i class="fa fa-trash metro_delete" aria-hidden="true"></i>-->
-
-                <!--</div>-->
-            </div>
-        </div>
-        <div id="main_right">
-            <div id="main_right_info">
-                <div id="info_countdown"><!--倒计时-->
-                    <div class="main_title_five">距离截止日期还有</div>
-                    <div id="countdown_days">
-                        <span class="main_title_ten" id="countdown_num1">9</span>天 <span class="line">|</span><span id="countdown_num2" class="main_title_ten">19</span>天
-                    </div>
-                </div>
-                <div id="info_proinfo"><!--项目名称和截止日-->
-                    <div class="main_title_seven" id="proinfo_name">Ver3.5.0开发</div>
-                    <div class="main_title_five" id="proinfo_deadline">2016.11.11|2016.11.21</div>
-                    <div class="main_title_four" id="proinfo_text">截止</div>
-                </div>
-                <div id="info_color">
-                    <div class="main_title_five">紧急度图例</div>
-                    <div class="color1">
-                        <div class="color_green"></div>正常
-                    </div>
-                    <div class="color1">
-                        <div class="color_yellow"></div>紧急
-                    </div>
-                    <div class="color2">
-                        <div class="color_red"></div>非常紧急
-                    </div>
-                </div>
-            </div>
-            <div id="main_right_chart">
-				<div id="huantu" style="float:left"></div>
-				<div id="xiantu" style="float:left;min-width:400px;height:400px"></div>
-			</div>
-            <div id="main_right_advice">
-
-            </div>
-            <div id="main_right_news">
-
-            </div>
+        <div id="tab_my" class="tab">
+            我的
         </div>
     </div>
+    <div id="user">
+        <i class="fa fa-2x fa-user-circle-o" aria-hidden="true" title="个人中心"></i>
+    </div>
+</nav>
+<nav id="top2"></nav>
+<div id="main"><!--项目详情-->
+    <div id="main_left">
+        <div class="metro_plus">
+            <i class="fa fa-chevron-circle-left back" aria-hidden="true" title="返回首页"></i>
+            功能列表<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" title="添加区块"></i>
+        </div>
+        <div id="metro_area">
+            <div id="main_dev_no" class="main_left_metro">
+                <div class="main_metro_title"><input type="text" value="开发未完成" placeholder="请输入区块标题..."></div>
+                <i class="fa fa-trash metro_delete" aria-hidden="true" title="删除区块"></i>
+                <table  class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>开发进度</th>
+                        <th>测试进度</th>
+                        <th>开发者</th>
+                        <th>测试者</th>
+                    </tr>
+                    </thead>
+                    <tbody id="databody">
+                    </tbody>
+                </table>
+            </div>
+            <div id="main_test_no" class="main_left_metro">
+                <div class="main_metro_title"><input type="text" value="测试未完成" placeholder="请输入区块标题..."></div>
+                <i class="fa fa-trash metro_delete" aria-hidden="true" title="删除区块"></i>
+                <table  class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>开发进度</th>
+                        <th>测试进度</th>
+                        <th>开发者</th>
+                        <th>测试者</th>
+                    </tr>
+                    </thead>
+                    <tbody id="databody1">
+                    </tbody>
+                </table>
+            </div>
+            <div id="main_dev_ok" class="main_left_metro">
+                <div class="main_metro_title"><input type="text" value="已完成功能" placeholder="请输入区块标题..."></div>
+                <i class="fa fa-trash metro_delete" aria-hidden="true" title="删除区块"></i>
+                <table  class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>开发进度</th>
+                        <th>测试进度</th>
+                        <th>开发者</th>
+                        <th>测试者</th>
+                    </tr>
+                    </thead>
+                    <tbody id="databody2">
+                    </tbody>
+                </table>
+            </div>
+            <!--<div id="main_test_ok" class="main_left_metro">-->
+            <!--<div class="main_metro_title"><input type="text" value="测试已完成" placeholder="请输入区块标题..."></div>-->
+            <!--<i class="fa fa-trash metro_delete" aria-hidden="true"></i>-->
+
+            <!--</div>-->
+        </div>
+    </div>
+    <div id="main_right">
+        <div id="info_btn">
+            <div class="btn_delete info_btn">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </div>
+            <div class="btn_folder info_btn">
+                <i class="fa fa-folder" aria-hidden="true"></i>
+            </div>
+
+            <div class="btn_edit info_btn">
+                <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div id="main_right_info">
+            <div id="info_countdown"><!--倒计时-->
+                <div class="main_title_five">距离截止日期还有</div>
+                <div id="countdown_days">
+                    <span class="main_title_ten" id="countdown_num1">9</span>天 <span class="line">|</span><span id="countdown_num2" class="main_title_ten">19</span>天
+                </div>
+            </div>
+            <div id="info_proinfo"><!--项目名称和截止日-->
+                <div class="main_title_seven" id="proinfo_name">Ver3.5.0开发</div>
+                <div class="main_title_five" id="proinfo_deadline">2016.11.11|2016.11.21</div>
+                <div class="main_title_four" id="proinfo_text">截止</div>
+            </div>
+            <div id="info_color">
+                <div class="main_title_five">紧急度图例</div>
+                <div class="color1">
+                    <div class="color_green"></div>正常
+                </div>
+                <div class="color1">
+                    <div class="color_yellow"></div>紧急
+                </div>
+                <div class="color2">
+                    <div class="color_red"></div>非常紧急
+                </div>
+            </div>
+        </div>
+        <div id="main_right_chart">
+            <div id="huantu" style="float:left"></div>
+            <div id="xiantu" style="float:left;min-width:400px;height:400px"></div>
+        </div>
+        <div id="main_right_advice">
+
+        </div>
+        <div id="main_right_news">
+
+        </div>
+    </div>
+</div>
 
 </body>
 <script>
@@ -550,6 +602,27 @@ query.find({
     });
     $("#metro_add").click(function () {
         $("#metro_area").append('<div class="main_left_metro"><div class="main_metro_title"><input type="text"placeholder="请输入区块标题..."></div><i class="fa fa-trash metro_delete" aria-hidden="true"></i></div>')
-    })
+    });
+    $(".btn_edit").hover(function(){
+        setTimeout(function () {
+            $(".btn_edit").append('<span class="btn_linshi">项目编辑</span>')
+        },150)
+    },function(){
+        $("span").remove(".btn_linshi")
+    });
+    $(".btn_folder").hover(function(){
+        setTimeout(function () {
+            $(".btn_folder").append('<span class="btn_linshi">项目归档</span>')
+        },150)
+    },function(){
+        $("span").remove(".btn_linshi")
+    });
+    $(".btn_delete").hover(function(){
+        setTimeout(function () {
+            $(".btn_delete").append('<span class="btn_linshi">项目删除</span>')
+        },150)
+    },function(){
+        $("span").remove(".btn_linshi")
+    });
 </script>
 </html>
