@@ -274,6 +274,17 @@ input[type=date]:hover{
      box-shadow: 0 0 5px rgba(0,0,0,0.2);
     background-color: white;
  }
+input[type=file]:active,input[type=file]:focus{
+    box-shadow: 0 0 0 rgba(0,0,0,0.2);
+    background-color: transparent;
+}
+input[type=file]:hover{
+    box-shadow: 0 0 0 rgba(0,0,0,0.2);
+    background-color: transparent;
+}
+input[type=file]{
+    margin: 3px 0 0 5px;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -310,6 +321,10 @@ input::-webkit-inner-spin-button {
     /*background-color: white;*/
     /*background: url("../img/popy.jpg");*/
     background-size: 573px 322px;
+}
+#imgpreview{
+    width: 573px;
+    height: 322px;
 }
 .icon_plus_bg2{
     width: 20px;
@@ -523,7 +538,7 @@ input::-webkit-inner-spin-button {
     text-align: center;
     /*font-weight: bold;*/
     background-color: #ffffff;
-    box-shadow:0 0 1px rgba(0,0,0,0.2);
+    /*box-shadow:0 0 1px rgba(0,0,0,0.2);*/
     width: 80px;
     height: 20px;
     margin: 6px auto;
@@ -538,7 +553,7 @@ input::-webkit-inner-spin-button {
     margin-bottom: 10px;
 }
 #function_contents{
-    height: 680px;
+    height: 653px;
     width: 870px;
     overflow: auto;
 }
@@ -556,8 +571,14 @@ input::-webkit-inner-spin-button {
 #function_test_top{
 
 }
-
-
+#messageshow{
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+#messageshow>span{
+    font-size: 17px;
+    font-weight: bold;
+}
 
 
 /*项目详情*/
