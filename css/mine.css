@@ -39,7 +39,7 @@ button{
     height: 100%;
     background-color: rgba(0,0,0,0.5);
     z-index: 5555;
-    position: absolute;
+    position: fixed;
     display: none;
 }
 /*顶栏*/
@@ -374,7 +374,7 @@ input::-webkit-inner-spin-button {
     height: 500px;
     background-color: white;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    position: absolute;
+    position: fixed;
     top: 150px;
     left: 700px;
     display: none;
@@ -936,9 +936,9 @@ tr {
 }
 
 .label {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .label:empty,
