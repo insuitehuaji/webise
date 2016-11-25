@@ -6,424 +6,415 @@
     <title>项目详情</title>
     <script src="js/bmob.js"></script>
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
-<script src="js/jquery-3.1.1.js"></script>
-<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
-<script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
-<script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
-
-    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/mine.css">
-<script>
+    <link rel="stylesheet" href="css/scoll.css">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
+    <script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
+    <script>
 
-	var projectid='92a0f1ad14';
-	var epreview=[];
-var lpreview=[];
-var nowview=[];
-nowview[0]=100;
-function renewproject()
-	{ Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1"); 
-	var GameScore = Bmob.Object.extend("projectlog");
-var query = new Bmob.Query(GameScore);
-var date=new Date();
-date=new Date(date.toLocaleDateString());
-query.equalTo("date", date);
+        var projectid='92a0f1ad14';
+        var epreview=[];
+        var lpreview=[];
+        var nowview=[];
+        nowview[0]=100;
+        function renewproject()
+        { Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var GameScore = Bmob.Object.extend("projectlog");
+            var query = new Bmob.Query(GameScore);
+            var date=new Date();
+            date=new Date(date.toLocaleDateString());
+            query.equalTo("date", date);
 // 查询所有数据
-query.find({
-  success: function(results) {
-    
-    if(results.length==0)
-	{var GameScore = Bmob.Object.extend("projectlog");
-var gameScore = new GameScore();
+            query.find({
+                success: function(results) {
+
+                    if(results.length==0)
+                    {var GameScore = Bmob.Object.extend("projectlog");
+                        var gameScore = new GameScore();
 // 添加数据，第一个入口参数是Json数据
-gameScore.save({
-  testprocess:0,
-  developprocess:10,
-  projectid: projectid,
-  date:date
-}, {
-  success: function(object) {
-   
-  },
-  error: function(gameScore, error) {
-    // 添加失败
-  }
-});
-	}
-	else{
-     results[0].set("developprocess",results[0].get("developprocess")+10);
-	results[0].save(null,{
-  success: function(gameScore) {
-	console.log("renew");
-  },
-  error: function(gameScore, error) {
-     for(i in error)
-	 console.log(i+error[i]);
-  }}
-	);}
-  },
-  error: function(error) {
-    alert("查询失败: " + error.code + " " + error.message);
-  }
-});
-	
-	}
-function huanxingtu(a,b) {
-    // 去掉这里的注释就是类似 Apple Watch 上的效果了
-    if (!Highcharts.theme) {
-        Highcharts.setOptions({
-            chart: {
-                backgroundColor: 'transparent'
-            },
-            colors: ['#48dc6a', '#ffd200', '#ff5534'],
-            title: {
-                style: {
-                    color: 'silver'
-                }
-            },
-            tooltip: {
-                style: {
-                    color: 'silver'
-                }
-            }
-        });
-    }
-    Highcharts.chart('huantu', {
-        chart: {
-            type: 'solidgauge',
-            marginTop: 50
-        },
-        credits: {
-           enabled:false
-        },
-        title: {
-            text: '进度图',
-            style: {
-                fontSize: '24px'
-            }
-        },
-        tooltip: {
-            borderWidth: 0,
-            backgroundColor: 'none',
-            shadow: false,
-            style: {
-                fontSize: '16px'
-            },
-            pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}%</span>',
-            positioner: function (labelWidth, labelHeight) {
-                return {
-                    x: 295 - labelWidth / 2,
-                    y: 180
-                };
-            }
-        },
-        pane: {
-            startAngle: 0,
-            endAngle: 360,
-            background: [{ // Track for Move
-                outerRadius: '112%',
-                innerRadius: '88%',
-                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.3).get(),
-                borderWidth: 0
-            }, { // Track for Exercise
-                outerRadius: '87%',
-                innerRadius: '63%',
-                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
-                borderWidth: 0
-            }, { // Track for Stand
-                outerRadius: '62%',
-                innerRadius: '38%',
-                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[2]).setOpacity(0.3).get(),
-                borderWidth: 0
-            }]
-        },
-        yAxis: {
-            min: 0,
-            max: 100,
-            lineWidth: 0,
-            tickPositions: []
-        },
-        plotOptions: {
-            solidgauge: {
-                borderWidth: '34px',
-                dataLabels: {
-                    enabled: false
-                },
-                linecap: 'round',
-                stickyTracking: false
-            }
-        },
-        series: [{
-            name: '全部',
-            borderColor: Highcharts.getOptions().colors[0],
-            data: [{
-                color: Highcharts.getOptions().colors[0],
-                radius: '100%',
-                innerRadius: '100%',
-                y: parseInt((a+b)/2)
-            }]
-        }, {
-            name: '测试',
-            borderColor: Highcharts.getOptions().colors[1],
-            data: [{
-                color: Highcharts.getOptions().colors[1],
-                radius: '75%',
-                innerRadius: '75%',
-                y: b
-            }]
-        }, {
-            name: '开发',
-            borderColor: Highcharts.getOptions().colors[2],
-            data: [{
-                color: Highcharts.getOptions().colors[2],
-                radius: '50%',
-                innerRadius: '50%',
-                y: a
-            }]
-        }]
-    },
-                     /**
-     * In the chart load callback, add icons on top of the circular shapes
-     */
-                     function callback() {
-        // Move icon
-        this.renderer.text('<span style="color :white;font-weight:boLd" >全部</span>')
-            .translate(285, 27)
-            .add(this.series[2].group);
-        // Exercise icon
-        this.renderer.text('<span style="color :white;font-weight:boLd" >测试</span>')
-            .translate(285, 65)
-            .add(this.series[2].group);
-        // Stand icon
-               this.renderer.text('<span style="color :white;font-weight:boLd" >开发</span>')
-            .translate(285, 100)
-            .add(this.series[2].group);
-    });
-};
-function ranjintu() {
-    $('#xiantu').highcharts({
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: '燃尽图'
-        },
-		credits:
-		{ 
-		enabled : false
-		},
-        xAxis: {
-            categories: [],
-			min:0
-        },
-        yAxis: {
-            title: {
-                text: '进度'
-            },
-			max:100,
-			min:0
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: '实际',
-            data: nowview
-        },{
-            name: '最好预期',
-            data: epreview
-        },{
-            name: '最坏预期',
-            data: lpreview
-        }]
-    });
-};	
-	function ready(){
-	
-	var functionfind = Bmob.Object.extend("function");
-var query = new Bmob.Query(functionfind);
-query.equalTo("projectid", projectid); 
-// 查询所有数据
-query.find({
-    success: function(results) {
-	json=results;
-        newtable(results);
-    },
-    error: function(error) {
-        alert("查询失败: " + error.code + " " + error.message);
-    }
-});
-	
-	}
-	function projectlist()
-	{   Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1"); 
-	var GameScore = Bmob.Object.extend("project");
-    var query = new Bmob.Query(GameScore);
-    query.get(projectid, {
-      success: function(object) {
-	    var s2=new Date();
-		var days0 =new Date(object.createdAt)
-        var days1 = new Date(object.get('etime'));
-        var days2 = new Date(object.get('ltime'));
-        var edays = parseInt((days1.getTime() - s2.getTime())/(3600000*24));
-      var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
-        var alleday = parseInt((days1.getTime() - days0.getTime())/(3600000*24));
-      var alllday = parseInt((days2.getTime() - days0.getTime())/(3600000*24));
-	  var nowday=parseInt((s2.getTime() - days0.getTime())/(3600000*24))
-        // The object was retrieved successfully.
-        $("#proinfo_name").html(object.get("name")); 
-		$("#countdown_num1").html(edays);
-		$("#countdown_num2").html(ldays);
-		$("#proinfo_deadline").html(object.get('etime')+'|'+object.get('ltime'));
-		for(var i=0;i<alleday;i++){
-		epreview[i]=parseInt(100-i*(100/(alleday-1)));
-		if(epreview[i]<0) epreview[i]=0
-		}
-		for(var i=0;i<alllday;i++){
-		lpreview[i]=parseInt(100-i*(100/(alllday-1)));
-		if(lpreview[i]<0) lpreview[i]=0
-		}
-		var GameScore = Bmob.Object.extend("projectlog");
-var query = new Bmob.Query(GameScore);
-var process=0;
-query.find({
-  success: function(results) {
-    // 循环处理查询到的数据
-    for (var i = 0; i < results.length; i++) {
-     process+=(results[i].get('developprocess')+results[i].get('testprocess'))/(2*3);
-	
-     nowview[i+1]=parseInt(100-process); 
-    }
-	 ranjintu();
-  },
-  error: function(error) {
-    alert("查询失败: " + error.code + " " + error.message);
-  }
-});
- 
-      },
-      error: function(object, error) {
-       console("query object fail");
-      }
-    });
-	}
-	$(function()
-	{projectlist();
-	ready();})
-	$(function(){
-	 Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
-	var functionfind = Bmob.Object.extend("functionlog");
-var query = new Bmob.Query(functionfind);
-query.equalTo("projectid", projectid); 
-// 查询所有数据
-query.find({
-    success: function(results) {
-	for (var i=0;i<results.length;i++){
-       var ob="<div>"+results[i].get("userid")+'在'+results[i].createdAt+'完成了'+results[i].get("functionname")+'的'+results[i].get("process")+'%'+results[i].get("type")+"任务</div>";
-	   $(ob).appendTo("#main_right_news");
-	   }
-    },
-    error: function(error) {
-        alert("查询失败: " + error.code + " " + error.message);
-    }
-});
-	
-	})
-	function newtable(json)
-	{
-	    var deprocess=0;
-		var teprocess=0;
-		 jQuery("#databody,#databody1,#databody2").empty();
-		for(var i=0;i<json.length;i++)
-		{
-			var tr=jQuery("<tr></tr>");
-			if(json[i].get('developprocess')<100)
-			tr.appendTo(jQuery("#databody"));
-			else if(json[i].get('testprocess')<100)
-			tr.appendTo(jQuery("#databody1"));
-			else 
-			tr.appendTo(jQuery("#databody2"));
-			   var td=jQuery("<td>"+json[i].get('name')+"</td>");
-			   td.appendTo(tr);
-			   var td=jQuery("<td><span class='label label-success'>"+json[i].get('developprocess')+"</span></td>");
-			   td.appendTo(tr);
-			   var td=jQuery("<td><span class='label label-success'>"+json[i].get('testprocess')+"</span></td>");
-			   td.appendTo(tr);
-			   var td=jQuery("<td><span class='label label-success'>"+json[i].get('developid')+"</span></td>");
-			   td.appendTo(tr);
-			   var td=jQuery("<td><span class='label label-success'>"+json[i].get('testid')+"</span></td>");
-			   td.appendTo(tr);
-			   deprocess+=json[i].get('developprocess');
-			   teprocess+=json[i].get('testprocess');
-		}
-		deprocess=parseInt(deprocess/(json.length));
-		teprocess=parseInt(teprocess/(json.length));
-		huanxingtu(deprocess,teprocess);
-		
-	}
-	function renewproject()
-	{
-	var GameScore = Bmob.Object.extend("projectlog");
-var query = new Bmob.Query(GameScore);
-var date=new Date();
-query.equalTo("Date", date);
-// 查询所有数据
-query.find({
-  success: function(results) {
-    alert("共查询到 " + results.length + " 条记录");
-    // 循环处理查询到的数据
-    for (var i = 0; i < results.length; i++) {
-      var object = results[i];
-      alert(object.id );
-    }
-  },
-  error: function(error) {
-    alert("查询失败: " + error.code + " " + error.message);
-  }
-});
-	}
-	function renewfunction()
-	{ Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
-	json[0].set("developprocess",json[0].get("developprocess")+10);
-	json[0].save(null,{
-  success: function(gameScore) {
-	renewproject();
-  },
-  error: function(gameScore, error) {
-     for(i in error)
-	 console.log(i+error[i]);
-  }}
-	);
-	}
-function newreport()
-{
-Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
-		var GameScore = Bmob.Object.extend("functionlog");
-var gameScore = new GameScore();
-gameScore.save({
-  userid:'develop1',
-  type:'开发',
-  projectid:projectid,
-  process:10,
-  functionname:'qq'
-}, {
-  success: function(gameScore) {
-  renewfunction();
-  },
-  error: function(gameScore, error) {
-     for(i in error)
-	 console.log(i+error[i]);
-  }
-});
+                        gameScore.save({
+                            testprocess:0,
+                            developprocess:10,
+                            projectid: projectid,
+                            date:date
+                        }, {
+                            success: function(object) {
 
-}
-	</script>
+                            },
+                            error: function(gameScore, error) {
+                                // 添加失败
+                            }
+                        });
+                    }
+                    else{
+                        results[0].set("developprocess",results[0].get("developprocess")+10);
+                        results[0].save(null,{
+                            success: function(gameScore) {
+                                console.log("renew");
+                            },
+                            error: function(gameScore, error) {
+                                for(i in error)
+                                    console.log(i+error[i]);
+                            }}
+                        );}
+                },
+                error: function(error) {
+                    alert("查询失败: " + error.code + " " + error.message);
+                }
+            });
+
+        }
+        function huanxingtu(a,b) {
+            // 去掉这里的注释就是类似 Apple Watch 上的效果了
+            if (!Highcharts.theme) {
+                Highcharts.setOptions({
+                    chart: {
+                        backgroundColor: 'transparent'
+                    },
+                    colors: ['#48dc6a', '#ffd200', '#ff5534'],
+                    title: {
+                        style: {
+                            color: 'silver'
+                        }
+                    },
+                    tooltip: {
+                        style: {
+                            color: 'silver',
+                            fontWeight:'bold'
+                        }
+                    }
+                });
+            }
+            Highcharts.chart('huantu', {
+                        chart: {
+                            type: 'solidgauge',
+                            marginTop: 40
+                        },
+                        credits: {
+                            enabled:false
+                        },
+                        title: {
+                            text: '进度图',
+                            style: {
+                                fontSize: '24px',
+                                color:'black',
+                                fontWeight:'bold'
+                            }
+                        },
+                        tooltip: {
+                            borderWidth: 0,
+                            backgroundColor: 'none',
+                            shadow: false,
+                            style: {
+                                fontSize: '16px'
+                            },
+                            pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}%</span>',
+                            positioner: function (labelWidth, labelHeight) {
+                                return {
+                                    x: 260,
+                                    y: 170
+                                };
+                            }
+                        },
+                        pane: {
+                            startAngle: 0,
+                            endAngle: 360,
+                            background: [{ // Track for Move
+                                outerRadius: '112%',
+                                innerRadius: '88%',
+                                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.3).get(),
+                                borderWidth: 0
+                            }, { // Track for Exercise
+                                outerRadius: '87%',
+                                innerRadius: '63%',
+                                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0.3).get(),
+                                borderWidth: 0
+                            }, { // Track for Stand
+                                outerRadius: '62%',
+                                innerRadius: '38%',
+                                backgroundColor: Highcharts.Color(Highcharts.getOptions().colors[2]).setOpacity(0.3).get(),
+                                borderWidth: 0
+                            }]
+                        },
+                        yAxis: {
+                            min: 0,
+                            max: 100,
+                            lineWidth: 0,
+                            tickPositions: []
+                        },
+                        plotOptions: {
+                            solidgauge: {
+                                borderWidth: '34px',
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                linecap: 'round',
+                                stickyTracking: false
+                            }
+                        },
+                        series: [{
+                            name: '总进度',
+                            borderColor: Highcharts.getOptions().colors[0],
+                            data: [{
+                                color: Highcharts.getOptions().colors[0],
+                                radius: '100%',
+                                innerRadius: '100%',
+                                y: parseInt((a+b)/2)
+                            }]
+                        }, {
+                            name: '测试进度',
+                            borderColor: Highcharts.getOptions().colors[1],
+                            data: [{
+                                color: Highcharts.getOptions().colors[1],
+                                radius: '75%',
+                                innerRadius: '75%',
+                                y: b
+                            }]
+                        }, {
+                            name: '开发进度',
+                            borderColor: Highcharts.getOptions().colors[2],
+                            data: [{
+                                color: Highcharts.getOptions().colors[2],
+                                radius: '50%',
+                                innerRadius: '50%',
+                                y: a
+                            }]
+                        }]
+                    },
+                    /**
+                     * In the chart load callback, add icons on top of the circular shapes
+                     */
+                    function callback() {
+                        // Move icon
+                        this.renderer.text('<span style="color :white;font-weight:boLd" >总进度</span>')
+                                .translate(285, 30)
+                                .add(this.series[2].group);
+                        // Exercise icon
+                        this.renderer.text('<span style="color :white;font-weight:boLd" >测试进度</span>')
+                                .translate(285, 66)
+                                .add(this.series[2].group);
+                        // Stand icon
+                        this.renderer.text('<span style="color :white;font-weight:boLd" >开发进度</span>')
+                                .translate(285, 107)
+                                .add(this.series[2].group);
+                    });
+        };
+        function ranjintu() {
+            $('#xiantu').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '燃尽图'
+                },
+                credits:
+                {
+                    enabled : false
+                },
+                xAxis: {
+                    categories: [],
+                    min:0
+                },
+                yAxis: {
+                    title: {
+                        text: '进度'
+                    },
+                    max:100,
+                    min:0
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: '实际进度',
+                    data: nowview
+                },{
+                    name: '预期进度(最快)',
+                    data: epreview
+                },{
+                    name: '预期进度(最慢)',
+                    data: lpreview
+                }]
+            });
+        };
+        function ready(){
+
+            var functionfind = Bmob.Object.extend("function");
+            var query = new Bmob.Query(functionfind);
+            query.equalTo("projectid", projectid);
+// 查询所有数据
+            query.find({
+                success: function(results) {
+                    json=results;
+                    newtable(results);
+                },
+                error: function(error) {
+                    alert("查询失败: " + error.code + " " + error.message);
+                }
+            });
+
+        }
+
+        function projectlist()
+        {   Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var GameScore = Bmob.Object.extend("project");
+            var query = new Bmob.Query(GameScore);
+            query.get(projectid, {
+                success: function(object) {
+                    var s2=new Date();
+                    var days0 =new Date(object.createdAt)
+                    var days1 = new Date(object.get('etime'));
+                    var days2 = new Date(object.get('ltime'));
+                    var edays = parseInt((days1.getTime() - s2.getTime())/(3600000*24));
+                    var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
+                    var alleday = parseInt((days1.getTime() - days0.getTime())/(3600000*24));
+                    var alllday = parseInt((days2.getTime() - days0.getTime())/(3600000*24));
+                    var nowday=parseInt((s2.getTime() - days0.getTime())/(3600000*24))
+                    // The object was retrieved successfully.
+                    $("#proinfo_name").html(object.get("name"));
+                    $("#countdown_num1").html(edays);
+                    $("#countdown_num2").html(ldays);
+                    $("#proinfo_deadline").html(object.get('etime')+'|'+object.get('ltime'));
+                    for(var i=0;i<alleday;i++){
+                        epreview[i]=parseInt(100-i*(100/(alleday-1)));
+                        if(epreview[i]<0) epreview[i]=0
+                    }
+                    for(var i=0;i<alllday;i++){
+                        lpreview[i]=parseInt(100-i*(100/(alllday-1)));
+                        if(lpreview[i]<0) lpreview[i]=0
+                    }
+                    var GameScore = Bmob.Object.extend("projectlog");
+                    var query = new Bmob.Query(GameScore);
+                    var process=0;
+                    query.find({
+                        success: function(results) {
+                            // 循环处理查询到的数据
+                            for (var i = 0; i < results.length; i++) {
+                                process+=(results[i].get('developprocess')+results[i].get('testprocess'))/(2*3);
+
+                                nowview[i+1]=parseInt(100-process);
+                            }
+                            ranjintu();
+                        },
+                        error: function(error) {
+                            alert("查询失败: " + error.code + " " + error.message);
+                        }
+                    });
+
+                },
+                error: function(object, error) {
+                    console("query object fail");
+                }
+            });
+        }
+        $(function()
+        {projectlist();
+            ready();})
+        $(function(){
+            Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var functionfind = Bmob.Object.extend("functionlog");
+            var query = new Bmob.Query(functionfind);
+            query.equalTo("projectid", projectid);
+// 查询所有数据
+            query.find({
+                success: function(results) {
+                    for (var i=0;i<results.length;i++){
+                        var ob="<div>"+results[i].get("userid")+'在'+results[i].createdAt+'完成了'+results[i].get("functionname")+'的'+results[i].get("process")+'%'+results[i].get("type")+"任务</div>";
+                        $(ob).appendTo("#main_right_news");
+                    }
+                },
+                error: function(error) {
+                    alert("查询失败: " + error.code + " " + error.message);
+                }
+            });
+
+        });
+        function project_modal() {
+            $("#modal3").slideToggle();
+            $("#cover").fadeToggle();
+            $("#cover").click(function () {
+                $("#cover").fadeOut();
+                $("#modal3").slideUp();
+            });
+        }
+        function newtable(json)
+        {
+            var deprocess=0;
+            var teprocess=0;
+            jQuery("#databody,#databody1,#databody2").empty();
+            for(var i=0;i<json.length;i++)
+            {
+                var tr=jQuery("<tr></tr>");
+                if(json[i].get('developprocess')<100)
+                    tr.appendTo(jQuery("#databody"));
+                else if(json[i].get('testprocess')<100)
+                    tr.appendTo(jQuery("#databody1"));
+                else
+                    tr.appendTo(jQuery("#databody2"));
+                var td=jQuery("<td  onclick='project_modal()' style='cursor: pointer'>"+json[i].get('name')+"</td>");
+                td.appendTo(tr);
+                var td=jQuery("<td><input class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
+                td.appendTo(tr);
+                var td=jQuery("<td><input class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
+                td.appendTo(tr);
+                var td=jQuery("<td><span class='label label-success'>"+json[i].get('developid')+"</span></td>");
+                td.appendTo(tr);
+                var td=jQuery("<td><span class='label label-success'>"+json[i].get('testid')+"</span></td>");
+                td.appendTo(tr);
+                deprocess+=json[i].get('developprocess');
+                teprocess+=json[i].get('testprocess');
+            }
+            deprocess=parseInt(deprocess/(json.length));
+            teprocess=parseInt(teprocess/(json.length));
+            huanxingtu(deprocess,teprocess);
+
+        }
+
+        function renewfunction()
+        { Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            json[0].set("developprocess",json[0].get("developprocess")+10);
+            json[0].save(null,{
+                success: function(gameScore) {
+                    renewproject();
+                },
+                error: function(gameScore, error) {
+                    for(i in error)
+                        console.log(i+error[i]);
+                }}
+            );
+        }
+        function newreport()
+        {
+            Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var GameScore = Bmob.Object.extend("functionlog");
+            var gameScore = new GameScore();
+            gameScore.save({
+                userid:'develop1',
+                type:'开发',
+                projectid:projectid,
+                process:10,
+                functionname:'qq'
+            }, {
+                success: function(gameScore) {
+                    renewfunction();
+                },
+                error: function(gameScore, error) {
+                    for(i in error)
+                        console.log(i+error[i]);
+                }
+            });
+
+        }
+    </script>
     <style>
-        #main_left:after,#main_right:after,#main:after,.color1:after,
+        #main_left:after,#main_right:after,#main:after,.color1:after,#info_btn:after,#modal_title3:after,
         #metro_area:after,#main_right_info:after,#main_right_advice:after,#main_right_chart:after,#main_right_news:after{
             content: ".";
             display: block;
@@ -472,10 +463,10 @@ gameScore.save({
             position: relative;
         }
         #main_right_info{
-            height:120px ;
+            height:95px ;
             border-bottom: 1px solid #dcdcdc;
             box-sizing:border-box;
-            padding-top: 25px;
+            /*padding-top: 25px;*/
             padding-left: 25px;
         }
         #main_right_chart{
@@ -484,12 +475,12 @@ gameScore.save({
             box-sizing:border-box;
         }
         #main_right_advice{
-            height:295px ;
+            height:267px ;
             border-bottom: 1px solid #dcdcdc;
             box-sizing:border-box;
         }
         #main_right_news{
-            height:201px ;
+            height:229px ;
             box-sizing:border-box;
         }
         .main_title_four{/*四号加粗*/
@@ -563,7 +554,7 @@ gameScore.save({
             margin-right: 5px;
         }
         #info_color{
-            margin-left: 30px;
+            margin-left: 45px;
         }
         .back{
             color: #c2c2c2;
@@ -609,129 +600,226 @@ gameScore.save({
             background-color: #e5e5e5;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
         }
+        .info_btn{
+            height: 20px;
+            width: 15px;
+            margin-top: 5px;
+            float: right;
+            margin-left: 15px;
+            /*background-color: red;*/
+            transition-duration: 0.9s;
+            color: #313131;
+            box-sizing: border-box;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        #info_btn{
+            margin-right: 25px;
+        }
+        .info_btn:hover{
+            color: white;
+            width: 90px;
+            padding-left: 7px;
+            border-radius: 100px;
+        }
+        .btn_edit:hover{
+            background-color: #2CBBE7;
+        }
+        .btn_folder:hover{
+            background-color: #FEA500;
+        }
+        .btn_delete:hover{
+            background-color: #FF5534;
+        }
+        .btn_linshi{
+            color: white;
+            font-size: 14px;
+        }
+        .metro_container_input{
+            padding-left: 3px;
+            border-radius: 5px;
+            width: 35px;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 14px;
+            background-color: #F9F9F9;
+            transition-duration: 0.5s;
+        }
+        .metro_container_input:hover{
+            background-color: white;
+            color: black;
+        }
+        .metro_container_input:active,.metro_container_input:focus{
+            color: black;
+            background-color: white;
+            box-shadow:inset 0 0 5px rgba(0,0,0,0.2);
+        }
+        .input_success{
+            color: white;
+            background-color: #48DC6A;
+        }
         </style>
 </head>
 
 <body>
-    <div id="cover"></div>
-    <nav id="top">
-        <a href="main.html"><img src="img/LOGO.png" alt="" id="logo"></a>
-        <div id="tab">
-            <div id="tab_project " class="tab tab_active">
-                项目
+<div id="cover"></div>
+<nav id="top">
+    <a href="main.html"><img src="img/LOGO.png" alt="" id="logo" title="返回首页"></a>
+    <div id="tab">
+        <div id="tab_project " class="tab tab_active">
+            项目
+        </div>
+        <div id="tab_my" class="tab">
+            我的
+        </div>
+    </div>
+    <div id="user">
+        <i class="fa fa-2x fa-user-circle-o" aria-hidden="true" title="个人中心"></i>
+    </div>
+</nav>
+<nav id="top2"></nav>
+<div id="main"><!--项目详情-->
+    <div id="main_left">
+        <div class="metro_plus">
+            <i class="fa fa-chevron-circle-left back" aria-hidden="true" title="返回首页"></i>
+            功能列表<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" title="添加区块"></i>
+        </div>
+        <div id="metro_area">
+            <div id="main_dev_no" class="main_left_metro">
+                <div class="main_metro_title"><input type="text" value="开发未完成" placeholder="请输入区块标题..."></div>
+                <i class="fa fa-trash metro_delete" aria-hidden="true" title="删除区块"></i>
+                <table  class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>开发进度</th>
+                        <th>测试进度</th>
+                        <th>开发者</th>
+                        <th>测试者</th>
+                    </tr>
+                    </thead>
+                    <tbody id="databody">
+                    </tbody>
+                </table>
             </div>
-            <div id="tab_my" class="tab">
-                我的
+            <div id="main_test_no" class="main_left_metro">
+                <div class="main_metro_title"><input type="text" value="测试未完成" placeholder="请输入区块标题..."></div>
+                <i class="fa fa-trash metro_delete" aria-hidden="true" title="删除区块"></i>
+                <table  class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>开发进度</th>
+                        <th>测试进度</th>
+                        <th>开发者</th>
+                        <th>测试者</th>
+                    </tr>
+                    </thead>
+                    <tbody id="databody1">
+                    </tbody>
+                </table>
+            </div>
+            <div id="main_dev_ok" class="main_left_metro">
+                <div class="main_metro_title"><input type="text" value="已完成功能" placeholder="请输入区块标题..."></div>
+                <i class="fa fa-trash metro_delete" aria-hidden="true" title="删除区块"></i>
+                <table  class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>开发进度</th>
+                        <th>测试进度</th>
+                        <th>开发者</th>
+                        <th>测试者</th>
+                    </tr>
+                    </thead>
+                    <tbody id="databody2">
+                    </tbody>
+                </table>
+            </div>
+            <!--<div id="main_test_ok" class="main_left_metro">-->
+            <!--<div class="main_metro_title"><input type="text" value="测试已完成" placeholder="请输入区块标题..."></div>-->
+            <!--<i class="fa fa-trash metro_delete" aria-hidden="true"></i>-->
+
+            <!--</div>-->
+        </div>
+    </div>
+    <div id="main_right">
+        <div id="info_btn">
+            <div class="btn_delete info_btn">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </div>
+            <div class="btn_folder info_btn">
+                <i class="fa fa-folder" aria-hidden="true"></i>
+            </div>
+
+            <div class="btn_edit info_btn">
+                <i class="fa fa-pencil-square" aria-hidden="true"></i>
             </div>
         </div>
-        <div id="user">
-
-        </div>
-    </nav>
-    <nav id="top2"></nav>
-    <div id="main"><!--项目详情-->
-        <div id="main_left">
-            <div class="metro_plus">
-                <i class="fa fa-chevron-circle-left back" aria-hidden="true"></i>
-                功能列表<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" ></i>
+        <div id="main_right_info">
+            <div id="info_countdown"><!--倒计时-->
+                <div class="main_title_five">距离截止日期还有</div>
+                <div id="countdown_days">
+                    <span class="main_title_ten" id="countdown_num1">9</span>天 <span class="line">|</span><span id="countdown_num2" class="main_title_ten">19</span>天
+                </div>
             </div>
-            <div id="metro_area">
-                <div id="main_dev_no" class="main_left_metro">
-                    <div class="main_metro_title"><input type="text" value="开发未完成" placeholder="请输入区块标题..."></div>
-                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
-                   <table  class="table table-striped">
-				   <thead>
-				   <tr>
-									<th>名称</th>
-									<th>开发进度</th>
-									<th>测试进度</th>
-									<th>开发者</th>
-									<th>测试者</th>
-			       </tr>
-				   </thead>
-				   <tbody id="databody">
-				   </tbody>
-				   </table>
+            <div id="info_proinfo"><!--项目名称和截止日-->
+                <div class="main_title_seven" id="proinfo_name">Ver3.5.0开发</div>
+                <div class="main_title_five" id="proinfo_deadline">2016.11.11|2016.11.21</div>
+                <div class="main_title_four" id="proinfo_text">截止</div>
+            </div>
+            <div id="info_color">
+                <div class="main_title_five">紧急度图例</div>
+                <div class="color1">
+                    <div class="color_green"></div>正常
                 </div>
-                <div id="main_test_no" class="main_left_metro">
-                    <div class="main_metro_title"><input type="text" value="测试未完成" placeholder="请输入区块标题..."></div>
-                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
-                       <table  class="table table-striped">
-				   <thead>
-				   <tr>
-									<th>名称</th>
-									<th>开发进度</th>
-									<th>测试进度</th>
-									<th>开发者</th>
-									<th>测试者</th>
-			       </tr>
-				   </thead>
-				   <tbody id="databody1">
-				   </tbody>
-				   </table>
+                <div class="color1">
+                    <div class="color_yellow"></div>紧急
                 </div>
-                <div id="main_dev_ok" class="main_left_metro">
-                    <div class="main_metro_title"><input type="text" value="已完成功能" placeholder="请输入区块标题..."></div>
-                    <i class="fa fa-trash metro_delete" aria-hidden="true"></i>
-      <table  class="table table-striped">
-				   <thead>
-				   <tr>
-									<th>名称</th>
-									<th>开发进度</th>
-									<th>测试进度</th>
-									<th>开发者</th>
-									<th>测试者</th>
-			       </tr>
-				   </thead>
-				   <tbody id="databody2">
-				   </tbody>
-				   </table>
+                <div class="color2">
+                    <div class="color_red"></div>非常紧急
                 </div>
-                <!--<div id="main_test_ok" class="main_left_metro">-->
-                    <!--<div class="main_metro_title"><input type="text" value="测试已完成" placeholder="请输入区块标题..."></div>-->
-                    <!--<i class="fa fa-trash metro_delete" aria-hidden="true"></i>-->
-
-                <!--</div>-->
             </div>
         </div>
-        <div id="main_right">
-            <div id="main_right_info">
-                <div id="info_countdown"><!--倒计时-->
-                    <div class="main_title_five">距离截止日期还有</div>
-                    <div id="countdown_days">
-                        <span class="main_title_ten" id="countdown_num1">9</span>天 <span class="line">|</span><span id="countdown_num2" class="main_title_ten">19</span>天
-                    </div>
-                </div>
-                <div id="info_proinfo"><!--项目名称和截止日-->
-                    <div class="main_title_seven" id="proinfo_name">Ver3.5.0开发</div>
-                    <div class="main_title_five" id="proinfo_deadline">2016.11.11|2016.11.21</div>
-                    <div class="main_title_four" id="proinfo_text">截止</div>
-                </div>
-                <div id="info_color">
-                    <div class="main_title_five">紧急度图例</div>
-                    <div class="color1">
-                        <div class="color_green"></div>正常
-                    </div>
-                    <div class="color1">
-                        <div class="color_yellow"></div>紧急
-                    </div>
-                    <div class="color2">
-                        <div class="color_red"></div>非常紧急
-                    </div>
-                </div>
-            </div>
-            <div id="main_right_chart">
-				<div id="huantu" style="float:left"></div>
-				<div id="xiantu" style="float:left;min-width:400px;height:400px"></div>
-			</div>
-            <div id="main_right_advice">
+        <div id="main_right_chart">
+            <div id="huantu" style="float:left"></div>
+            <div id="xiantu" style="float:left;min-width:400px;height:400px"></div>
+        </div>
+        <div id="main_right_advice">
 
-            </div>
-            <div id="main_right_news">
+        </div>
+        <div id="main_right_news">
 
+        </div>
+    </div>
+
+    <div class="create_modal" id="modal3">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- START PANEL -->
+                <section class="panel tasks-widget">
+                    <header class="panel-heading">
+                        XXXX<i class="fa fa-times modal_close" aria-hidden="true"></i>
+                    </header>
+                    <div class="panel-body">
+                        <div class="task-content">
+                            <div id="modal_title3">
+                                <div class="modal_title" style="margin-left: 70px">姓名</div>
+                                <div class="modal_title" style="margin-left: 148px">角色</div>
+                                <div class="modal_title" style="margin-left: 115px;margin-right: 30px">操作</div>
+                            </div>
+                            <ul class="task-list" id="list1" >
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+                <!-- END PANEL -->
             </div>
         </div>
     </div>
+
+</div>
 
 </body>
 <script>
@@ -744,6 +832,39 @@ gameScore.save({
     });
     $("#metro_add").click(function () {
         $("#metro_area").append('<div class="main_left_metro"><div class="main_metro_title"><input type="text"placeholder="请输入区块标题..."></div><i class="fa fa-trash metro_delete" aria-hidden="true"></i></div>')
-    })
+    });
+    $(".btn_edit").hover(function(){
+        setTimeout(function () {
+            $(".btn_edit").append('<span class="btn_linshi">项目编辑</span>')
+        },150)
+    },function(){
+        $("span").remove(".btn_linshi")
+    });
+    $(".btn_folder").hover(function(){
+        setTimeout(function () {
+            $(".btn_folder").append('<span class="btn_linshi">项目归档</span>')
+        },150)
+    },function(){
+        $("span").remove(".btn_linshi")
+    });
+    $(".btn_delete").hover(function(){
+        setTimeout(function () {
+            $(".btn_delete").append('<span class="btn_linshi">项目删除</span>')
+        },150)
+    },function(){
+        $("span").remove(".btn_linshi")
+    });
+    $("").click(function () {
+        $("#modal3").slideToggle();
+        $("#cover").fadeToggle();
+        $("#cover").click(function () {
+            $("#cover").fadeOut();
+            $("#modal3").slideUp();
+        });
+    });
+    $(".modal_close").click(function () {
+        $("#cover").fadeOut();
+        $(".create_modal").slideUp();
+    });
 </script>
 </html>
