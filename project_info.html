@@ -113,8 +113,8 @@
                             pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}%</span>',
                             positioner: function (labelWidth, labelHeight) {
                                 return {
-                                    x: 260,
-                                    y: 170
+                                    x: 160,
+                                    y: 175
                                 };
                             }
                         },
@@ -189,15 +189,15 @@
                     function callback() {
                         // Move icon
                         this.renderer.text('<span style="color :white;font-weight:boLd" >总进度</span>')
-                                .translate(285, 30)
+                                .translate(185, 30)
                                 .add(this.series[2].group);
                         // Exercise icon
                         this.renderer.text('<span style="color :white;font-weight:boLd" >测试进度</span>')
-                                .translate(285, 66)
+                                .translate(185, 66)
                                 .add(this.series[2].group);
                         // Stand icon
                         this.renderer.text('<span style="color :white;font-weight:boLd" >开发进度</span>')
-                                .translate(285, 107)
+                                .translate(185, 107)
                                 .add(this.series[2].group);
                     });
         };
@@ -207,7 +207,12 @@
                     type: 'line'
                 },
                 title: {
-                    text: '燃尽图'
+                    text: '燃尽图',
+                    style: {
+                        fontSize: '24px',
+                        color:'black',
+                        fontWeight:'bold'
+                    }
                 },
                 credits:
                 {
@@ -326,8 +331,8 @@
             query.find({
                 success: function(results) {
                     for (var i=0;i<results.length;i++){
-                        var ob="<div>"+results[i].get("userid")+'在'+results[i].createdAt+'完成了'+results[i].get("functionname")+'的'+results[i].get("process")+'%'+results[i].get("type")+"任务</div>";
-                        $(ob).appendTo("#main_right_news");
+                        var ob="<div class='news_container'><i class='fa fa-check-circle news_icon'></i>"+results[i].get("userid")+'在'+results[i].createdAt+'完成了'+results[i].get("functionname")+'的'+results[i].get("process")+'%'+results[i].get("type")+"任务</div>";
+                        $(ob).appendTo("#news_area");
                     }
                 },
                 error: function(error) {
@@ -414,7 +419,7 @@
         }
     </script>
     <style>
-        #main_left:after,#main_right:after,#main:after,.color1:after,#info_btn:after,#modal_title3:after,
+        #main_left:after,#main_right:after,#main:after,.color1:after,#info_btn:after,#modal_title3:after,#news_area:after,
         #metro_area:after,#main_right_info:after,#main_right_advice:after,#main_right_chart:after,#main_right_news:after{
             content: ".";
             display: block;
@@ -482,6 +487,8 @@
         #main_right_news{
             height:229px ;
             box-sizing:border-box;
+            padding: 10px 0 0 25px;
+            box-sizing: border-box;
         }
         .main_title_four{/*四号加粗*/
             font-size: 15px;
@@ -658,6 +665,63 @@
             color: white;
             background-color: #48DC6A;
         }
+        #huantu{
+            float:left;
+            width:400px;
+            height:400px;
+            margin-left: 150px;
+            margin-right: 50px;
+            transition-duration: 0.5s;
+        }
+        #huantu:hover{
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        #xiantu{
+            padding:0 20px 0 20px;
+            transition-duration: 0.5s;
+            float:left;
+            min-width:400px;
+            height:400px;
+        }
+        #xiantu:hover{
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .news_title{
+            font-size: 19px;
+            font-weight: bold;
+        }
+        .news_container{
+            padding-top: 2px;
+            height: 25px;
+            width: 520px;
+            transition-duration: 0.8s;
+            float: left;
+            margin-right: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .news_container:hover{
+            border-radius: 20px;
+            padding-left: 27px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        #news_area{
+            padding: 5px;
+            height: 202px;
+            overflow-y: auto;
+        }
+        .news_icon{
+            font-size: 15px;
+            transition-duration: 0.8s;
+            top:5px;
+            position: absolute;
+            left: -15px;
+            color: transparent;
+        }
+        .news_container:hover>.news_icon{
+            left: 9px;
+            color: black;
+        }
         </style>
 </head>
 
@@ -782,14 +846,17 @@
             </div>
         </div>
         <div id="main_right_chart">
-            <div id="huantu" style="float:left"></div>
-            <div id="xiantu" style="float:left;min-width:400px;height:400px"></div>
+            <div id="huantu" style=""></div>
+            <div id="xiantu" style=""></div>
         </div>
         <div id="main_right_advice">
 
         </div>
         <div id="main_right_news">
+            <div class='news_title'>更新记录</div>
+            <div id="news_area">
 
+            </div>
         </div>
     </div>
 
