@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +10,7 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <title>insuite进度管理</title>
     <style>
-        /*解决子DIV溢出问题*/
+        /*解决子DIV溢出问题*/x
         #finish:after,#finish_title:after,#finish_cont:after,#working:after,#create:after,#create_date:after,
         #create_left:after,#create_right:after,#date_left:after,#date_right:after,#create_man_top:after,#function_text:after,
         .function_contents:after,#function_man_top:after,#create_top:after,#modal_title1:after,#modal_title2:after{
@@ -30,11 +29,9 @@
     <script>
         window.onload=function(){
             var file=document.getElementById("testpic")
-
             file.onchange=function(){
                 var img=document.createElement("img")
                 img.src=window.URL.createObjectURL(file.files[0])
-
                 img.onload=function(){
                     window.URL.revokeObjectURL(this.src)
                 }
@@ -89,7 +86,6 @@
                         console.log('failed2');
                     }
                 });
-
             }
         }
         function newproject()
@@ -118,9 +114,7 @@
                         console.log(i+error[i]);
                 }
             });
-
         }
-
         function testclick(a){
             thenumber=a;
             $("#modal2").slideToggle();
@@ -134,25 +128,26 @@
             Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
             var findcolumn = Bmob.Object.extend("project");
             var query = new Bmob.Query(findcolumn);
-// 查询所有数据
+// 查询所有数据	
             query.find({
                 success: function(results) {
                     console.log("共查询到 " + results.length + " 条记录");
                     // 循环处理查询到的数据
                     for (var i = 0; i < results.length; i++) {
+					   var url="location.href='project_info.html?pid="+results[i].id+"'";
                         if(results[i].get('active')==true){
                             var s2=new Date();
                             var days1 = new Date(results[i].get('etime'));
                             var days2 = new Date(results[i].get('ltime'));
                             var edays = parseInt((days1.getTime() - s2.getTime())/(3600000*24));
                             var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
-                            var object =  '<div class="project_list"><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">距离截止日期还有<span>'+ edays+'天|'+ ldays+'天</span></div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
+                            var object =  '<div class="project_list" onclick = "'+url+'" ><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">距离截止日期还有<span>'+ edays+'天|'+ ldays+'天</span></div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
                             jQuery(object).appendTo(jQuery("#working"));
                             process=results[i].get('process')
                         }
                         else
                         {
-                            var days1 = new Date(results[i].get('stime'));
+                            var days1 = new Date(results[i].createdAt);
                             days1=days1.getFullYear()+'.'+(days1.getMonth()+1)+'.'+days1.getDate();
                             var days2 = new Date(results[i].get('ltime'));
                             days2=days2.getFullYear()+'.'+(days2.getMonth()+1)+'.'+days2.getDate();
@@ -165,7 +160,6 @@
                     alert("查询失败: " + error.code + " " + error.message);
                 }
             });}
-
         function quchong(a,b)
         {
             if(a==1){
@@ -255,13 +249,13 @@
                     // 循环处理查询到的数据
                     for (var i = 0; i < results.length; i++) {
                         var object = results[i];
-                        if(object.get('type')!='开发人员')
+                        if(object.get('type')!='開発者')
                         {
                             var userid =2  ;
                             var ob=$('<li><div class="task_title"> <span class="task_title_sp">'+object.get('userid')+ '</span><span class="badge_sm">'+object.get('type')+'</span><button class="btn_success" onclick= changeview(1,"'+object.get('userid')+'") >   <i class=" fa fa-check modal_select">  </i></button> </div></li>');
                             ob.appendTo("#list2");
                         }
-                        if(object.get('type')!='测试人员')
+                        if(object.get('type')!='テスト者')
                         {
                             var ob=$('<li><div class="task_title"> <span class="task_title_sp">'+object.get('userid')+ '</span><span class="badge_sm">'+object.get('type')+'</span><button class="btn_success" onclick=changeview(2,"'+object.get('userid')+'")  >   <i class=" fa fa-check modal_select">  </i></button> </div></li>');
                             ob.appendTo("#list1");
@@ -281,7 +275,7 @@
             ob.appendTo("#input_contents")
         }
     </script>
-    <title>insuite进度管理</title>
+    <title>insuite進度管理</title>
 
 
 </head>
@@ -292,10 +286,10 @@
     <img src="img/LOGO.png" alt="" id="logo" title="返回首页">
     <div id="tab">
         <div id="tab_project " class="tab tab_active">
-            项目
+            プロジェクト
         </div>
         <div id="tab_my" class="tab">
-            我的
+            自分
         </div>
     </div>
     <div id="user">
@@ -305,12 +299,12 @@
 <nav id="top2"></nav>
 <div id="index"><!--最初的目录-->
     <div id="working"><!--正在进行的项目-->
-        <div class="index_title">进行中的项目</div>
+        <div class="index_title">開発中のプロジェクト</div>
         <div id="new_project" class="project_list"><!--新建-->
             <div id="icon_plus_bg">
                 <img id="icon_plus" src="img/plus.png">
             </div>
-            <span>新建项目</span>
+           
         </div>
         <!--<div class="project_list" id="project1">&lt;!&ndash;已建立的项目&ndash;&gt;-->
 
@@ -320,7 +314,7 @@
     <div style="border-bottom: 1px solid #c2c2c2;width: 1000px;margin-left: 200px"></div>
     <div id="finish"><!--项目归档-->
         <div id="finish_title">
-            <div class="index_title" >项目归档</div>
+            <div class="index_title" >終わりのプロジェクト</div>
             <div class="triangle_down" style="margin:13px 0 0 8px" onclick="$('.triangle_down').hide();
                 $('.triangle_up').show();
                 $('#finish_cont').fadeIn(); " ></div>
@@ -335,30 +329,30 @@
         </div>
     </div>
 </div>
-<div id="create"><!--新建项目-->
+<div id="create" style="display:none"><!--新建项目-->
     <div id="create_top">
-        <div class="index_title" id="create_title">新建项目</div>
-        <div id="create_submit" onclick = newfunction("92a0f1ad14") class="create_button">提交</div>
-        <div id="create_cancel" class="create_button">取消</div>
+        <div class="index_title" id="create_title"> 新規プロジェクト</div>
+        <div id="create_submit" onclick = newfunction("92a0f1ad14") class="create_button">登録</div>
+        <div id="create_cancel" class="create_button">キャンセル</div>
     </div>
     <div id="create_left">
-        <div class="create_little_title">项目名称</div>
+        <div class="create_little_title">名前</div>
         <input type="text" id="create_name">
-        <div class="create_little_title">项目描述</div>
+        <div class="create_little_title">概要</div>
         <textarea name="" id="create_describe" cols="30" rows="10"></textarea>
         <div id="create_date">
-            <div class="create_little_title" style="margin-bottom: 5px">截止日期</div>
+            <div class="create_little_title" style="margin-bottom: 5px">締め切り日</div>
             <div id="date_left">
-                <div id="date_earliest" class="date_text">最早</div>
+                <div id="date_earliest" class="date_text">から</div>
                 <input type="date" class="date_input" id="earlytime">
             </div>
             <div id="date_right">
-                <div id="date_latest" class="date_text">最晚</div>
+                <div id="date_latest" class="date_text">まで</div>
                 <input type="date" class="date_input" id="latetime">
             </div>
         </div>
         <div class="create_little_title" id="create_man_top">
-            <div style="float: left;">项目封面</div>
+            <div style="float: left;">表紙</div>
             <input type="file" id="testpic"/>
             <!--<div class="icon_plus_bg2" id="dev_man_plus_bg">-->
             <!--<img class="icon_plus2" id="dev_man_plus" src="img/plus.png">-->
@@ -371,17 +365,17 @@
     </div>
     <div id="create_right">
         <div class="create_little_title" id="function_man_top">
-            <div class="create_little_title" style="margin:0;float: left">功能与任务分配</div>
+            <div class="create_little_title" style="margin:0;float: left">機能配分</div>
             <div class="icon_plus_bg2" id="fun_man_plus_bg" style="" onclick="newinput()" title="新增功能">
                 <img class="icon_plus2" id="fun_man_plus" src="img/plus.png" >
             </div>
         </div>
-        <div id="messageshow">总共机能数为:<span id="functionnm">1</span> &nbsp 开发人数为:<span id="developnm">0</span> &nbsp 测试人数为:<span id="testnm">0</span></div>
+        <div id="messageshow">機能数:<span id="functionnm">1</span> &nbsp 開発者数:<span id="developnm">0</span> &nbsp テスト者数:<span id="testnm">0</span></div>
         <div id="function_text">
-            <div class="function_name_title function_text">功能名称</div>
-            <div class="function_describe_title function_text">功能描述</div>
-            <div class="function_develop_title function_text">开发担当</div>
-            <div class="function_test_title function_text">测试担当</div>
+            <div class="function_name_title function_text">機能名前</div>
+            <div class="function_describe_title function_text">機能概要</div>
+            <div class="function_develop_title function_text">開発担当者</div>
+            <div class="function_test_title function_text">テスト担当者</div>
         </div>
         <div id="function_contents">
             <div id="input_contents">
@@ -410,14 +404,14 @@
                 <!-- START PANEL -->
                 <section class="panel tasks-widget">
                     <header class="panel-heading">
-                        开发人员列表<i class="fa fa-times modal_close" aria-hidden="true"></i>
+                        開発者一覧<i class="fa fa-times modal_close" aria-hidden="true"></i>
                     </header>
                     <div class="panel-body">
                         <div class="task-content">
                             <div id="modal_title1">
-                                <div class="modal_title" style="margin-left: 70px">姓名</div>
-                                <div class="modal_title" style="margin-left: 148px">角色</div>
-                                <div class="modal_title" style="margin-left: 115px;margin-right: 30px">操作</div>
+                                <div class="modal_title" style="margin-left: 70px">名前</div>
+                                <div class="modal_title" style="margin-left: 148px">種類</div>
+                                <div class="modal_title" style="margin-left: 115px;margin-right: 30px">選択</div>
                             </div>
                             <ul class="task-list" id="list1" >
                             </ul>
@@ -435,15 +429,15 @@
                 <!-- START PANEL -->
                 <section class="panel tasks-widget">
                     <header class="panel-heading">
-                        测试人员列表<i class="fa fa-times modal_close" aria-hidden="true"></i>
+                        テスト者一覧<i class="fa fa-times modal_close" aria-hidden="true"></i>
                     </header>
 
                     <div class="panel-body">
                         <div class="task-content">
                             <div id="modal_title2">
-                                <div class="modal_title" style="margin-left: 70px">姓名</div>
-                                <div class="modal_title" style="margin-left: 148px">角色</div>
-                                <div class="modal_title" style="margin-left: 115px">操作</div>
+                                <div class="modal_title" style="margin-left: 70px">名前</div>
+                                <div class="modal_title" style="margin-left: 148px">種類</div>
+                                <div class="modal_title" style="margin-left: 115px">選択</div>
                             </div>
                             <ul class="task-list" id="list2">
                             </ul>
