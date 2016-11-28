@@ -259,7 +259,7 @@
                                 nowview[i+1]=parseInt(100-process);
                             }
                             ranjintu();
-							ready();
+                            ready();
                         },
                         error: function(error) {
                             alert("查询失败: " + error.code + " " + error.message);
@@ -274,9 +274,9 @@
         }
         $(function()
         {projectlist();
-            })
+        })
         function loglist(){
-		       $("#news_area").empty();
+            $("#news_area").empty();
             Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
             var functionfind = Bmob.Object.extend("functionlog");
             var query = new Bmob.Query(functionfind);
@@ -312,22 +312,22 @@
             {
                 var tr=jQuery("<tr></tr>");
                 if(json[i].get('developprocess')<100)
-				{   
-			var darea=jQuery("<td><input type='number'  onchange= newreport(this.value,"+i+",1"+") class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
-			var tarea=jQuery("<td><input type='number' readonly='true' onchange= newreport(this.value,"+i+",2"+") class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
+                {
+                    var darea=jQuery("<td><input type='number'  onchange= newreport(this.value,"+i+",1"+") class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
+                    var tarea=jQuery("<td><input type='number' readonly='true' onchange= newreport(this.value,"+i+",2"+") class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
                     tr.appendTo(jQuery("#databody"));
-				}
+                }
                 else if(json[i].get('testprocess')<100)
-				{
-			var darea=jQuery("<td><input type='number'  readonly='true' onchange= newreport(this.value,"+i+",1"+") class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
-			var tarea=jQuery("<td><input type='number' onchange= newreport(this.value,"+i+",2"+") class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
+                {
+                    var darea=jQuery("<td><input type='number'  readonly='true' onchange= newreport(this.value,"+i+",1"+") class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
+                    var tarea=jQuery("<td><input type='number' onchange= newreport(this.value,"+i+",2"+") class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
                     tr.appendTo(jQuery("#databody1"));
-				}
+                }
                 else{
-			var darea=jQuery("<td><input type='number'  readonly='true' onchange= newreport(this.value,"+i+",1"+") class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
-			var tarea=jQuery("<td><input type='number' readonly='true' onchange= newreport(this.value,"+i+",2"+") class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
+                    var darea=jQuery("<td><input type='number'  readonly='true' onchange= newreport(this.value,"+i+",1"+") class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
+                    var tarea=jQuery("<td><input type='number' readonly='true' onchange= newreport(this.value,"+i+",2"+") class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
                     tr.appendTo(jQuery("#databody2"));
-					}
+                }
                 var td=jQuery("<td  onclick='project_modal()' style='cursor: pointer'>"+json[i].get('name')+"</td>");
                 td.appendTo(tr);
                 var td=darea;
@@ -344,7 +344,7 @@
             deprocess=parseInt(deprocess/(json.length));
             teprocess=parseInt(teprocess/(json.length));
             huanxingtu(deprocess,teprocess);
-			loglist();
+            loglist();
 
         }
 
@@ -361,15 +361,15 @@
 
                     if(results.length==0)
                     {var GameScore = Bmob.Object.extend("projectlog");
-					
-					if(type==1){
-                        var tprocess=0;
-						var dprocess=process;
-					}
-					else{
-                        var tprocess=0;
-						var dprocess=process;
-					}
+
+                        if(type==1){
+                            var tprocess=0;
+                            var dprocess=process;
+                        }
+                        else{
+                            var tprocess=0;
+                            var dprocess=process;
+                        }
                         var gameScore = new GameScore();
 // 添加数据，第一个入口参数是Json数据
                         gameScore.save({
@@ -379,7 +379,7 @@
                             date:date
                         }, {
                             success: function() {
-                                   projectlist();
+                                projectlist();
                             },
                             error: function(gameScore, error) {
                                 // 添加失败
@@ -387,14 +387,14 @@
                         });
                     }
                     else{
-					if(type==1)
-                        results[0].set("developprocess",results[0].get("developprocess")+process);
-					else if(type==2)
-                        results[0].set("testprocess",results[0].get("testprocess")+process);
+                        if(type==1)
+                            results[0].set("developprocess",results[0].get("developprocess")+process);
+                        else if(type==2)
+                            results[0].set("testprocess",results[0].get("testprocess")+process);
                         results[0].save(null,{
                             success: function(gameScore) {
                                 projectlist();
-						
+
                             },
                             error: function(gameScore, error) {
                                 for(i in error)
@@ -410,11 +410,11 @@
         }
         function renewfunction(type,process,num)
         { Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
-		console.log(type);
-		if(type==1)
-            json[num].set("developprocess",json[num].get("developprocess")+process);
-	    else if(type==2)
-            json[num].set("testprocess",json[num].get("testprocess")+process);
+            console.log(type);
+            if(type==1)
+                json[num].set("developprocess",json[num].get("developprocess")+process);
+            else if(type==2)
+                json[num].set("testprocess",json[num].get("testprocess")+process);
             json[num].save(null,{
                 success: function(gameScore) {
                     renewproject(type,process);
@@ -430,21 +430,21 @@
             Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
             var GameScore = Bmob.Object.extend("functionlog");
             var gameScore = new GameScore();
-			if(value<=0||value>100){
-			alert("输入数值不合规范");
-			return;}
-		    if(type==1)
-			{
-			var typevalue='开发';
-			var userid=json[i].get("developid");
-			var process=value-json[i].get("developprocess");
-			} 
-			if(type==2)
-			{
-			var typevalue='测试';
-			var userid=json[i].get("testid");
-			var process=value-json[i].get("testprocess");
-			}
+            if(value<=0||value>100){
+                alert("输入数值不合规范");
+                return;}
+            if(type==1)
+            {
+                var typevalue='开发';
+                var userid=json[i].get("developid");
+                var process=value-json[i].get("developprocess");
+            }
+            if(type==2)
+            {
+                var typevalue='测试';
+                var userid=json[i].get("testid");
+                var process=value-json[i].get("testprocess");
+            }
             gameScore.save({
                 userid:userid,
                 type:typevalue,
@@ -465,7 +465,8 @@
     </script>
     <style>
         #main_left:after,#main_right:after,#main:after,.color1:after,#info_btn:after,#modal_title3:after,#news_area:after,
-        #metro_area:after,#main_right_info:after,#main_right_advice:after,#main_right_chart:after,#main_right_news:after{
+        #metro_area:after,#main_right_info:after,#main_right_advice:after,#main_right_chart:after,#main_right_news:after,
+        #advice_problem:after,#advive_solve:after{
             content: ".";
             display: block;
             height: 0;
@@ -525,29 +526,30 @@
             box-sizing:border-box;
         }
         #main_right_advice{
-            height:267px ;
+            height:280px ;
             border-bottom: 1px solid #dcdcdc;
             box-sizing:border-box;
+            padding: 10px 0 10px 0;
         }
         #main_right_news{
-            height:229px ;
+            height:218px ;
             box-sizing:border-box;
             padding: 10px 0 0 25px;
             box-sizing: border-box;
         }
-        .main_title_four{/*四号加粗*/
+        .main_title_four{/*四点加粗*/
             font-size: 15px;
             font-weight: bold;
         }
-        .main_title_five{/*五号加粗*/
+        .main_title_five{/*五点加粗*/
             font-size: 19px;
             font-weight: bold;
         }
-        .main_title_seven{/*七号加粗*/
+        .main_title_seven{/*七点加粗*/
             font-size: 27px;
             font-weight: bold;
         }
-        .main_title_ten{/*十号不加粗*/
+        .main_title_ten{/*十点不加粗*/
             font-size: 38px;
         }
         #countdown_days{
@@ -713,23 +715,27 @@
         #huantu{
             float:left;
             width:400px;
-            height:400px;
+            height:399px;
             margin-left: 150px;
             margin-right: 50px;
             transition-duration: 0.5s;
         }
         #huantu:hover{
+            background-color: white;
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            transform:scale(1.05);
         }
         #xiantu{
             padding:0 20px 0 20px;
             transition-duration: 0.5s;
             float:left;
             min-width:400px;
-            height:400px;
+            height:399px;
         }
         #xiantu:hover{
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            transform:scale(1.05);
+            background-color: white;
         }
         .news_title{
             font-size: 19px;
@@ -767,7 +773,71 @@
             left: 9px;
             color: black;
         }
-        </style>
+        #advice_problem{
+            border: 1px solid #f8f8f8;
+            background-color: #f8f8f8;
+            float: left;
+            height: 260px;
+            width: 400px;
+            margin-left: 150px;
+            box-sizing: border-box;
+            transition-duration: 0.5s;
+        }
+        #advice_solve{
+            border: 1px solid #f8f8f8;
+            background-color: #f8f8f8;
+            height: 260px;
+            width: 400px;
+            float: left;
+            transition-duration: 0.5s;
+            margin-left: 75px;
+            box-sizing: border-box;
+        }
+        #advice_problem:hover,#advice_solve:hover,
+        #advice_problem:active,#advice_solve:active,
+        #advice_problem:focus,#advice_solve:focus{
+            box-shadow: 0 0 10px rgba(194,194,194,0.5);
+            border: 1px solid #c2c2c2;
+        }
+
+        #solve_display{
+            float: left;
+            transition-duration: 0.5s;
+            width: 130px;
+            height: 230px;
+            line-height: 40px;
+            border-right:1px solid #e9e9e9;
+            padding:10px 5px 0 5px;
+            box-sizing: border-box;
+        }
+        #display_task{
+            width: 50px;
+            margin-left: 35px;
+        }
+        .do_input{
+            width: 75px;
+            transition-duration: 0.5s;
+            border: 1px solid white;
+            margin: 0 5px;
+        }
+        .do_input:hover{
+            background-color: white;
+            border: 1px solid #e9e9e9;
+        }
+        .do_input:active,.do_input:focus{
+            border: 1px solid #e9e9e9;
+        }
+        #solve_do{
+            float: left;
+            padding:80px 5px 0 35px;
+            box-sizing: border-box;
+            height: 230px;
+            width: 260px;
+        }
+        #solve_do_devadd{
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -895,7 +965,31 @@
             <div id="xiantu" style=""></div>
         </div>
         <div id="main_right_advice">
-
+            <div id="advice_problem">
+                <div class="main_title_five" style="text-align: center;padding-bottom: 3px;border-bottom: 1px solid #e9e9e9">
+                    现状分析
+                </div>
+                <div class="main_title_four">123</div>
+            </div>
+            <div id="advice_solve">
+                <div class="main_title_five" style="text-align: center;padding-bottom: 3px;border-bottom: 1px solid #e9e9e9">
+                    模拟方案
+                </div>
+                <div id="solve_display">
+                    <i class="fa fa-2x fa-tasks" aria-hidden="true" id="display_task" style="text-align: center"></i>
+                    <div class="main_title_four" style="font-weight: normal">
+                        开发完成需要<span id="solve_display_time1" class="main_title_five">2</span>天测试完成需要<span id="solve_display_time2" class="main_title_five">2</span>天项目完成需要<span class="main_title_five" id="solve_display_time3">2</span>天
+                    </div>
+                </div>
+                <div id="solve_do">
+                    <div id="solve_do_devadd" class="main_title_four">
+                        假设开发增加<input type="number" id="devadd_input" class="do_input"/>人
+                    </div>
+                    <div id="solve_do_testadd" class="main_title_four">
+                        假设测试增加<input type="number" id="testadd_input" class="do_input"/>人
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="main_right_news">
             <div class='news_title'>更新记录</div>
