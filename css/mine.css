@@ -95,7 +95,7 @@ button{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    color: #9FA0A4;
+    color: #3C3F41;
     /*font-size: 28px;*/
     position: absolute;
     right: 30px;
@@ -206,7 +206,7 @@ button{
 /*新建项目*/
 #create{
     width: 1715px;
-    display: none;
+    /*display: none;*/
     margin: 33px 0 0 200px;
 }
 #create_title{
