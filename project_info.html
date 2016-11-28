@@ -19,53 +19,6 @@
         var lpreview=[];
         var nowview=[];
         nowview[0]=100;
-        function renewproject()
-        { Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
-            var GameScore = Bmob.Object.extend("projectlog");
-            var query = new Bmob.Query(GameScore);
-            var date=new Date();
-            date=new Date(date.toLocaleDateString());
-            query.equalTo("date", date);
-// 查询所有数据
-            query.find({
-                success: function(results) {
-
-                    if(results.length==0)
-                    {var GameScore = Bmob.Object.extend("projectlog");
-                        var gameScore = new GameScore();
-// 添加数据，第一个入口参数是Json数据
-                        gameScore.save({
-                            testprocess:0,
-                            developprocess:10,
-                            projectid: projectid,
-                            date:date
-                        }, {
-                            success: function(object) {
-
-                            },
-                            error: function(gameScore, error) {
-                                // 添加失败
-                            }
-                        });
-                    }
-                    else{
-                        results[0].set("developprocess",results[0].get("developprocess")+10);
-                        results[0].save(null,{
-                            success: function(gameScore) {
-                                console.log("renew");
-                            },
-                            error: function(gameScore, error) {
-                                for(i in error)
-                                    console.log(i+error[i]);
-                            }}
-                        );}
-                },
-                error: function(error) {
-                    alert("查询失败: " + error.code + " " + error.message);
-                }
-            });
-
-        }
         function huanxingtu(a,b) {
             // 去掉这里的注释就是类似 Apple Watch 上的效果了
             if (!Highcharts.theme) {
@@ -303,10 +256,10 @@
                             // 循环处理查询到的数据
                             for (var i = 0; i < results.length; i++) {
                                 process+=(results[i].get('developprocess')+results[i].get('testprocess'))/(2*3);
-
                                 nowview[i+1]=parseInt(100-process);
                             }
                             ranjintu();
+							ready();
                         },
                         error: function(error) {
                             alert("查询失败: " + error.code + " " + error.message);
@@ -321,8 +274,9 @@
         }
         $(function()
         {projectlist();
-            ready();})
-        $(function(){
+            })
+        function loglist(){
+		       $("#news_area").empty();
             Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
             var functionfind = Bmob.Object.extend("functionlog");
             var query = new Bmob.Query(functionfind);
@@ -340,7 +294,7 @@
                 }
             });
 
-        });
+        };
         function project_modal() {
             $("#modal3").slideToggle();
             $("#cover").fadeToggle();
@@ -358,16 +312,27 @@
             {
                 var tr=jQuery("<tr></tr>");
                 if(json[i].get('developprocess')<100)
+				{   
+			var darea=jQuery("<td><input type='number'  onchange= newreport(this.value,"+i+",1"+") class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
+			var tarea=jQuery("<td><input type='number' readonly='true' onchange= newreport(this.value,"+i+",2"+") class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
                     tr.appendTo(jQuery("#databody"));
+				}
                 else if(json[i].get('testprocess')<100)
+				{
+			var darea=jQuery("<td><input type='number'  readonly='true' onchange= newreport(this.value,"+i+",1"+") class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
+			var tarea=jQuery("<td><input type='number' onchange= newreport(this.value,"+i+",2"+") class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
                     tr.appendTo(jQuery("#databody1"));
-                else
+				}
+                else{
+			var darea=jQuery("<td><input type='number'  readonly='true' onchange= newreport(this.value,"+i+",1"+") class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
+			var tarea=jQuery("<td><input type='number' readonly='true' onchange= newreport(this.value,"+i+",2"+") class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
                     tr.appendTo(jQuery("#databody2"));
+					}
                 var td=jQuery("<td  onclick='project_modal()' style='cursor: pointer'>"+json[i].get('name')+"</td>");
                 td.appendTo(tr);
-                var td=jQuery("<td><input class='metro_container_input input_success' value='"+json[i].get('developprocess')+"'/></td>");
+                var td=darea;
                 td.appendTo(tr);
-                var td=jQuery("<td><input class='metro_container_input input_success' value='"+json[i].get('testprocess')+"'/></td>");
+                var td=tarea;
                 td.appendTo(tr);
                 var td=jQuery("<td><span class='label label-success'>"+json[i].get('developid')+"</span></td>");
                 td.appendTo(tr);
@@ -379,15 +344,80 @@
             deprocess=parseInt(deprocess/(json.length));
             teprocess=parseInt(teprocess/(json.length));
             huanxingtu(deprocess,teprocess);
+			loglist();
 
         }
 
-        function renewfunction()
+        function renewproject(type,process)
         { Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
-            json[0].set("developprocess",json[0].get("developprocess")+10);
-            json[0].save(null,{
+            var GameScore = Bmob.Object.extend("projectlog");
+            var query = new Bmob.Query(GameScore);
+            var date=new Date();
+            date=new Date(date.toLocaleDateString());
+            query.equalTo("date", date);
+// 查询所有数据
+            query.find({
+                success: function(results) {
+
+                    if(results.length==0)
+                    {var GameScore = Bmob.Object.extend("projectlog");
+					
+					if(type==1){
+                        var tprocess=0;
+						var dprocess=process;
+					}
+					else{
+                        var tprocess=0;
+						var dprocess=process;
+					}
+                        var gameScore = new GameScore();
+// 添加数据，第一个入口参数是Json数据
+                        gameScore.save({
+                            testprocess:tprocess,
+                            developprocess:dprocess,
+                            projectid: projectid,
+                            date:date
+                        }, {
+                            success: function() {
+                                   projectlist();
+                            },
+                            error: function(gameScore, error) {
+                                // 添加失败
+                            }
+                        });
+                    }
+                    else{
+					if(type==1)
+                        results[0].set("developprocess",results[0].get("developprocess")+process);
+					else if(type==2)
+                        results[0].set("testprocess",results[0].get("testprocess")+process);
+                        results[0].save(null,{
+                            success: function(gameScore) {
+                                projectlist();
+						
+                            },
+                            error: function(gameScore, error) {
+                                for(i in error)
+                                    console.log(i+error[i]);
+                            }}
+                        );}
+                },
+                error: function(error) {
+                    alert("查询失败: " + error.code + " " + error.message);
+                }
+            });
+
+        }
+        function renewfunction(type,process,num)
+        { Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+		console.log(type);
+		if(type==1)
+            json[num].set("developprocess",json[num].get("developprocess")+process);
+	    else if(type==2)
+            json[num].set("testprocess",json[num].get("testprocess")+process);
+            json[num].save(null,{
                 success: function(gameScore) {
-                    renewproject();
+                    renewproject(type,process);
                 },
                 error: function(gameScore, error) {
                     for(i in error)
@@ -395,20 +425,35 @@
                 }}
             );
         }
-        function newreport()
+        function newreport(value,i,type)
         {
             Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
             var GameScore = Bmob.Object.extend("functionlog");
             var gameScore = new GameScore();
+			if(value<=0||value>100){
+			alert("输入数值不合规范");
+			return;}
+		    if(type==1)
+			{
+			var typevalue='开发';
+			var userid=json[i].get("developid");
+			var process=value-json[i].get("developprocess");
+			} 
+			if(type==2)
+			{
+			var typevalue='测试';
+			var userid=json[i].get("testid");
+			var process=value-json[i].get("testprocess");
+			}
             gameScore.save({
-                userid:'develop1',
-                type:'开发',
+                userid:userid,
+                type:typevalue,
                 projectid:projectid,
-                process:10,
-                functionname:'qq'
+                process:process,
+                functionname:json[i].get("name")
             }, {
                 success: function(gameScore) {
-                    renewfunction();
+                    renewfunction(type,process,i);
                 },
                 error: function(gameScore, error) {
                     for(i in error)
