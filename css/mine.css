@@ -415,6 +415,7 @@ input::-webkit-inner-spin-button {
 .task-list{
     margin: 0;
     padding: 0;
+    overflow-y: auto;
 }
 .task_title{/*整体*/
     /*margin: 0 30px;*/
@@ -425,7 +426,7 @@ input::-webkit-inner-spin-button {
     background-color: transparent;
     transition-duration: 0.5s;
 }
-.task_title:hover{
+.task_title:hover,.task_title:active,.task_title:focus{
     background-color: #eeeeee;
 }
 .task_title:hover>.task_title_sp,.task_title:hover>.badge_sm{
