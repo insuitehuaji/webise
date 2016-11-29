@@ -232,6 +232,28 @@
             clear: both;
             visibility: hidden;
         }
+
+        .task_area{
+            height: 370px;
+            margin-bottom: 8px;
+        }
+        .modal_add_icon{
+            color: white;
+            font-size: 18px;
+        }
+        .modal_add{
+            width: 360px;
+            height: 30px;
+            margin-left: 70px;
+            background-color:#EEEEEE;
+            padding:7px 175px;
+            box-sizing: border-box;
+            cursor: pointer;
+            transition-duration: 0.5s;
+        }
+        .modal_add:hover{
+            background-color:#c2c2c2;
+        }
     </style>
 
 </head>
@@ -337,8 +359,13 @@
                                 <div class="modal_title" style="margin-left: 148px">種類</div>
                                 <div class="modal_title" style="margin-left: 115px;margin-right: 30px">選択</div>
                             </div>
-                            <ul class="task-list" id="list1" >
-                            </ul>
+                            <div class="task_area">
+                                <ul class="task-list" id="list1" >
+                                </ul>
+                            </div>
+                            <div class="modal_add" id="modal_dev_add">
+                                <i class="fa fa-plus modal_add_icon" aria-hidden="true"></i>
+                            </div>
                         </div>
 
                     </div>
@@ -363,8 +390,13 @@
                                 <div class="modal_title" style="margin-left: 148px">種類</div>
                                 <div class="modal_title" style="margin-left: 115px">選択</div>
                             </div>
-                            <ul class="task-list" id="list2">
-                            </ul>
+                            <div class="task_area">
+                                <ul class="task-list" id="list2">
+                                </ul>
+                            </div>
+                            <div class="modal_add" id="modal_test_add">
+                                <i class="fa fa-plus modal_add_icon" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -400,5 +432,6 @@
     $("#logo").click(function () {
         window.location.href="main.html"
     })
+    
 </script>
 </html>
