@@ -18,8 +18,8 @@
         var epreview=[];
         var lpreview=[];
         var nowview=[];
-		
-		var testnm,dday,tday,developnm;
+
+        var testnm,dday,tday,developnm;
         nowview[0]=100;
         function huanxingtu(a,b) {
             // 去掉这里的注释就是类似 Apple Watch 上的效果了
@@ -237,13 +237,20 @@
                     var alleday = parseInt((days1.getTime() - days0.getTime())/(3600000*24));
                     var alllday = parseInt((days2.getTime() - days0.getTime())/(3600000*24));
                     var nowday=parseInt((s2.getTime() - days0.getTime())/(3600000*24));
-					developnm=object.get('developnm');
-					testnm=object.get('testnm');
+                    developnm=object.get('developnm');
+                    testnm=object.get('testnm');
                     // The object was retrieved successfully.
                     $("#proinfo_name").html(object.get("name"));
                     $("#countdown_num1").html(edays);
                     $("#devadd_input").val(developnm);
                     $("#testadd_input").val(testnm);
+                        $(".solve_do_reset").click(function() {
+                            $("#devadd_input").val(developnm);
+                            $("#testadd_input").val(testnm);
+                            $('#solve_display_time1').html(Math.ceil(dday));
+                            $('#solve_display_time2').html(Math.ceil(tday));
+                            $('#solve_display_time3').html( Math.ceil(Math.max(dday,tday)));
+                    });
                     $("#countdown_num1").html(edays);
                     $("#countdown_num2").html(ldays);
                     $("#proinfo_deadline").html(object.get('etime')+'|'+object.get('ltime'));
@@ -257,7 +264,7 @@
                     }
                     var GameScore = Bmob.Object.extend("projectlog");
                     var query = new Bmob.Query(GameScore);
-            query.equalTo("projectid", projectid);
+                    query.equalTo("projectid", projectid);
                     var process=0;
                     query.find({
                         success: function(results) {
@@ -280,20 +287,20 @@
                 }
             });
         }
-		function getprojectid(param)
-		{
-var re = new RegExp("(\\\?|&)" + param + "=([^&]+)(&|$)", "i");
-var m = location.href.match(re);
-if (m)
-return m[2];
-else
-return '';
-		}
+        function getprojectid(param)
+        {
+            var re = new RegExp("(\\\?|&)" + param + "=([^&]+)(&|$)", "i");
+            var m = location.href.match(re);
+            if (m)
+                return m[2];
+            else
+                return '';
+        }
         $(function()
         {
-		projectid=getprojectid('pid');
-	  projectlist();
-            })
+            projectid=getprojectid('pid');
+            projectlist();
+        })
         function loglist(){
             $("#news_area").empty();
             Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
@@ -314,14 +321,14 @@ return '';
             });
 
         };
-		function changepreview(a,b)
-		{
-		if(a==1)
-		$('#solve_display_time1').html(Math.ceil(dday*developnm/b));
-		if(a==2)
-		$('#solve_display_time2').html(Math.ceil(tday*testnm/b));
-		$('#solve_display_time3').html(Math.max($('#solve_display_time1').html(),$('#solve_display_time2').html()));
-		}
+        function changepreview(a,b)
+        {
+            if(a==1)
+                $('#solve_display_time1').html((dday==Infinity)?'∞':Math.ceil(dday*developnm/b));
+            if(a==2)
+                $('#solve_display_time2').html((tday==Infinity)?'∞':Math.ceil(tday*testnm/b));
+            $('#solve_display_time3').html( (dday==Infinity||tday==Infinity)?'∞':Math.ceil(Math.max($('#solve_display_time1').html(),$('#solve_display_time2').html())));
+        }
         function project_modal() {
             $("#modal3").slideToggle();
             $("#cover").fadeToggle();
@@ -370,13 +377,13 @@ return '';
             }
             deprocess=parseInt(deprocess/(json.length));
             teprocess=parseInt(teprocess/(json.length));
-			var dspeed=deprocess/(nowview.length-1);
-			var tspeed=teprocess/(nowview.length-1);
-			 dday=((100-deprocess)/dspeed);
-			tday=((100-teprocess)/tspeed);
-			$('#solve_display_time1').html(Math.ceil(dday));
-			$('#solve_display_time2').html(Math.ceil(tday));
-			$('#solve_display_time3').html( Math.ceil(Math.max(dday,tday)));
+            var dspeed=deprocess/(nowview.length-1);
+            var tspeed=teprocess/(nowview.length-1);
+            dday=((100-deprocess)/dspeed);
+            tday=((100-teprocess)/tspeed);
+            $('#solve_display_time1').html((dday==Infinity)?'∞':Math.ceil(dday));
+            $('#solve_display_time2').html((tday==Infinity)?'∞':Math.ceil(tday));
+            $('#solve_display_time3').html( (dday==Infinity||tday==Infinity)?'∞':Math.ceil(Math.max(dday,tday)));
             huanxingtu(deprocess,teprocess);
             loglist();
 
@@ -494,7 +501,6 @@ return '';
                         console.log(i+error[i]);
                 }
             });
-
         }
     </script>
     <style>
@@ -706,7 +712,7 @@ return '';
         }
         .info_btn:hover{
             color: white;
-            width: 90px;
+            width: 62px;
             padding-left: 7px;
             border-radius: 100px;
         }
@@ -778,10 +784,10 @@ return '';
         .news_container{
             padding-top: 2px;
             height: 25px;
-            width: 520px;
+            width: 550px;
             transition-duration: 0.8s;
             float: left;
-            margin-right: 25px;
+            margin-right: 15px;
             box-sizing: border-box;
             position: relative;
         }
@@ -812,21 +818,42 @@ return '';
             background-color: #f8f8f8;
             float: left;
             height: 260px;
-            width: 400px;
-            margin-left: 150px;
+            width: 410px;
+            margin-left: 140px;
             box-sizing: border-box;
             transition-duration: 0.5s;
+        }
+        #problem_textarea{
+            border: 1px solid transparent;
+            transition-duration: 0.5s;
+            height: 210px;
+            width: 390px;
+        }
+        #problem_textarea:hover{
+            background-color: white;
+            border: 1px solid #e9e9e9;
+        }
+        #problem_textarea:active,#problem_textarea:focus{
+            border: 1px solid #e9e9e9;
+            box-shadow:inset 0 0 5px rgba(0,0,0,0.1);
+        }
+        #problem_text{
+            height: 230px;
+            width: 410px;
+            padding: 10px;
+            box-sizing: border-box;
         }
         #advice_solve{
             border: 1px solid #f8f8f8;
             background-color: #f8f8f8;
             height: 260px;
-            width: 400px;
+            width: 410px;
             float: left;
             transition-duration: 0.5s;
             margin-left: 75px;
             box-sizing: border-box;
         }
+
         #advice_problem:hover,#advice_solve:hover,
         #advice_problem:active,#advice_solve:active,
         #advice_problem:focus,#advice_solve:focus{
@@ -837,19 +864,21 @@ return '';
         #solve_display{
             float: left;
             transition-duration: 0.5s;
-            width: 130px;
+            width: 180px;
             height: 230px;
-            line-height: 40px;
             border-right:1px solid #e9e9e9;
-            padding:10px 5px 0 5px;
+            padding:20px 5px 0 5px;
             box-sizing: border-box;
+        }
+        .solve_display_text{
+            margin-top: 15px;
         }
         #display_task{
             width: 50px;
-            margin-left: 35px;
+            margin-left: 55px;
         }
         .do_input{
-            width: 75px;
+            width: 40px;
             transition-duration: 0.5s;
             border: 1px solid white;
             margin: 0 5px;
@@ -863,13 +892,26 @@ return '';
         }
         #solve_do{
             float: left;
-            padding:80px 5px 0 35px;
+            padding:80px 0 0 5px;
             box-sizing: border-box;
             height: 230px;
-            width: 260px;
+            width: 220px;
         }
         #solve_do_devadd{
             margin-bottom: 20px;
+        }
+        .solve_do_reset{
+            background-color: #fff;
+            box-shadow: none;
+            border: none;
+            outline: none;
+        }
+        .solve_do_reset{
+            background-color: transparent;
+            font-size: 20px;
+            margin-top: 15px;
+            margin-left: 2px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -880,7 +922,7 @@ return '';
     <a href="main.html"><img src="img/LOGO.png" alt="" id="logo" title="返回首页"></a>
     <div id="tab">
         <div id="tab_project " class="tab tab_active">
-           一覧
+            一覧
         </div>
         <div id="tab_my" class="tab">
             自分
@@ -1000,34 +1042,39 @@ return '';
         </div>
         <div id="main_right_advice">
             <div id="advice_problem">
-                <div class="main_title_five" style="text-align: center;padding-bottom: 3px;border-bottom: 1px solid #e9e9e9">
+                <div class="main_title_five" style="text-align: center;padding:2px 0 2px 0;border-bottom: 1px solid #e9e9e9;height: 30px;box-sizing: border-box">
                     状況分析
                 </div>
-                <div class="main_title_four"></div>
+                <div id="problem_text">
+                    <textarea id="problem_textarea" name=""cols="30" rows="10"></textarea>
+                </div>
             </div>
             <div id="advice_solve">
                 <div class="main_title_five" style="text-align: center;padding-bottom: 3px;border-bottom: 1px solid #e9e9e9">
                     計画が変わる
                 </div>
                 <div id="solve_display">
-                    <i class="fa fa-2x fa-tasks" aria-hidden="true" id="display_task" style="text-align: center"></i>
+                    <i class="fa fa-2x fa-tasks" aria-hidden="true" id="display_task"></i>
                     <div class="main_title_four" style="font-weight: normal">
-                        開発にはまだ<span id="solve_display_time1" class="main_title_five">2</span>日間テストにはまだ<span id="solve_display_time2" class="main_title_five">2</span>日間全部にはまだ<span class="main_title_five" id="solve_display_time3">2</span>日間
+                        <div class="solve_display_text">開発にはまだ<span id="solve_display_time1" class="main_title_five">&nbsp;</span>日間</div>
+                        <div class="solve_display_text">テストにはまだ<span id="solve_display_time2" class="main_title_five">&nbsp;</span>日間</div>
+                        <div class="solve_display_text">全部にはまだ<span class="main_title_five" id="solve_display_time3">&nbsp;</span>日間</div>
                     </div>
                 </div>
                 <div id="solve_do">
                     <div id="solve_do_devadd" class="main_title_four">
-                        開発者が<input type="number" id="devadd_input" onchange= changepreview(1,this.value) class="do_input"/>人になら
+                        開発者が<input type="number" id="devadd_input" onchange= changepreview(1,this.value) class="do_input"/>人になるなら
                     </div>
                     <div id="solve_do_testadd" class="main_title_four">
-                        テスト者が<input type="number" id="testadd_input" onchange= changepreview(2,this.value) class="do_input"/>人になら
+                        テスト者が<input type="number" id="testadd_input" onchange= changepreview(2,this.value) class="do_input"/>人になるなら
                     </div>
+                    <i class="fa fa-refresh solve_do_reset"></i>
                 </div>
             </div>
         </div>
         <div id="main_right_news">
             <div class='news_title'>更新履歴
-</div>
+            </div>
             <div id="news_area">
 
             </div>
@@ -1076,21 +1123,21 @@ return '';
     });
     $(".btn_edit").hover(function(){
         setTimeout(function () {
-            $(".btn_edit").append('<span class="btn_linshi">プロジェクト編集</span>')
+            $(".btn_edit").append('<span class="btn_linshi">編集</span>')
         },150)
     },function(){
         $("span").remove(".btn_linshi")
     });
     $(".btn_folder").hover(function(){
         setTimeout(function () {
-            $(".btn_folder").append('<span class="btn_linshi">プロジェクトが終った</span>')
+            $(".btn_folder").append('<span class="btn_linshi">完了</span>')
         },150)
     },function(){
         $("span").remove(".btn_linshi")
     });
     $(".btn_delete").hover(function(){
         setTimeout(function () {
-            $(".btn_delete").append('<span class="btn_linshi">プロジェクト削除</span>')
+            $(".btn_delete").append('<span class="btn_linshi">削除</span>')
         },150)
     },function(){
         $("span").remove(".btn_linshi")
@@ -1106,6 +1153,11 @@ return '';
     $(".modal_close").click(function () {
         $("#cover").fadeOut();
         $(".create_modal").slideUp();
+    });
+    $(".solve_do_reset").hover(function(){
+        $(".solve_do_reset").addClass("fa-spin")
+    },function(){
+        $(".solve_do_reset").removeClass("fa-spin")
     });
 </script>
 </html>
