@@ -152,9 +152,8 @@ button{
     height: 60px;
     border-radius: 50%;
     background-color: #EEEEEE;
-    position: relative;
-    top:40px;
-    left: 113px;
+    margin: 50px auto;
+
     transition-duration: 0.5s;
 }
 #icon_plus{
@@ -205,24 +204,27 @@ button{
 
 /*新建项目*/
 #create{
-    width: 1715px;
+    width: 1920px;
     /*display: none;*/
-    margin: 33px 0 0 200px;
+    box-sizing: border-box;
+    padding: 33px 0 0 200px;
 }
 #create_title{
-    width: 230px;
+    width: 270px;
     padding-bottom:5px;
     border-bottom: 1px solid #c2c2c2;
     float: left;
 }
 .create_button{
     float: right;
-    width: 70px;
+    width: 90px;
     height: 25px;
     color: white;
     text-align: center;
     padding-top: 2px;
     cursor: pointer;
+    font-size: 15px;
+    box-sizing: border-box;
 }
 #create_submit{
     background-color:#0091FE;
@@ -264,7 +266,8 @@ input,textarea{
     transition-duration: 0.2s;
     outline:none;
     border: none;
-    resize:none
+    resize:none;
+    box-sizing: border-box;
 }
 input:hover,textarea:hover{
     background-color: #fafafa;
@@ -295,6 +298,7 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+
 #create_describe{
     width: 573px;
     height: 112px;
@@ -333,21 +337,16 @@ input::-webkit-inner-spin-button {
     height: 322px;
 }
 .icon_plus_bg2{
-    width: 20px;
-    height: 20px;
+    font-size: 25px;
     border-radius: 50%;
-    background-color: #2CBBE7;
+    color: #2CBBE7;
     float: left;
-    margin: 3px 0 0 5px;
+    margin: 4px 0 0 5px;
     cursor: pointer;
     transition-duration: 0.2s;
 }
 .icon_plus_bg2:hover{
     box-shadow: 0 0 5px rgba(44,187,231,0.5);
-}
-.icon_plus2{
-    width: 12px;
-    margin:3px 0 0 4px;
 }
 .icon_reduce_bg{
     width: 20px;
@@ -410,11 +409,27 @@ input::-webkit-inner-spin-button {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+/*.task-list>li{*/
+    /*width: ;*/
+/*}*/
 .task-list{
     margin: 0;
+    padding: 0;
 }
 .task_title{/*整体*/
-    margin: 0 30px;
+    /*margin: 0 30px;*/
+    width: 500px;
+    height: 30px;
+    box-sizing: border-box;
+    padding: 5px 70px;
+    background-color: transparent;
+    transition-duration: 0.5s;
+}
+.task_title:hover{
+    background-color: #eeeeee;
+}
+.task_title:hover>.task_title_sp,.task_title:hover>.badge_sm{
+    font-weight: bold;
 }
 .task_title_sp{/*姓名*/
     font-size: 15px;
@@ -422,8 +437,7 @@ input::-webkit-inner-spin-button {
     float: left;
     width: 150px;
     margin-bottom: 5px;
-    transition-duration: 0.2s;
-    cursor: pointer;
+    transition-duration: 0.5s;
 }
 .badge_sm{/*职位*/
     font-size: 15px;
@@ -433,14 +447,7 @@ input::-webkit-inner-spin-button {
     text-align: left;
     width: 150px;
     margin-bottom: 5px;
-    transition-duration: 0.2s;
-    cursor: pointer;
-
-}
-.task_title_sp:hover,.badge_sm:hover{
-    font-weight: bold;
-    border-left: 5px solid #48DC6A;
-
+    transition-duration: 0.5s;
 }
 .btn_success{/*确定按钮*/
     margin-bottom: 5px;
