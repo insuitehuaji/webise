@@ -2,16 +2,20 @@
 <script src="js/jquery-3.1.1.js"></script>
 <script>
 $(function(){
-jQuery.ajax({ 
-	url:'https://github.com/login/oauth/authorize?client_id=c2ac34800ed47f01e1b8',  
-    type :"get", 
-    dataType: "json",
-	})
-    .done(function(json){
-	alert('success');
-   })
-    .fail(function(){
-      alert('error');
-    });
-	})
+    $.ajax({ 
+            url:'https://github.com/login/oauth/access_token?client_id=c2ac34800ed47f01e1b8&client_secret=122399c11e36dc4c50972599788c5540d416c4e9&code=1b736823c655497b7b29', 
+            type: "get", 
+            async: false, 
+            dataType: "jsonp", 
+            jsonp: "callback", //服务端用于接收callback调用的function名的参数(请使用callback或jsonp)
+            jsonpCallback: "fun_jsonpCallback", //callback的function名称
+            success: function(json) { 
+                alert(json.name); 
+            },
+            error: function(){
+                alert('Request Error');
+            } 
+        }); 
+    });        
+
    </script>
