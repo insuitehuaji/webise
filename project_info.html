@@ -18,6 +18,8 @@
         var epreview=[];
         var lpreview=[];
         var nowview=[];
+		
+		var testnm,dday,tday,developnm;
         nowview[0]=100;
         function huanxingtu(a,b) {
             // 去掉这里的注释就是类似 Apple Watch 上的效果了
@@ -26,7 +28,7 @@
                     chart: {
                         backgroundColor: 'transparent'
                     },
-                    colors: ['#48dc6a', '#ffd200', '#ff5534'],
+                    colors: ['#ffd200', '#ff5534', '#48dc6a'],
                     title: {
                         style: {
                             color: 'silver'
@@ -49,7 +51,7 @@
                             enabled:false
                         },
                         title: {
-                            text: '进度图',
+                            text: '進度図',
                             style: {
                                 fontSize: '24px',
                                 color:'black',
@@ -108,7 +110,7 @@
                             }
                         },
                         series: [{
-                            name: '总进度',
+                            name: '全部で',
                             borderColor: Highcharts.getOptions().colors[0],
                             data: [{
                                 color: Highcharts.getOptions().colors[0],
@@ -117,7 +119,7 @@
                                 y: parseInt((a+b)/2)
                             }]
                         }, {
-                            name: '测试进度',
+                            name: 'テスト',
                             borderColor: Highcharts.getOptions().colors[1],
                             data: [{
                                 color: Highcharts.getOptions().colors[1],
@@ -126,7 +128,7 @@
                                 y: b
                             }]
                         }, {
-                            name: '开发进度',
+                            name: '開発',
                             borderColor: Highcharts.getOptions().colors[2],
                             data: [{
                                 color: Highcharts.getOptions().colors[2],
@@ -141,15 +143,15 @@
                      */
                     function callback() {
                         // Move icon
-                        this.renderer.text('<span style="color :white;font-weight:boLd" >总进度</span>')
+                        this.renderer.text('<span style="color :white;font-weight:boLd" >全部進度</span>')
                                 .translate(185, 30)
                                 .add(this.series[2].group);
                         // Exercise icon
-                        this.renderer.text('<span style="color :white;font-weight:boLd" >测试进度</span>')
+                        this.renderer.text('<span style="color :white;font-weight:boLd" >テスト進度</span>')
                                 .translate(185, 66)
                                 .add(this.series[2].group);
                         // Stand icon
-                        this.renderer.text('<span style="color :white;font-weight:boLd" >开发进度</span>')
+                        this.renderer.text('<span style="color :white;font-weight:boLd" >開発進度</span>')
                                 .translate(185, 107)
                                 .add(this.series[2].group);
                     });
@@ -160,7 +162,7 @@
                     type: 'line'
                 },
                 title: {
-                    text: '燃尽图',
+                    text: '割引図',
                     style: {
                         fontSize: '24px',
                         color:'black',
@@ -177,7 +179,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: '进度'
+                        text: '進度'
                     },
                     max:100,
                     min:0
@@ -191,13 +193,13 @@
                     }
                 },
                 series: [{
-                    name: '实际进度',
+                    name: '実際進度',
                     data: nowview
                 },{
-                    name: '预期进度(最快)',
+                    name: '計画进度(早い)',
                     data: epreview
                 },{
-                    name: '预期进度(最慢)',
+                    name: '計画进度(遅い)',
                     data: lpreview
                 }]
             });
@@ -234,9 +236,14 @@
                     var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
                     var alleday = parseInt((days1.getTime() - days0.getTime())/(3600000*24));
                     var alllday = parseInt((days2.getTime() - days0.getTime())/(3600000*24));
-                    var nowday=parseInt((s2.getTime() - days0.getTime())/(3600000*24))
+                    var nowday=parseInt((s2.getTime() - days0.getTime())/(3600000*24));
+					developnm=object.get('developnm');
+					testnm=object.get('testnm');
                     // The object was retrieved successfully.
                     $("#proinfo_name").html(object.get("name"));
+                    $("#countdown_num1").html(edays);
+                    $("#devadd_input").val(developnm);
+                    $("#testadd_input").val(testnm);
                     $("#countdown_num1").html(edays);
                     $("#countdown_num2").html(ldays);
                     $("#proinfo_deadline").html(object.get('etime')+'|'+object.get('ltime'));
@@ -250,6 +257,7 @@
                     }
                     var GameScore = Bmob.Object.extend("projectlog");
                     var query = new Bmob.Query(GameScore);
+            query.equalTo("projectid", projectid);
                     var process=0;
                     query.find({
                         success: function(results) {
@@ -268,13 +276,24 @@
 
                 },
                 error: function(object, error) {
-                    console("query object fail");
+                    console.log("query object fail");
                 }
             });
         }
+		function getprojectid(param)
+		{
+var re = new RegExp("(\\\?|&)" + param + "=([^&]+)(&|$)", "i");
+var m = location.href.match(re);
+if (m)
+return m[2];
+else
+return '';
+		}
         $(function()
-        {projectlist();
-        })
+        {
+		projectid=getprojectid('pid');
+	  projectlist();
+            })
         function loglist(){
             $("#news_area").empty();
             Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
@@ -285,7 +304,7 @@
             query.find({
                 success: function(results) {
                     for (var i=0;i<results.length;i++){
-                        var ob="<div class='news_container'><i class='fa fa-check-circle news_icon'></i>"+results[i].get("userid")+'在'+results[i].createdAt+'完成了'+results[i].get("functionname")+'的'+results[i].get("process")+'%'+results[i].get("type")+"任务</div>";
+                        var ob="<div class='news_container'><i class='fa fa-check-circle news_icon'></i>"+results[i].get("userid")+'は'+results[i].createdAt+'に'+results[i].get("functionname")+'の'+results[i].get("process")+'%'+results[i].get("type")+"任務を完成しました</div>";
                         $(ob).appendTo("#news_area");
                     }
                 },
@@ -295,6 +314,14 @@
             });
 
         };
+		function changepreview(a,b)
+		{
+		if(a==1)
+		$('#solve_display_time1').html(Math.ceil(dday*developnm/b));
+		if(a==2)
+		$('#solve_display_time2').html(Math.ceil(tday*testnm/b));
+		$('#solve_display_time3').html(Math.max($('#solve_display_time1').html(),$('#solve_display_time2').html()));
+		}
         function project_modal() {
             $("#modal3").slideToggle();
             $("#cover").fadeToggle();
@@ -343,6 +370,13 @@
             }
             deprocess=parseInt(deprocess/(json.length));
             teprocess=parseInt(teprocess/(json.length));
+			var dspeed=deprocess/(nowview.length-1);
+			var tspeed=teprocess/(nowview.length-1);
+			 dday=((100-deprocess)/dspeed);
+			tday=((100-teprocess)/tspeed);
+			$('#solve_display_time1').html(Math.ceil(dday));
+			$('#solve_display_time2').html(Math.ceil(tday));
+			$('#solve_display_time3').html( Math.ceil(Math.max(dday,tday)));
             huanxingtu(deprocess,teprocess);
             loglist();
 
@@ -846,10 +880,10 @@
     <a href="main.html"><img src="img/LOGO.png" alt="" id="logo" title="返回首页"></a>
     <div id="tab">
         <div id="tab_project " class="tab tab_active">
-            项目
+           一覧
         </div>
         <div id="tab_my" class="tab">
-            我的
+            自分
         </div>
     </div>
     <div id="user">
@@ -861,20 +895,20 @@
     <div id="main_left">
         <div class="metro_plus">
             <i class="fa fa-chevron-circle-left back" aria-hidden="true" title="返回首页"></i>
-            功能列表<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" title="添加区块"></i>
+            機能一覧<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" title="添加区块"></i>
         </div>
         <div id="metro_area">
             <div id="main_dev_no" class="main_left_metro">
-                <div class="main_metro_title"><input type="text" value="开发未完成" placeholder="请输入区块标题..."></div>
+                <div class="main_metro_title"><input type="text" value="開発中" placeholder="请输入区块标题..."></div>
                 <i class="fa fa-trash metro_delete" aria-hidden="true" title="删除区块"></i>
                 <table  class="table table-striped">
                     <thead>
                     <tr>
-                        <th>名称</th>
-                        <th>开发进度</th>
-                        <th>测试进度</th>
-                        <th>开发者</th>
-                        <th>测试者</th>
+                        <th>名前</th>
+                        <th>開発プロセス</th>
+                        <th>テストプロセス</th>
+                        <th>開発者</th>
+                        <th>テスト者</th>
                     </tr>
                     </thead>
                     <tbody id="databody">
@@ -882,16 +916,16 @@
                 </table>
             </div>
             <div id="main_test_no" class="main_left_metro">
-                <div class="main_metro_title"><input type="text" value="测试未完成" placeholder="请输入区块标题..."></div>
+                <div class="main_metro_title"><input type="text" value="テスト中" placeholder="请输入区块标题..."></div>
                 <i class="fa fa-trash metro_delete" aria-hidden="true" title="删除区块"></i>
                 <table  class="table table-striped">
                     <thead>
                     <tr>
-                        <th>名称</th>
-                        <th>开发进度</th>
-                        <th>测试进度</th>
-                        <th>开发者</th>
-                        <th>测试者</th>
+                        <th>名前</th>
+                        <th>開発プロセス</th>
+                        <th>テストプロセス</th>
+                        <th>開発者</th>
+                        <th>テスト者</th>
                     </tr>
                     </thead>
                     <tbody id="databody1">
@@ -899,16 +933,16 @@
                 </table>
             </div>
             <div id="main_dev_ok" class="main_left_metro">
-                <div class="main_metro_title"><input type="text" value="已完成功能" placeholder="请输入区块标题..."></div>
+                <div class="main_metro_title"><input type="text" value="終った" placeholder="请输入区块标题..."></div>
                 <i class="fa fa-trash metro_delete" aria-hidden="true" title="删除区块"></i>
                 <table  class="table table-striped">
                     <thead>
                     <tr>
-                        <th>名称</th>
-                        <th>开发进度</th>
-                        <th>测试进度</th>
-                        <th>开发者</th>
-                        <th>测试者</th>
+                        <th>名前</th>
+                        <th>開発プロセス</th>
+                        <th>テストプロセス</th>
+                        <th>開発者</th>
+                        <th>テスト者</th>
                     </tr>
                     </thead>
                     <tbody id="databody2">
@@ -937,26 +971,26 @@
         </div>
         <div id="main_right_info">
             <div id="info_countdown"><!--倒计时-->
-                <div class="main_title_five">距离截止日期还有</div>
+                <div class="main_title_five">締め切り日まで</div>
                 <div id="countdown_days">
-                    <span class="main_title_ten" id="countdown_num1">9</span>天 <span class="line">|</span><span id="countdown_num2" class="main_title_ten">19</span>天
+                    <span class="main_title_ten" id="countdown_num1">9</span>日 <span class="line">|</span><span id="countdown_num2" class="main_title_ten">19</span>日
                 </div>
             </div>
             <div id="info_proinfo"><!--项目名称和截止日-->
-                <div class="main_title_seven" id="proinfo_name">Ver3.5.0开发</div>
+                <div class="main_title_seven" id="proinfo_name">Ver3.5.0開発</div>
                 <div class="main_title_five" id="proinfo_deadline">2016.11.11|2016.11.21</div>
-                <div class="main_title_four" id="proinfo_text">截止</div>
+                <div class="main_title_four" id="proinfo_text">締め切り日</div>
             </div>
             <div id="info_color">
-                <div class="main_title_five">紧急度图例</div>
+                <div class="main_title_five">緊急度スタイル</div>
                 <div class="color1">
-                    <div class="color_green"></div>正常
+                    <div class="color_green"></div>早い
                 </div>
                 <div class="color1">
-                    <div class="color_yellow"></div>紧急
+                    <div class="color_yellow"></div>普段
                 </div>
                 <div class="color2">
-                    <div class="color_red"></div>非常紧急
+                    <div class="color_red"></div>遅い
                 </div>
             </div>
         </div>
@@ -967,32 +1001,33 @@
         <div id="main_right_advice">
             <div id="advice_problem">
                 <div class="main_title_five" style="text-align: center;padding-bottom: 3px;border-bottom: 1px solid #e9e9e9">
-                    现状分析
+                    状況分析
                 </div>
-                <div class="main_title_four">123</div>
+                <div class="main_title_four"></div>
             </div>
             <div id="advice_solve">
                 <div class="main_title_five" style="text-align: center;padding-bottom: 3px;border-bottom: 1px solid #e9e9e9">
-                    模拟方案
+                    計画が変わる
                 </div>
                 <div id="solve_display">
                     <i class="fa fa-2x fa-tasks" aria-hidden="true" id="display_task" style="text-align: center"></i>
                     <div class="main_title_four" style="font-weight: normal">
-                        开发完成需要<span id="solve_display_time1" class="main_title_five">2</span>天测试完成需要<span id="solve_display_time2" class="main_title_five">2</span>天项目完成需要<span class="main_title_five" id="solve_display_time3">2</span>天
+                        開発にはまだ<span id="solve_display_time1" class="main_title_five">2</span>日間テストにはまだ<span id="solve_display_time2" class="main_title_five">2</span>日間全部にはまだ<span class="main_title_five" id="solve_display_time3">2</span>日間
                     </div>
                 </div>
                 <div id="solve_do">
                     <div id="solve_do_devadd" class="main_title_four">
-                        假设开发增加<input type="number" id="devadd_input" class="do_input"/>人
+                        開発者が<input type="number" id="devadd_input" onchange= changepreview(1,this.value) class="do_input"/>人になら
                     </div>
                     <div id="solve_do_testadd" class="main_title_four">
-                        假设测试增加<input type="number" id="testadd_input" class="do_input"/>人
+                        テスト者が<input type="number" id="testadd_input" onchange= changepreview(2,this.value) class="do_input"/>人になら
                     </div>
                 </div>
             </div>
         </div>
         <div id="main_right_news">
-            <div class='news_title'>更新记录</div>
+            <div class='news_title'>更新履歴
+</div>
             <div id="news_area">
 
             </div>
