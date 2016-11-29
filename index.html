@@ -17,7 +17,20 @@ if(getprojectid('code')!='')
 location.href="https://github.com/login/oauth/access_token?client_id=c2ac34800ed47f01e1b8&client_secret=122399c11e36dc4c50972599788c5540d416c4e9&code="+getprojectid('code');
 }
 else if(getprojectid('access_token')!='')
- location.href='https://api.github.com/user?access_token='+getprojectid('access_token');
+{$.ajax({
+    type : "post",
+    url : 'https://api.github.com/user?access_token='+getprojectid('access_token')
+    dataType : "jsonp",
+    jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+    jsonpCallback:"success_jsonpCallback",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+    success : function(json){
+        alert('success');
+    },
+    error:function(){
+        alert('fail');
+    }
+});
+}
 	else
 	{location.href='https://github.com/login/oauth/authorize?client_id=c2ac34800ed47f01e1b8';
 	}
