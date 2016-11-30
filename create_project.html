@@ -11,13 +11,15 @@
 
     <script>
         window.onload=function(){
-            var file=document.getElementById("testpic");
+            var file=document.getElementById("testpic")
+
             file.onchange=function(){
-                var img=document.createElement("img");
-                img.src=window.URL.createObjectURL(file.files[0]);
+                var img=document.createElement("img")
+                img.src=window.URL.createObjectURL(file.files[0])
+
                 img.onload=function(){
                     window.URL.revokeObjectURL(this.src)
-                };
+                }
                 document.getElementById('imgpreview').src =img.src;
             }
         };
@@ -219,6 +221,35 @@
             newnumber++;
             ob.appendTo("#input_contents")
         }
+		function useradd(a)
+		{
+		if(a==1)
+		{
+		var userid=$('#developadd_userid').val();
+		var  type=$('#developadd_type').val();
+		}
+		if(a==2)
+		{    
+		var userid=$('#testadd_userid').val();
+		var  type=$('#testadd_type').val();
+		}
+		Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var GameScore = Bmob.Object.extend("user");
+            var gameScore = new GameScore();
+          
+            gameScore.save({
+                userid:userid,
+                type:type
+            }, {
+                success: function(gameScore) {
+                   listdevelop();
+                },
+                error: function(gameScore, error) {
+                    for(i in error)
+                        console.log(i+error[i]);
+                }
+            });
+		}
     </script>
     <style>
         #create:after,#create_date:after,#create_left:after,#create_right:after,#date_left:after,#date_right:after,
@@ -337,7 +368,7 @@
             <!--</div>-->
         </div>
         <div id="create_man">
-            <img src="img/popy.jpg" alt="" id="imgpreview">
+            <img src="" alt="" id="imgpreview">
         </div>
 
     </div>
@@ -392,6 +423,9 @@
                             <div class="task_area">
                                 <ul class="task-list" id="list1" >
                                 </ul>
+								<ul class="task-list">
+								<li ><div style="display:none" class='task_title add_man' id="developadd"> <input type='text' class='add_name' id='developadd_userid'> <select class='add_type' id="developadd_type"><option value='leader'>leader</option><option value='開発者'>開発者</option></select> <button class='btn_success' onclick="useradd(1)">登録</button> </div></li>
+								</ul>
                             </div>
                             <div class="modal_add" id="modal_dev_add">
                                 <i class="fa fa-plus modal_add_icon" aria-hidden="true"></i>
@@ -422,6 +456,9 @@
                             </div>
                             <div class="task_area">
                                 <ul class="task-list" id="list2">
+                                </ul>
+								<ul class="task-list">
+								<li><div style="display:none" class='task_title add_man' id="testadd"> <input type='text' class='add_name' id="testadd_userid"> <select class='add_type' id="testadd_type"><option value='leader'>leader</option><option value='テスト者'>テスト者</option></select> <button class='btn_success' onclick="useradd(2)">登録</button> </div></li>
                                 </ul>
                             </div>
                             <div class="modal_add" id="modal_test_add">
@@ -463,10 +500,9 @@
         window.location.href="main.html"
     });
     $("#modal_test_add").click(function () {
-        $("#list2").append("<li><div class='task_title add_man'> <input type='text' class='add_name'> <select class='add_type'><option value='leader'>leader</option><option value='tester'>テスト者</option></select> <button class='btn_success'>登録</button> </div></li>")
+        $("#testadd").toggle();
     });
     $("#modal_dev_add").click(function () {
-        $("#list1").append("<li><div class='task_title add_man'> <input type='text' class='add_name'> <select class='add_type'><option value='leader'>leader</option><option value='tester'>開発者</option></select> <button class='btn_success'>登録</button> </div></li>")
-    })
+        $("#developadd").toggle();    })
 </script>
 </html>
