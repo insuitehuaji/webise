@@ -11,15 +11,13 @@
 
     <script>
         window.onload=function(){
-            var file=document.getElementById("testpic")
-
+            var file=document.getElementById("testpic");
             file.onchange=function(){
-                var img=document.createElement("img")
-                img.src=window.URL.createObjectURL(file.files[0])
-
+                var img=document.createElement("img");
+                img.src=window.URL.createObjectURL(file.files[0]);
                 img.onload=function(){
                     window.URL.revokeObjectURL(this.src)
-                }
+                };
                 document.getElementById('imgpreview').src =img.src;
             }
         };
@@ -339,7 +337,7 @@
             <!--</div>-->
         </div>
         <div id="create_man">
-            <img src="" alt="" id="imgpreview">
+            <img src="img/popy.jpg" alt="" id="imgpreview">
         </div>
 
     </div>
