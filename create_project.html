@@ -256,6 +256,36 @@
         .modal_add:hover{
             background-color:#c2c2c2;
         }
+        .add_name{
+            border: 1px solid #eeeeee;
+            background-color: #fff;
+            transition-duration: 0.5s;
+            width: 100px;
+        }
+        .add_name:focus,.add_name:active{
+            background-color: #fafafa;
+        }
+        .add_type{
+            transition-duration: 0.5s;
+            text-align: center;
+            border: 1px solid #eeeeee;
+            background-color: #fff;
+            /*border-radius: 100px;*/
+            margin-left: 75px;
+            margin-right: 60px;
+            width: 78px;
+        }
+        .add_type:hover{
+            border: 1px solid #48DC6A ;
+            /*box-shadow: 0 0 10px rgba(72,220,106,0.3);*/
+        }
+        .add_type:active,.add_type:focus{
+            border: 1px solid #48DC6A ;
+            outline: none;
+        }
+        .add_man{
+            width: 510px;
+        }
     </style>
 
 </head>
@@ -435,10 +465,10 @@
         window.location.href="main.html"
     });
     $("#modal_test_add").click(function () {
-
+        $("#list2").append("<li><div class='task_title add_man'> <input type='text' class='add_name'> <select class='add_type'><option value='leader'>leader</option><option value='tester'>テスト者</option></select> <button class='btn_success'>登録</button> </div></li>")
     });
     $("#modal_dev_add").click(function () {
-
+        $("#list1").append("<li><div class='task_title add_man'> <input type='text' class='add_name'> <select class='add_type'><option value='leader'>leader</option><option value='tester'>開発者</option></select> <button class='btn_success'>登録</button> </div></li>")
     })
 </script>
 </html>
