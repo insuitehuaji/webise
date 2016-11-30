@@ -415,7 +415,6 @@ input::-webkit-inner-spin-button {
 .task-list{
     margin: 0;
     padding: 0;
-    overflow-y: auto;
 }
 .task_title{/*整体*/
     /*margin: 0 30px;*/
