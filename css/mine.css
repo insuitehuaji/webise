@@ -1,4 +1,4 @@
-@media only screen and (min-width: 536px) and (max-width: 768px) and (min-device-pixel-ratio: 1.5) {
+@media only screen and (min-width: 536px) and (max-width: 768px) {
     *{
         font-family: "Microsoft YaHei UI";
     }
@@ -763,7 +763,7 @@
 
 
 
-@media only screen and (max-width: 535px) and (min-width: 0) and (min-device-pixel-ratio:1.5){
+@media only screen and (max-width: 535px) and (min-width: 0){
     *{
         font-family: "Microsoft YaHei UI";
     }
