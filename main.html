@@ -1,8 +1,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="js/jquery-3.1.1.js"></script>
     <link rel="stylesheet" href="css/mine.css">
@@ -38,26 +38,26 @@
                     // 循环处理查询到的数据
                     for (var i = 0; i < results.length; i++) {
                         var url="location.href='project_info.html?pid="+results[i].id+"'";
-						if(results[i].get('deleted')!=true){
-                        if(results[i].get('active')==true){
-                            var s2=new Date();
-                            var days1 = new Date(results[i].get('etime'));
-                            var days2 = new Date(results[i].get('ltime'));
-                            var edays = parseInt((days1.getTime() - s2.getTime())/(3600000*24));
-                            var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
-                            var object =  '<div class="project_list" onclick = "'+url+'" ><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">締め切り日まで<span>'+ edays+'日|'+ ldays+'日</span>がある</div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
-                            jQuery(object).appendTo(jQuery("#working"));
-                            process=results[i].get('process')
-                        }
-                        else
-                        {
-                            var days1 = new Date(results[i].createdAt);
-                            days1=days1.getFullYear()+'.'+(days1.getMonth()+1)+'.'+days1.getDate();
-                            var days2 = new Date(results[i].get('finishtime'));
-                            days2=days2.getFullYear()+'.'+(days2.getMonth()+1)+'.'+days2.getDate();
-                            var object =  '<div class="project_list"><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">'+days1+'-'+days2+'</div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
-                            jQuery(object).appendTo(jQuery("#finish_cont"));
-                        }}
+                        if(results[i].get('deleted')!=true){
+                            if(results[i].get('active')==true){
+                                var s2=new Date();
+                                var days1 = new Date(results[i].get('etime'));
+                                var days2 = new Date(results[i].get('ltime'));
+                                var edays = parseInt((days1.getTime() - s2.getTime())/(3600000*24));
+                                var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
+                                var object =  '<div class="project_list" onclick = "'+url+'" ><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">締め切り日まで<span>'+ edays+'日|'+ ldays+'日</span>がある</div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
+                                jQuery(object).appendTo(jQuery("#working"));
+                                process=results[i].get('process')
+                            }
+                            else
+                            {
+                                var days1 = new Date(results[i].createdAt);
+                                days1=days1.getFullYear()+'.'+(days1.getMonth()+1)+'.'+days1.getDate();
+                                var days2 = new Date(results[i].get('finishtime'));
+                                days2=days2.getFullYear()+'.'+(days2.getMonth()+1)+'.'+days2.getDate();
+                                var object =  '<div class="project_list"><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">'+days1+'-'+days2+'</div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
+                                jQuery(object).appendTo(jQuery("#finish_cont"));
+                            }}
                     }
                 },
                 error: function(error) {
@@ -77,7 +77,7 @@
 <nav id="top">
     <img src="img/LOGO.png" alt="" id="logo" title="返回首页">
     <div id="tab">
-        <div id="tab_project " class="tab tab_active">
+        <div id="tab_project" class="tab tab_active" style="">
             一覧
         </div>
         <div id="tab_my" class="tab">
@@ -99,16 +99,20 @@
 
         </div>
     </div>
-    <div style="border-bottom: 1px solid #c2c2c2;width: 1000px;margin-left: 200px"></div>
+    <div id="line"></div>
     <div id="finish"><!--项目归档-->
         <div id="finish_title">
             <div class="index_title" >終わりのプロジェクト</div>
-            <div class="triangle_down" style="margin:13px 0 0 8px" onclick="$('.triangle_down').hide();
-                $('.triangle_up').show();
-                $('#finish_cont').fadeIn(); " ></div>
-            <div class="triangle_up" style="margin:13px 0 0 8px;display: none " onclick='  $(".triangle_up").css("display","none");
-                $(".triangle_down").css("display","block");
-                $("#finish_cont").fadeOut();'></div>
+            <div class="triangle_down" onclick="$('.triangle_down').hide();
+                $('.triangle_up').fadeIn();
+                $('#finish_cont').fadeIn(); " >
+                <div id="triangle_down_icon"></div>
+            </div>
+            <div class="triangle_up"  onclick='  $(".triangle_up").css("display","none");
+                $(".triangle_down").fadeIn();
+                $("#finish_cont").fadeOut();'>
+                <div id="triangle_up_icon"></div>
+            </div>
         </div>
         <div id="finish_cont" style="display: none;">
             <!--<div class="project_list" id="project2">&lt;!&ndash;已建立的项目&ndash;&gt;-->
