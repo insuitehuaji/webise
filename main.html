@@ -38,13 +38,14 @@
                     // 循环处理查询到的数据
                     for (var i = 0; i < results.length; i++) {
                         var url="location.href='project_info.html?pid="+results[i].id+"'";
+						if(results[i].get('deleted')!=true){
                         if(results[i].get('active')==true){
                             var s2=new Date();
                             var days1 = new Date(results[i].get('etime'));
                             var days2 = new Date(results[i].get('ltime'));
                             var edays = parseInt((days1.getTime() - s2.getTime())/(3600000*24));
                             var ldays = parseInt((days2.getTime() - s2.getTime())/(3600000*24));
-                            var object =  '<div class="project_list" onclick = "'+url+'" ><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">距离截止日期还有<span>'+ edays+'天|'+ ldays+'天</span></div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
+                            var object =  '<div class="project_list" onclick = "'+url+'" ><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">締め切り日まで<span>'+ edays+'日|'+ ldays+'日</span>がある</div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
                             jQuery(object).appendTo(jQuery("#working"));
                             process=results[i].get('process')
                         }
@@ -52,11 +53,11 @@
                         {
                             var days1 = new Date(results[i].createdAt);
                             days1=days1.getFullYear()+'.'+(days1.getMonth()+1)+'.'+days1.getDate();
-                            var days2 = new Date(results[i].get('ltime'));
+                            var days2 = new Date(results[i].get('finishtime'));
                             days2=days2.getFullYear()+'.'+(days2.getMonth()+1)+'.'+days2.getDate();
                             var object =  '<div class="project_list"><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">'+days1+'-'+days2+'</div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
                             jQuery(object).appendTo(jQuery("#finish_cont"));
-                        }
+                        }}
                     }
                 },
                 error: function(error) {
