@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +14,10 @@
     <script src="http://cdn.hcharts.cn/highcharts/highcharts-more.js"></script>
     <script src="http://cdn.hcharts.cn/highcharts/modules/solid-gauge.js"></script>
     <script>
-
         var projectid='92a0f1ad14';
         var epreview=[];
         var lpreview=[];
         var nowview=[];
-
         var testnm,dday,tday,developnm;
         nowview[0]=100;
         function huanxingtu(a,b) {
@@ -205,7 +204,6 @@
             });
         };
         function ready(){
-
             var functionfind = Bmob.Object.extend("function");
             var query = new Bmob.Query(functionfind);
             query.equalTo("projectid", projectid);
@@ -219,9 +217,7 @@
                     alert("查询失败: " + error.code + " " + error.message);
                 }
             });
-
         }
-
         function projectlist()
         {   Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
             var GameScore = Bmob.Object.extend("project");
@@ -280,7 +276,6 @@
                             alert("查询失败: " + error.code + " " + error.message);
                         }
                     });
-
                 },
                 error: function(object, error) {
                     console.log("query object fail");
@@ -319,7 +314,6 @@
                     alert("查询失败: " + error.code + " " + error.message);
                 }
             });
-
         };
         function changepreview(a,b)
         {
@@ -386,9 +380,7 @@
             $('#solve_display_time3').html( (dday==Infinity||tday==Infinity)?'∞':Math.ceil(Math.max(dday,tday)));
             huanxingtu(deprocess,teprocess);
             loglist();
-
         }
-
         function renewproject(type,process)
         { Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
             var GameScore = Bmob.Object.extend("projectlog");
@@ -399,10 +391,8 @@
 // 查询所有数据
             query.find({
                 success: function(results) {
-
                     if(results.length==0)
                     {var GameScore = Bmob.Object.extend("projectlog");
-
                         if(type==1){
                             var tprocess=0;
                             var dprocess=process;
@@ -435,7 +425,6 @@
                         results[0].save(null,{
                             success: function(gameScore) {
                                 projectlist();
-
                             },
                             error: function(gameScore, error) {
                                 for(i in error)
@@ -447,7 +436,6 @@
                     alert("查询失败: " + error.code + " " + error.message);
                 }
             });
-
         }
         function renewfunction(type,process,num)
         { Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
@@ -502,6 +490,66 @@
                 }
             });
         }
+		function guidang()
+		{
+		
+		var r=confirm("本当に進めてもいいですが");
+		if(r==true){
+		Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var GameScore = Bmob.Object.extend("project");
+            var query = new Bmob.Query(GameScore);
+			var date=new Date();
+           query.get(projectid, {
+      success: function(object) {
+        // The object was retrieved successfully.
+       object.set("active", false);
+	   object.set("finishtime", date);
+        object.save(null, {
+          success: function(objectUpdate) {
+            alert("归档完成");
+			location.href='main.html';
+          },
+          error: function(model, error) {
+            alert("create object fail");
+          }
+        });
+      },
+      error: function(object, error) {
+        alert("query object fail");
+      }
+		})}
+		}
+		function deleteproject()
+		{
+		
+		var r=confirm("本当に削除することがいいですが");
+		if(r==true){
+		Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var GameScore = Bmob.Object.extend("project");
+            var query = new Bmob.Query(GameScore);
+           query.get(projectid, {
+      success: function(object) {
+        // The object was retrieved successfully.
+       object.set("deleted", true);
+        object.save(null, {
+          success: function(objectUpdate) {
+            alert("削除完了");
+			location.href='main.html';
+          },
+          error: function(model, error) {
+            alert("create object fail");
+          }
+        });
+      },
+      error: function(object, error) {
+        alert("query object fail");
+      }
+		})}
+		}
+		function edit()
+		{
+		location.href="renew_project.html?pid="+projectid;
+		}
     </script>
     <style>
         #main_left:after,#main_right:after,#main:after,.color1:after,#info_btn:after,#modal_title3:after,#news_area:after,
@@ -853,14 +901,12 @@
             margin-left: 75px;
             box-sizing: border-box;
         }
-
         #advice_problem:hover,#advice_solve:hover,
         #advice_problem:active,#advice_solve:active,
         #advice_problem:focus,#advice_solve:focus{
             box-shadow: 0 0 10px rgba(194,194,194,0.5);
             border: 1px solid #c2c2c2;
         }
-
         #solve_display{
             float: left;
             transition-duration: 0.5s;
@@ -1000,14 +1046,14 @@
     </div>
     <div id="main_right">
         <div id="info_btn">
-            <div class="btn_delete info_btn">
+            <div class="btn_delete info_btn" onclick= deleteproject()>
                 <i class="fa fa-trash" aria-hidden="true"></i>
             </div>
-            <div class="btn_folder info_btn">
+            <div class="btn_folder info_btn" onclick= guidang()>
                 <i class="fa fa-folder" aria-hidden="true"></i>
             </div>
 
-            <div class="btn_edit info_btn">
+            <div class="btn_edit info_btn" onclick= edit()>
                 <i class="fa fa-pencil-square" aria-hidden="true"></i>
             </div>
         </div>
