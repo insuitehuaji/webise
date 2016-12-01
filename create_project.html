@@ -64,6 +64,9 @@
                     developid:$(".developselect:eq("+i+")").html()
                 }, {
                     success: function(gameScore) {
+                        var r=confirm('本当に進めてもいいですか');
+                        if (r==true)
+                        location.href="main.html";
                     },
                     error: function(gameScore, error) {
                         console.log('failed2');
@@ -221,35 +224,35 @@
             newnumber++;
             ob.appendTo("#input_contents")
         }
-		function useradd(a)
-		{
-		if(a==1)
-		{
-		var userid=$('#developadd_userid').val();
-		var  type=$('#developadd_type').val();
-		}
-		if(a==2)
-		{    
-		var userid=$('#testadd_userid').val();
-		var  type=$('#testadd_type').val();
-		}
-		Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+        function useradd(a)
+        {
+            if(a==1)
+            {
+                var userid=$('#developadd_userid').val();
+                var  type=$('#developadd_type').val();
+            }
+            if(a==2)
+            {
+                var userid=$('#testadd_userid').val();
+                var  type=$('#testadd_type').val();
+            }
+            Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
             var GameScore = Bmob.Object.extend("user");
             var gameScore = new GameScore();
-          
+
             gameScore.save({
                 userid:userid,
                 type:type
             }, {
                 success: function(gameScore) {
-                   listdevelop();
+                    listdevelop();
                 },
                 error: function(gameScore, error) {
                     for(i in error)
                         console.log(i+error[i]);
                 }
             });
-		}
+        }
     </script>
     <style>
         #create:after,#create_date:after,#create_left:after,#create_right:after,#date_left:after,#date_right:after,
@@ -261,60 +264,6 @@
             clear: both;
             visibility: hidden;
         }
-
-        .task_area{
-            height: 370px;
-            margin-bottom: 8px;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        .modal_add_icon{
-            color: white;
-            font-size: 18px;
-        }
-        .modal_add{
-            width: 360px;
-            height: 30px;
-            margin-left: 70px;
-            background-color:#EEEEEE;
-            padding:7px 175px;
-            box-sizing: border-box;
-            cursor: pointer;
-            transition-duration: 0.5s;
-        }
-        .modal_add:hover{
-            background-color:#c2c2c2;
-        }
-        .add_name{
-            border: 1px solid #eeeeee;
-            background-color: #fff;
-            transition-duration: 0.5s;
-            width: 100px;
-        }
-        .add_name:focus,.add_name:active{
-            background-color: #fafafa;
-        }
-        .add_type{
-            transition-duration: 0.5s;
-            text-align: center;
-            border: 1px solid #eeeeee;
-            background-color: #fff;
-            /*border-radius: 100px;*/
-            margin-left: 75px;
-            margin-right: 60px;
-            width: 78px;
-        }
-        .add_type:hover{
-            border: 1px solid #48DC6A ;
-            /*box-shadow: 0 0 10px rgba(72,220,106,0.3);*/
-        }
-        .add_type:active,.add_type:focus{
-            border: 1px solid #48DC6A ;
-            outline: none;
-        }
-        .add_man{
-            width: 510px;
-        }
     </style>
 
 </head>
@@ -325,7 +274,7 @@
 <nav id="top">
     <img src="img/LOGO.png" alt="" id="logo" title="返回首页">
     <div id="tab">
-        <div id="tab_project " class="tab tab_active">
+        <div id="tab_project" class="tab tab_active">
             一覧
         </div>
         <div id="tab_my" class="tab">
@@ -339,9 +288,9 @@
 <nav id="top2"></nav>
 <div id="create"><!--新建项目-->
     <div id="create_top">
-        <div class="index_title" id="create_title"> 新規プロジェクト</div>
-        <div id="create_submit" onclick = newproject() class="create_button">登録</div>
-        <div id="create_cancel" class="create_button">キャンセル</div>
+        <div class="index_title" id="create_title">新規プロジェクト</div>
+        <div id="create_submit" onclick =newproject() class="create_button"><span>登録</span><i class="fa fa-2x fa-check" aria-hidden="true"></i></div>
+        <div id="create_cancel" class="create_button"> <span>キャンセル</span><i class="fa fa-2x fa-times" aria-hidden="true"></i></div>
     </div>
     <div id="create_left">
         <div class="create_little_title">名前</div>
@@ -366,10 +315,11 @@
             <!--<div class="icon_plus_bg2" id="dev_man_plus_bg">-->
             <!--<img class="icon_plus2" id="dev_man_plus" src="img/plus.png">-->
             <!--</div>-->
+            <div id="create_man">
+              <img src="img/popy.jpg" alt="" id="imgpreview">
+            </div>
         </div>
-        <div id="create_man">
-            <img src="" alt="" id="imgpreview">
-        </div>
+
 
     </div>
     <div id="create_right">
@@ -416,16 +366,16 @@
                     <div class="panel-body">
                         <div class="task-content">
                             <div id="modal_title1">
-                                <div class="modal_title" style="margin-left: 70px">名前</div>
-                                <div class="modal_title" style="margin-left: 148px">種類</div>
-                                <div class="modal_title" style="margin-left: 115px;margin-right: 30px">選択</div>
+                                <div class="modal_title modal_title_name">名前</div>
+                                <div class="modal_title modal_title_type">種類</div>
+                                <div class="modal_title modal_title_do">選択</div>
                             </div>
                             <div class="task_area">
                                 <ul class="task-list" id="list1" >
                                 </ul>
-								<ul class="task-list">
-								<li ><div style="display:none" class='task_title add_man' id="developadd"> <input type='text' class='add_name' id='developadd_userid'> <select class='add_type' id="developadd_type"><option value='leader'>leader</option><option value='開発者'>開発者</option></select> <button class='btn_success' onclick="useradd(1)">登録</button> </div></li>
-								</ul>
+                                <ul class="task-list">
+                                    <li ><div style="display:none" class='task_title add_man' id="developadd"> <input type='text' class='add_name' id='developadd_userid'> <select class='add_type' id="developadd_type"><option value='leader'>leader</option><option value='開発者'>開発者</option></select> <button class='btn_success' onclick="useradd(1)">登録</button> </div></li>
+                                </ul>
                             </div>
                             <div class="modal_add" id="modal_dev_add">
                                 <i class="fa fa-plus modal_add_icon" aria-hidden="true"></i>
@@ -450,15 +400,15 @@
                     <div class="panel-body">
                         <div class="task-content">
                             <div id="modal_title2">
-                                <div class="modal_title" style="margin-left: 70px">名前</div>
-                                <div class="modal_title" style="margin-left: 148px">種類</div>
-                                <div class="modal_title" style="margin-left: 115px">選択</div>
+                                <div class="modal_title modal_title_name" >名前</div>
+                                <div class="modal_title modal_title_type">種類</div>
+                                <div class="modal_title modal_title_do">選択</div>
                             </div>
                             <div class="task_area">
                                 <ul class="task-list" id="list2">
                                 </ul>
-								<ul class="task-list">
-								<li><div style="display:none" class='task_title add_man' id="testadd"> <input type='text' class='add_name' id="testadd_userid"> <select class='add_type' id="testadd_type"><option value='leader'>leader</option><option value='テスト者'>テスト者</option></select> <button class='btn_success' onclick="useradd(2)">登録</button> </div></li>
+                                <ul class="task-list">
+                                    <li><div style="display:none" class='task_title add_man' id="testadd"> <input type='text' class='add_name' id="testadd_userid"> <select class='add_type' id="testadd_type"><option value='leader'>leader</option><option value='テスト者'>テスト者</option></select> <button class='btn_success' onclick="useradd(2)">登録</button> </div></li>
                                 </ul>
                             </div>
                             <div class="modal_add" id="modal_test_add">
