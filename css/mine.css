@@ -336,24 +336,36 @@
     .d_p_recovery{
         font-size: 30px;
         padding: 20px 0 0 14px;
-        background-color: #2CBBE7;
+        background-color: #fff;
         box-sizing: border-box;
         transition-duration: 0.5s;
         cursor: pointer;
     }
+    .d_p_recovery:active{
+        background-color: #2CBBE7;
+    }
+    .d_p_recovery:active>i{
+        color: white;
+    }
     .d_p_delete{
         cursor: pointer;
-        background-color: #FF5534;
+        background-color: #fff;
         box-sizing: border-box;
         padding: 20px 0 0 12px;
     }
+    .d_p_delete:active{
+         background-color: #FF5534;
+    }
+    .d_p_delete:active>i{
+        color: white;
+    }
     .doc_icon{
-        color: #ffffff;
+        color: #000;
         font-size: 30px;
         font-weight: bold;
     }
     .recovery_icon{
-        color: #ffffff;
+        color: #000;
     }
 
 
@@ -1221,27 +1233,40 @@
         outline: none;
         float: left;
     }
+
     .d_p_recovery{
         font-size: 30px;
         padding: 20px 0 0 14px;
-        background-color: #2CBBE7;
+        background-color: #fff;
         box-sizing: border-box;
         transition-duration: 0.5s;
         cursor: pointer;
     }
+    .d_p_recovery:active{
+        background-color: #2CBBE7;
+    }
+    .d_p_recovery:active>i{
+        color: white;
+    }
     .d_p_delete{
         cursor: pointer;
-        background-color: #FF5534;
+        background-color: #fff;
         box-sizing: border-box;
         padding: 20px 0 0 12px;
     }
+    .d_p_delete:active{
+        background-color: #FF5534;
+    }
+    .d_p_delete:active>i{
+        color: white;
+    }
     .doc_icon{
-        color: #ffffff;
+        color: #000;
         font-size: 30px;
         font-weight: bold;
     }
     .recovery_icon{
-        color: #ffffff;
+        color: #000;
     }
 
 
