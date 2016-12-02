@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="css/mine.css">
     <link rel="stylesheet" href="css/scoll.css">
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+
     <title>insuite进度管理</title>
     <style>
         /*解决子DIV溢出问题*/
-        #finish:after,#finish_title:after,#finish_cont:after,#working:after{
+        #finish:after,#finish_title:after,#finish_cont:after,#working:after,#dustbin_container:after,
+        #dustbin_container:after,#container_main:after{
             content: ".";
             display: block;
             height: 0;
@@ -121,10 +123,55 @@
         </div>
     </div>
 </div>
+<div id="dustbin"><!--垃圾箱入口-->
+    <i class="fa fa-2x fa-trash" aria-hidden="true"></i>
+</div>
+<div id="dustbin_container"><!--垃圾箱内容-->
+    <div id="container_top">
+        <div class="back_arrow">
+            <i class="fa  fa-arrow-left" aria-hidden="true"></i>
+        </div>
+        <div class="index_title" style="cursor: text">垃圾箱</div>
+    </div>
+    <div id="container_main"><!--放已删除的地方-->
+
+        <div class="dustbin_project">
+            <div class="d_p_left">
+                <div class="d_p_name">
+                    <span>INSUITE ver3.4</span>
+                </div>
+                <div class="d_p_time">
+                    2015.11.11创建
+                </div>
+            </div>
+            <div class="d_p_right"><!--按钮-->
+                <div class="d_p_recovery dp_btn">
+                    <i class="fa fa-undo recovery_icon" aria-hidden="true"></i>
+                </div>
+                <div class="d_p_delete dp_btn">
+                    <i class="doc_icon iconfont">&#xe69c;</i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
 <script type="text/javascript">
+    $("#dustbin").click(function () {
+        $("#dustbin").css({"height":"100%","width":"100%","background-color":"#fff","padding":"0","cursor":"default"});
+        $("#dustbin>i").css("display","none");
+        setTimeout(function () {
+            $("#dustbin_container").fadeIn()
+        },350)
+    });
+    $(".back_arrow").click(function () {
+        $("#dustbin").css({"height":"50px","width":"50px","background-color":"#dedede","padding":"10px 0 0 12px","cursor":"pointer"});
+        $("#dustbin>i").css("display","block");
+        $("#dustbin_container").css("display","none")
+    });
     $("#new_project").click(function () {
         window.location.href="create_project.html"
     });
