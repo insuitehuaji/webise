@@ -2124,7 +2124,7 @@
         width: 100%;
         /*display: none;*/
         box-sizing: border-box;
-        padding: 33px 26%;
+        padding: 33px 23%;
     }
     #create_title{
         transition-duration: 0.5s;
@@ -2137,27 +2137,34 @@
     .create_button{
         transition-duration: 0.5s;
         position: fixed;
-        width: 90px;
-        height: 25px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
         color: white;
         text-align: center;
-        padding-top: 2px;
+        padding-top: 10px;
         cursor: pointer;
-        font-size: 15px;
+        font-size: 10px;
         box-sizing: border-box;
     }
-    .create_button>i{
+    .create_button>span{
+        transition-duration: 0.5s;
         display: none;
     }
+    .create_button>i{
+        font-size: 30px;
+        transition-duration: 0.5s;
+        display: inline;
+    }
     #create_submit{
-        left: 50px;
+        left: 70px;
         top: 330px;
         background-color:#0091FE;
         transition-duration: 0.5s;
     }
     #create_cancel{
-        left: 50px;
-        top: 360px;
+        left: 70px;
+        top: 390px;
         background-color: #FF5534;
         transition-duration: 0.5s;
     }
