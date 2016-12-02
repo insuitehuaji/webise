@@ -116,6 +116,10 @@
         text-align: center;
         transition-duration: 0.5s;
     }
+    .index_title2{
+        font-size: 30px;
+        font-weight: bold;
+    }
     #working{
         box-sizing: border-box;
         /*padding-bottom: 40px;*/
@@ -237,7 +241,120 @@
         float: left;
     }
 
+    #dustbin{
+        box-sizing: border-box;
+        padding: 10px 0 0 12px;
+        color: #454545;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 50px;
+        height: 50px;
+        background-color: #dedede;
+        cursor: pointer;
+        transition-duration: 0.5s;
+        z-index: 888;
+    }
+    #dustbin_container{
 
+        top:70px;
+        left: 0;
+        color: #282828;
+        display: none;
+        z-index: 950;
+        position: absolute;
+    }
+    #container_top{
+        height: 38px;
+        padding-left: 10px;
+        box-sizing: border-box;
+    }
+    #container_top>div{
+        float: left;
+    }
+    .back_arrow{
+        font-weight: normal;
+        font-size: 25px;
+        width: 38px;
+        height: 38px;
+        transition-duration: 0.5s;
+        padding: 7px;
+        box-sizing: border-box;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    .back_arrow:hover{
+        width: 45px;
+        padding-left:10px ;
+        background-color: #eeeeee;
+    }
+    #container_main{
+        box-sizing: border-box;
+        padding-top:20px;
+        padding-left: 29.36%;
+        transition-duration: 0.5s;
+    }
+    .dustbin_project{
+        background-color: #fff;
+        width:300px;
+        height: 70px;
+        /*box-sizing: border-box;*/
+        margin-right: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);   margin-bottom: 10px;
+        float: left;
+        border-left: 7px solid #FFD200;
+        transition-duration: 0.5s;
+    }
+    .d_p_left{
+        float: left;
+        padding: 10px 0 0 5px;
+        box-sizing: border-box;
+        width: 190px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .d_p_name{
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .d_p_time{
+        margin-top: 5px;
+        font-size: 15px;
+    }
+    .d_p_right{
+        float: left;
+        width: 110px;
+    }
+    .dp_btn{
+        height: 70px;
+        width: 55px;
+        /*border-radius: 50%;*/
+        border-left:1px solid #e2e2e2;
+        outline: none;
+        float: left;
+    }
+    .d_p_recovery{
+        font-size: 30px;
+        padding: 20px 0 0 14px;
+        background-color: #2CBBE7;
+        box-sizing: border-box;
+        transition-duration: 0.5s;
+        cursor: pointer;
+    }
+    .d_p_delete{
+        cursor: pointer;
+        background-color: #FF5534;
+        box-sizing: border-box;
+        padding: 20px 0 0 12px;
+    }
+    .doc_icon{
+        color: #ffffff;
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .recovery_icon{
+        color: #ffffff;
+    }
 
 
 
@@ -884,6 +1001,10 @@
         text-align: center;
         transition-duration: 0.5s;
     }
+    .index_title2{
+        font-size: 30px;
+        font-weight: bold;
+    }
     #working{
         box-sizing: border-box;
         /*padding-bottom: 40px;*/
@@ -1008,6 +1129,120 @@
         float: left;
     }
 
+    #dustbin{
+        box-sizing: border-box;
+        padding: 10px 0 0 12px;
+        color: #454545;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 50px;
+        height: 50px;
+        background-color: #dedede;
+        cursor: pointer;
+        transition-duration: 0.5s;
+        z-index: 888;
+    }
+    #dustbin_container{
+
+        top:70px;
+        left: 0;
+        color: #282828;
+        display: none;
+        z-index: 950;
+        position: absolute;
+    }
+    #container_top{
+        height: 38px;
+        padding-left: 10px;
+        box-sizing: border-box;
+    }
+    #container_top>div{
+        float: left;
+    }
+    .back_arrow{
+        font-weight: normal;
+        font-size: 25px;
+        width: 38px;
+        height: 38px;
+        transition-duration: 0.5s;
+        padding: 7px;
+        box-sizing: border-box;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    .back_arrow:hover{
+        width: 45px;
+        padding-left:10px ;
+        background-color: #eeeeee;
+    }
+    #container_main{
+        box-sizing: border-box;
+        padding-top:20px;
+        padding-left: 20.37%;
+        transition-duration: 0.5s;
+    }
+    .dustbin_project{
+        background-color: #fff;
+        width:300px;
+        height: 70px;
+        /*box-sizing: border-box;*/
+        margin-right: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);   margin-bottom: 10px;
+        float: left;
+        border-left: 7px solid #FFD200;
+        transition-duration: 0.5s;
+    }
+    .d_p_left{
+        float: left;
+        padding: 10px 0 0 5px;
+        box-sizing: border-box;
+        width: 190px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .d_p_name{
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .d_p_time{
+        margin-top: 5px;
+        font-size: 15px;
+    }
+    .d_p_right{
+        float: left;
+        width: 110px;
+    }
+    .dp_btn{
+        height: 70px;
+        width: 55px;
+        /*border-radius: 50%;*/
+        border-left:1px solid #e2e2e2;
+        outline: none;
+        float: left;
+    }
+    .d_p_recovery{
+        font-size: 30px;
+        padding: 20px 0 0 14px;
+        background-color: #2CBBE7;
+        box-sizing: border-box;
+        transition-duration: 0.5s;
+        cursor: pointer;
+    }
+    .d_p_delete{
+        cursor: pointer;
+        background-color: #FF5534;
+        box-sizing: border-box;
+        padding: 20px 0 0 12px;
+    }
+    .doc_icon{
+        color: #ffffff;
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .recovery_icon{
+        color: #ffffff;
+    }
 
 
     /*新建项目*/
@@ -1639,6 +1874,10 @@
         font-size: 30px;
         font-weight: bold;
     }
+    .index_title2{
+        font-size: 30px;
+        font-weight: bold;
+    }
     #working{
         transition-duration: 0.5s;
         padding-bottom: 40px;
@@ -1741,6 +1980,141 @@
         float: left;
     }
 
+    #dustbin{
+        box-sizing: border-box;
+        padding: 10px 0 0 12px;
+        color: #eeeeee;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 50px;
+        height: 50px;
+        background-color: #dedede;
+        cursor: pointer;
+        transition-duration: 0.5s;
+        z-index: 888;
+    }
+    #dustbin:hover{
+        /*background-color: #393939;*/
+        color: #454545;
+    }
+    #dustbin_container{
+        top:70px;
+        left: 0;
+        color: #282828;
+        display: none;
+        z-index: 950;
+        position: absolute;
+    }
+    #container_top{
+        height: 38px;
+        padding-left: 10px;
+        box-sizing: border-box;
+    }
+    #container_top>div{
+        float: left;
+    }
+    .back_arrow{
+        font-weight: normal;
+        font-size: 25px;
+        width: 38px;
+        height: 38px;
+        transition-duration: 0.5s;
+        padding: 7px;
+        box-sizing: border-box;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    .back_arrow:hover{
+        width: 45px;
+        padding-left:10px ;
+        background-color: #eeeeee;
+    }
+    #container_main{
+        box-sizing: border-box;
+        padding-top:20px;
+        padding-left: 11%;
+        transition-duration: 0.5s;
+    }
+    .dustbin_project{
+        background-color: #eeeeee;
+        width:300px;
+        height: 70px;
+        /*box-sizing: border-box;*/
+        margin-right: 10px;
+        margin-bottom: 10px;
+        float: left;
+        border-left: 7px solid #dedede ;
+        transition-duration: 0.5s;
+    }
+    .dustbin_project:hover{
+        border-left: 7px solid #FFD200;
+        background-color: #fff;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        /*transform:scale(1.02);*/
+    }
+    .d_p_left{
+        float: left;
+        padding: 10px 0 0 5px;
+        box-sizing: border-box;
+        width: 190px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .d_p_name{
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .d_p_time{
+        margin-top: 5px;
+        font-size: 15px;
+    }
+    .d_p_right{
+        float: left;
+        width: 110px;
+    }
+    .dp_btn{
+        height: 70px;
+        width: 55px;
+        /*border-radius: 50%;*/
+        border-left:1px solid #e2e2e2;
+        outline: none;
+        float: left;
+    }
+    .d_p_recovery{
+        font-size: 30px;
+        padding: 20px 0 0 14px;
+        background-color: #eeeeee;
+        box-sizing: border-box;
+        transition-duration: 0.5s;
+        cursor: pointer;
+    }
+    .d_p_recovery:hover{
+        background-color: #2CBBE7;
+    }
+    .dp_btn:hover>i{
+        color: #ffffff;
+    }
+    .d_p_delete{
+        cursor: pointer;
+        background-color: #eeeeee;
+        box-sizing: border-box;
+        padding: 20px 0 0 12px;
+    }
+    .d_p_delete:hover{
+        background-color: #FF5534;
+    }
+    .dp_btn:hover>i{
+        color: #ffffff;
+    }
+    .doc_icon{
+        color: #000;
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .recovery_icon{
+        color: #000;
+    }
 
 
 
@@ -2371,6 +2745,10 @@
         font-size: 30px;
         font-weight: bold;
     }
+    .index_title2{
+        font-size: 30px;
+        font-weight: bold;
+    }
     #working{
         transition-duration: 0.5s;
         padding-bottom: 40px;
@@ -2477,7 +2855,7 @@
         box-sizing: border-box;
         padding: 10px 0 0 12px;
         color: #eeeeee;
-        position: absolute;
+        position: fixed;
         right: 0;
         bottom: 0;
         width: 50px;
@@ -2524,6 +2902,7 @@
         background-color: #eeeeee;
     }
     #container_main{
+        transition-duration: 0.5s;
         box-sizing: border-box;
         padding-top:15px;
         padding-left: 13px;
