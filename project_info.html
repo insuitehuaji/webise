@@ -554,7 +554,7 @@
     <style>
         #main_left:after,#main_right:after,#main:after,.color1:after,#info_btn:after,#modal_title3:after,#news_area:after,
         #metro_area:after,#main_right_info:after,#main_right_advice:after,#main_right_chart:after,#main_right_news:after,
-        #advice_problem:after,#advive_solve:after{
+        #advice_problem:after,#info_color:after,#info_proinfo:after,.metro_plus:after{
             content: ".";
             display: block;
             height: 0;
@@ -584,8 +584,10 @@
 <div id="main"><!--项目详情-->
     <div id="main_left">
         <div class="metro_plus">
-            <i class="fa fa-chevron-circle-left back" aria-hidden="true" title="返回首页"></i>
-            機能一覧<i class="fa fa-plus-circle " id="metro_add" aria-hidden="true" title="添加区块"></i>
+            <div id="back_icon" class="back"><span>返回</span><i class="fa fa-chevron-circle-left" aria-hidden="true" title="返回首页"></i></div>
+            <div>機能一覧</div>
+            <div id="metro_add"><span>添加</span><i class="fa fa-plus-circle "  aria-hidden="true" title="添加区块"></i></div>
+            <div id="metro_in"><span id="in_in">折叠</span><span id="in_out" style="display: none">展开</span></div>
         </div>
         <div id="metro_area">
             <div id="main_dev_no" class="main_left_metro">
@@ -650,13 +652,16 @@
         <div id="info_btn">
             <div class="btn_delete info_btn" onclick= deleteproject()>
                 <i class="fa fa-trash" aria-hidden="true"></i>
+                <span class="btn_linshi btn_linshi1">削除</span>
             </div>
             <div class="btn_folder info_btn" onclick= guidang()>
                 <i class="fa fa-folder" aria-hidden="true"></i>
+                <span class="btn_linshi btn_linshi2">完了</span>
             </div>
 
             <div class="btn_edit info_btn" onclick= edit()>
                 <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                <span class="btn_linshi btn_linshi3">編集</span>
             </div>
         </div>
         <div id="main_right_info">
@@ -672,7 +677,7 @@
                 <div class="main_title_four" id="proinfo_text">締め切り日</div>
             </div>
             <div id="info_color">
-                <div class="main_title_five">緊急度スタイル</div>
+                <div class="main_title_five" id="color_name">緊急度スタイル</div>
                 <div class="color1">
                     <div class="color_green"></div>早い
                 </div>
@@ -769,27 +774,6 @@
     $("#metro_add").click(function () {
         $("#metro_area").append('<div class="main_left_metro"><div class="main_metro_title"><input type="text"placeholder="请输入区块标题..."></div><i class="fa fa-trash metro_delete" aria-hidden="true"></i></div>')
     });
-    $(".btn_edit").hover(function(){
-        setTimeout(function () {
-            $(".btn_edit").append('<span class="btn_linshi">編集</span>')
-        },150)
-    },function(){
-        $("span").remove(".btn_linshi")
-    });
-    $(".btn_folder").hover(function(){
-        setTimeout(function () {
-            $(".btn_folder").append('<span class="btn_linshi">完了</span>')
-        },150)
-    },function(){
-        $("span").remove(".btn_linshi")
-    });
-    $(".btn_delete").hover(function(){
-        setTimeout(function () {
-            $(".btn_delete").append('<span class="btn_linshi">削除</span>')
-        },150)
-    },function(){
-        $("span").remove(".btn_linshi")
-    });
     $("").click(function () {
         $("#modal3").slideToggle();
         $("#cover").fadeToggle();
@@ -807,5 +791,43 @@
     },function(){
         $(".solve_do_reset").removeClass("fa-spin")
     });
+    $("#metro_in").click(function () {
+        if($("#metro_area").css("display")=="block"){
+            $("#metro_area").css("display","none");
+            $("#in_in").css("display","none");
+            $("#in_out").css("display","inline");
+        }
+        else {
+            $("#metro_area").css("display","block");
+            $("#in_in").css("display","inline");
+            $("#in_out").css("display","none");
+        }
+    });
+        if($("window").css("width")>"1219px") {
+            $(".btn_edit").hover(function(){
+                setTimeout(function () {
+                    $(".btn_linshi3").css("display","inline")
+                },150)
+            },function(){
+                $(".btn_linshi3").css("display","none")
+            });
+            $(".btn_folder").hover(function(){
+                setTimeout(function () {
+                    $(".btn_linshi2").css("display","inline")
+                },150)
+            },function(){
+                $(".btn_linshi2").css("display","none")
+            });
+            $(".btn_delete").hover(function(){
+                setTimeout(function () {
+                    $(".btn_linshi1").css("display","inline")
+                },150)
+            },function(){
+                $(".btn_linshi1").css("display","none")
+            });
+        }
+        else {
+            $(".btn_linshi").css("display","inline");
+        }
 </script>
 </html>
