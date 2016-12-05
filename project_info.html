@@ -239,6 +239,7 @@
                     $("#proinfo_name").html(object.get("name"));
                     $("#countdown_num1").html(edays);
                     $("#devadd_input").val(developnm);
+					$("#problem_textarea").html(object.get('describate'));
                     $("#testadd_input").val(testnm);
                     $(".solve_do_reset").click(function() {
                         $("#devadd_input").val(developnm);
@@ -550,6 +551,31 @@
         {
             location.href="renew_project.html?pid="+projectid;
         }
+		function problemchange()
+		{alert($('#problem_textarea').html());
+		 Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+                var GameScore = Bmob.Object.extend("project");
+                var query = new Bmob.Query(GameScore);
+				var vv=$('#problem_textarea').val();
+				alert(vv);
+                query.get(projectid, {
+                    success: function(object) {
+                        // The object was retrieved successfully.
+                        object.set("describate",vv);
+                        object.save(null, {
+                            success: function(objectUpdate) {
+                           console.log('修改完毕');
+                            },
+                            error: function(model, error) {
+                                alert("create object fail");
+                            }
+                        });
+                    },
+                    error: function(object, error) {
+                        alert("query object fail");
+                    }
+                })}
+		
     </script>
     <style>
         #main_left:after,#main_right:after,#main:after,.color1:after,#info_btn:after,#modal_title3:after,#news_area:after,
@@ -586,8 +612,8 @@
         <div class="metro_plus">
             <div id="back_icon" class="back"><span>返回</span><i class="fa fa-chevron-circle-left" aria-hidden="true" title="返回首页"></i></div>
             <div>機能一覧</div>
-            <div id="metro_add"><span>添加</span><i class="fa fa-plus-circle "  aria-hidden="true" title="添加区块"></i></div>
-            <div id="metro_in"><span id="in_in">折叠</span><span id="in_out" style="display: none">展开</span></div>
+            <div id="metro_add"><span>新規</span><i class="fa fa-plus-circle "  aria-hidden="true" title="添加区块"></i></div>
+            <div id="metro_in"><span id="in_in">隠す</span><span id="in_out" style="display: none">表示</span></div>
         </div>
         <div id="metro_area">
             <div id="main_dev_no" class="main_left_metro">
@@ -699,7 +725,7 @@
                     状況分析
                 </div>
                 <div id="problem_text">
-                    <textarea id="problem_textarea" name=""cols="30" rows="10"></textarea>
+                    <textarea onchange='problemchange()' id="problem_textarea" name=""cols="30" rows="10"></textarea>
                 </div>
             </div>
             <div id="advice_solve">
