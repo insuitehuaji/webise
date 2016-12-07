@@ -2951,7 +2951,7 @@
         transition-duration: 0.5s;
         padding:0 10px;
         /*float:left;*/
-        width: 100%;
+        /*width: 100%;*/
         max-width: 535px;
         min-width:400px;
         height:399px;
@@ -4659,7 +4659,7 @@
         transition-duration: 0.5s;
         padding:0 10px 0 10px;
         /*float:left;*/
-        width: 100%;
+        /*width: 100%;*/
         max-width: 1219px;
         min-width:400px;
         height:399px;
