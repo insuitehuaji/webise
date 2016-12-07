@@ -1087,13 +1087,13 @@
     }
     .color1{
         transition-duration: 0.5s;
-        margin-top: 10px;
+        /*margin-top: 10px;*/
         float: left;
         width: 70px;
     }
     .color2{
         transition-duration: 0.5s;
-        margin-top: 10px;
+        /*margin-top: 10px;*/
         float: left;
         width: 55px;
     }
@@ -1212,6 +1212,8 @@
         transition-duration: 0.5s;
         padding:0 10px;
         /*float:left;*/
+        width: 100%;
+        max-width: 768px;
         min-width:400px;
         height:399px;
     }
@@ -2824,13 +2826,13 @@
     }
     .color1{
         transition-duration: 0.5s;
-        margin-top: 10px;
+        /*margin-top: 10px;*/
         float: left;
         width: 70px;
     }
     .color2{
         transition-duration: 0.5s;
-        margin-top: 10px;
+        /*margin-top: 10px;*/
         float: left;
         width: 55px;
     }
@@ -2949,6 +2951,8 @@
         transition-duration: 0.5s;
         padding:0 10px;
         /*float:left;*/
+        width: 100%;
+        max-width: 535px;
         min-width:400px;
         height:399px;
     }
@@ -4655,6 +4659,8 @@
         transition-duration: 0.5s;
         padding:0 10px 0 10px;
         /*float:left;*/
+        width: 100%;
+        max-width: 1219px;
         min-width:400px;
         height:399px;
     }
