@@ -27,7 +27,7 @@
     <script src="js/bmob.js"></script>
      <script>
 function huanyuan(a)
-{alert(a);
+{
   var GameScore = Bmob.Object.extend("project");
             var query = new Bmob.Query(GameScore);
 
@@ -100,6 +100,7 @@ var query = new Bmob.Query(GameScore);
                 }
 // 查询所有数据       
          })
+	location.href='main.html';
 }
 function shanchu(a)
 {
