@@ -2677,7 +2677,6 @@
         /*height: 1019px;*/
         float: right;
         background-color: white;
-        /*overflow: auto;*/
     }
     #metro_area{
         display: block;
@@ -2770,6 +2769,7 @@
         height:218px ;
         transition-duration: 0.5s;
         box-sizing:border-box;
+        overflow-x: hidden;
         /*padding: 10px 0 0 25px;*/
     }
     .main_title_four{/*四点加粗*/
@@ -4376,7 +4376,8 @@
         height: 1019px;
         float: right;
         background-color: white;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     #metro_area{
         margin: 3px 3px 0 3px;
@@ -4468,6 +4469,7 @@
         height:218px ;
         transition-duration: 0.5s;
         box-sizing:border-box;
+        overflow-x: hidden;
         /*padding: 10px 0 0 25px;*/
     }
     .main_title_four{/*四点加粗*/
@@ -4660,7 +4662,7 @@
         padding:0 10px 0 10px;
         /*float:left;*/
         /*width: 100%;*/
-        max-width: 1219px;
+        max-width: 700px;
         min-width:400px;
         height:399px;
     }
@@ -4775,13 +4777,12 @@
         text-align: center;
     }
     .news_container{
-        margin-left:15.42%;
+        margin-left:12%;
         padding-top: 2px;
         height: 25px;
         width: 550px;
         transition-duration: 0.8s;
         /*float: left;*/
-        margin-right: 15px;
         box-sizing: border-box;
         position: relative;
     }
