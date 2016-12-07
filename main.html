@@ -25,7 +25,139 @@
         /*新建项目*/
     </style>
     <script src="js/bmob.js"></script>
+     <script>
+function huanyuan(a)
+{alert(a);
+  var GameScore = Bmob.Object.extend("project");
+            var query = new Bmob.Query(GameScore);
 
+           query.get(a, {
+      success: function(object) {
+        // The object was retrieved successfully.
+	   object.set("deleted", false);
+        object.save(null, {
+          success: function(objectUpdate) {
+            
+			location.href='main.html';
+          },
+          error: function(model, error) {
+            alert("create object fail");
+          }
+        });
+      },
+      error: function(object, error) {
+        alert("query object fail");
+      }
+		})
+}
+function deleteall(a)
+{
+var GameScore = Bmob.Object.extend("projectlog");
+var query = new Bmob.Query(GameScore);
+	query.equalTo("projectid",a); 
+	query.find({
+                success: function(results) {
+             
+                    // 循环处理查询到的数据
+                    for (var i = 0; i < results.length; i++) {
+						 results[i].destroy();
+                           } 
+                },
+                error: function(error) {
+                    alert("删除失败: " + error.code + " " + error.message);
+                }
+// 查询所有数据       
+         })
+var GameScore = Bmob.Object.extend("function");
+var query = new Bmob.Query(GameScore);
+	query.equalTo("projectid",a); 
+	query.find({
+                success: function(results) {
+             
+                    // 循环处理查询到的数据
+                    for (var i = 0; i < results.length; i++) {
+						 results[i].destroy();
+                           } 
+                },
+                error: function(error) {
+                    alert("删除失败: " + error.code + " " + error.message);
+                }
+// 查询所有数据       
+         })
+var GameScore = Bmob.Object.extend("functionlog");
+var query = new Bmob.Query(GameScore);
+	query.equalTo("projectid",a); 
+	query.find({
+                success: function(results) {
+             
+                    // 循环处理查询到的数据
+                    for (var i = 0; i < results.length; i++) {
+						 results[i].destroy();
+                           } 
+                },
+                error: function(error) {
+                    alert("删除失败: " + error.code + " " + error.message);
+                }
+// 查询所有数据       
+         })
+}
+function shanchu(a)
+{
+var GameScore = Bmob.Object.extend("project");
+var query = new Bmob.Query(GameScore);
+           query.get(a, {
+      success: function(object) {
+        // The object was retrieved successfully.
+        object.destroy( {
+          success: function(objectUpdate) {
+		  deleteall(a);
+			
+          },
+          error: function(model, error) {
+            alert("create object fail");
+          }
+        });
+      },
+      error: function(object, error) {
+        alert("query object fail");
+      }
+		})
+}
+         function loadgomi()
+         {
+              Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
+            var GameScore = Bmob.Object.extend("project");
+            var query = new Bmob.Query(GameScore);
+			query.equalTo("deleted",true);
+        query.find({
+                success: function(results) {
+                    console.log("共查询到 " + results.length + " 条记录");
+                    // 循环处理查询到的数据
+                    for (var i = 0; i < results.length; i++) {
+						 var a=   '    <div class="dustbin_project"><div class="d_p_left" id="gomiinfo"><div class="d_p_name"><span>'+results[i].get('name')+'</span> </div>   <div class="d_p_time">'+results[i].createdAt+'创建</div></div>'
+
+						 a+=   '   <div class="d_p_right"> <div class="d_p_recovery dp_btn" onclick= huanyuan("'+results[i].id+'")>   <i class="fa fa-undo recovery_icon" aria-hidden="true"></i></div><div class="d_p_delete dp_btn" onclick= shanchu("'+results[i].id+'")> <i class="doc_icon iconfont">&#xe69c;</i>  </div>   </div>  </div>';
+      
+         <!--按钮-->
+                $(a).appendTo('#container_main');
+                           } 
+         
+                    
+						
+                 
+          
+           
+         
+                    
+                },
+                error: function(error) {
+                    alert("查询失败: " + error.code + " " + error.message);
+                }
+// 查询所有数据       
+         })
+		 }
+         
+    </script>
 
     <script type="text/javascript">
 
@@ -61,6 +193,7 @@
                                 jQuery(object).appendTo(jQuery("#finish_cont"));
                             }}
                     }
+					loadgomi();
                 },
                 error: function(error) {
                     alert("查询失败: " + error.code + " " + error.message);
@@ -135,24 +268,9 @@
     </div>
     <div id="container_main"><!--放已删除的地方-->
 
-        <div class="dustbin_project">
-            <div class="d_p_left">
-                <div class="d_p_name">
-                    <span>INSUITE ver3.4</span>
-                </div>
-                <div class="d_p_time">
-                    2015.11.11创建
-                </div>
-            </div>
-            <div class="d_p_right"><!--按钮-->
-                <div class="d_p_recovery dp_btn">
-                    <i class="fa fa-undo recovery_icon" aria-hidden="true"></i>
-                </div>
-                <div class="d_p_delete dp_btn">
-                    <i class="doc_icon iconfont">&#xe69c;</i>
-                </div>
-            </div>
-        </div>
+    
+             
+           
 
     </div>
 </div>
