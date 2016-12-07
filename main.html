@@ -100,10 +100,12 @@ var query = new Bmob.Query(GameScore);
                 }
 // 查询所有数据       
          })
-	location.href='main.html';
+		 location.href='main.html';
 }
 function shanchu(a)
 {
+ if(confirm("本当に進めてもいいですが")==true)
+ {
 var GameScore = Bmob.Object.extend("project");
 var query = new Bmob.Query(GameScore);
            query.get(a, {
@@ -123,6 +125,7 @@ var query = new Bmob.Query(GameScore);
         alert("query object fail");
       }
 		})
+ }
 }
          function loadgomi()
          {
