@@ -407,7 +407,7 @@
 			$('#problem_textarea').html($('#problem_textarea').html()+'\n開発時間がもっと速くて良かった');
 			if(tday>=parseInt($('#countdown_num2').html()))
 			$('#problem_textarea').html($('#problem_textarea').html()+'\ntest時間不足');
-			if(tday<=parseInt($('#countdown_num1').html()))
+			else if(tday<=parseInt($('#countdown_num1').html()))
 			$('#problem_textarea').html($('#problem_textarea').html()+'\ntest時間充分');
 			else
 			$('#problem_textarea').html($('#problem_textarea').html()+'\ntest時間がもっと速くて良かった');
