@@ -215,7 +215,6 @@
             query.find({
                 success: function(results) {
                     json=results;
-					fnum=results.length;
                     newtable(results);
 		            return results.length;
                 },
@@ -266,21 +265,32 @@
                         lpreview[i]=parseInt(100-i*(100/(alllday-1)));
                         if(lpreview[i]<0) lpreview[i]=0
                     }
+					var fnum;
+					var GameScore = Bmob.Object.extend("projectlog");
+                    var query = new Bmob.Query(GameScore);
+                    query.find({
+                        success: function(results) {
+						fnum=results.length;
+                        },
+                        error: function(error) {
+                            alert("查询失败: " + error.code + " " + error.message);
+                        }
+                    });
                     var GameScore = Bmob.Object.extend("projectlog");
                     var query = new Bmob.Query(GameScore);
                     query.equalTo("projectid", projectid);
                     var process=0;　　　
-			        ready();
                     query.find({
                         success: function(results) {
 						
 
                             // 循环处理查询到的数据
                             for (var i = 0; i < results.length; i++) {
-                                process+=(results[i].get('developprocess')+results[i].get('testprocess'))/(2*fnum);
+                                process+=(results[i].get('developprocess')+results[i].get('testprocess'))/(2*3);
                                 nowview[i+1]=parseInt(100-process);
                             }
                             ranjintu();
+							ready();
                         },
                         error: function(error) {
                             alert("查询失败: " + error.code + " " + error.message);
@@ -388,6 +398,19 @@
             $('#solve_display_time1').html((dday==Infinity)?'∞':Math.ceil(dday));
             $('#solve_display_time2').html((tday==Infinity)?'∞':Math.ceil(tday));
             $('#solve_display_time3').html( (dday==Infinity||tday==Infinity)?'∞':Math.ceil(Math.max(dday,tday)));
+
+			if(dday>=parseInt($('#countdown_num2').html()))
+			$('#problem_textarea').html($('#problem_textarea').html()+'\n開発時間不足');
+			else if(dday<=parseInt($('#countdown_num1').html()))
+			$('#problem_textarea').html($('#problem_textarea').html()+'\n開発時間充分');
+			else
+			$('#problem_textarea').html($('#problem_textarea').html()+'\n開発時間がもっと速くて良かった');
+			if(tday>=parseInt($('#countdown_num2').html()))
+			$('#problem_textarea').html($('#problem_textarea').html()+'\ntest時間不足');
+			if(tday<=parseInt($('#countdown_num1').html()))
+			$('#problem_textarea').html($('#problem_textarea').html()+'\ntest時間充分');
+			else
+			$('#problem_textarea').html($('#problem_textarea').html()+'\ntest時間がもっと速くて良かった');
             huanxingtu(deprocess,teprocess);
             loglist();
         }
@@ -735,7 +758,8 @@ query.equalTo("projectid", projectid);
                     状況分析
                 </div>
                 <div id="problem_text">
-                    <textarea onchange='problemchange()' id="problem_textarea" name=""cols="30" rows="10"></textarea>
+                    <textarea id="problem_textarea" name=""cols="30" rows="10">
+					</textarea>
                 </div>
             </div>
             <div id="advice_solve">
