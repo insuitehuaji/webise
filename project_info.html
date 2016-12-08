@@ -552,12 +552,12 @@
             location.href="renew_project.html?pid="+projectid;
         }
 		function problemchange()
-		{alert($('#problem_textarea').html());
+		{
 		 Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
                 var GameScore = Bmob.Object.extend("project");
                 var query = new Bmob.Query(GameScore);
 				var vv=$('#problem_textarea').val();
-				alert(vv);
+			
                 query.get(projectid, {
                     success: function(object) {
                         // The object was retrieved successfully.
