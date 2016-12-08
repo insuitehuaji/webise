@@ -193,7 +193,7 @@ var query = new Bmob.Query(GameScore);
                                 days1=days1.getFullYear()+'.'+(days1.getMonth()+1)+'.'+days1.getDate();
                                 var days2 = new Date(results[i].get('finishtime'));
                                 days2=days2.getFullYear()+'.'+(days2.getMonth()+1)+'.'+days2.getDate();
-                                var object =  '<div class="project_list"><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">'+days1+'-'+days2+'</div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
+                                var object =  '<div class="project_list"　 onclick = "'+url+'" ><div class="cover"><div class="cover_name">'+results[i].get('name')+'</div> <div class="cover_deadline">'+days1+'-'+days2+'</div> </div><img src="'+results[i].get('pic')['_url']+'" alt=""></div>';
                                 jQuery(object).appendTo(jQuery("#finish_cont"));
                             }}
                     }
