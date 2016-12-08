@@ -212,11 +212,13 @@
                 success: function(results) {
                     json=results;
                     newtable(results);
+		    return results.length;
                 },
                 error: function(error) {
                     alert("查询失败: " + error.code + " " + error.message);
                 }
             });
+
         }
         function projectlist()
         {   Bmob.initialize('910877821e33c3b0d45d9062c88b328b', "7f0c48b1bb7d8e07096312ce260163d1");
@@ -262,7 +264,8 @@
                     var GameScore = Bmob.Object.extend("projectlog");
                     var query = new Bmob.Query(GameScore);
                     query.equalTo("projectid", projectid);
-                    var process=0;
+                    var process=0;　　　
+			var fnum=ready();
                     query.find({
                         success: function(results) {
                             // 循环处理查询到的数据
@@ -271,7 +274,6 @@
                                 nowview[i+1]=parseInt(100-process);
                             }
                             ranjintu();
-                            ready();
                         },
                         error: function(error) {
                             alert("查询失败: " + error.code + " " + error.message);
