@@ -17,7 +17,8 @@
         var projectid='92a0f1ad14';
         var epreview=[];
         var lpreview=[];
-        var nowview=[];
+        var nowview=[]; 
+		var fnum;
         var testnm,dday,tday,developnm;
         nowview[0]=100;
         function huanxingtu(a,b) {
@@ -211,8 +212,9 @@
             query.find({
                 success: function(results) {
                     json=results;
+					fnum=results.length;
                     newtable(results);
-		    return results.length;
+		            return results.length;
                 },
                 error: function(error) {
                     alert("查询失败: " + error.code + " " + error.message);
@@ -265,12 +267,14 @@
                     var query = new Bmob.Query(GameScore);
                     query.equalTo("projectid", projectid);
                     var process=0;　　　
-			var fnum=ready();
+			        ready();
                     query.find({
                         success: function(results) {
+						
+
                             // 循环处理查询到的数据
                             for (var i = 0; i < results.length; i++) {
-                                process+=(results[i].get('developprocess')+results[i].get('testprocess'))/(2*funm);
+                                process+=(results[i].get('developprocess')+results[i].get('testprocess'))/(2*fnum);
                                 nowview[i+1]=parseInt(100-process);
                             }
                             ranjintu();
