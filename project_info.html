@@ -270,7 +270,7 @@
                         success: function(results) {
                             // 循环处理查询到的数据
                             for (var i = 0; i < results.length; i++) {
-                                process+=(results[i].get('developprocess')+results[i].get('testprocess'))/(2*3);
+                                process+=(results[i].get('developprocess')+results[i].get('testprocess'))/(2*funm);
                                 nowview[i+1]=parseInt(100-process);
                             }
                             ranjintu();
