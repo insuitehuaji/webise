@@ -395,9 +395,10 @@
             var date=new Date();
             date=new Date(date.toLocaleDateString());
             query.equalTo("date", date);
-// 查询所有数据
+query.equalTo("projectid", projectid);
             query.find({
                 success: function(results) {
+					console.log(results.length);
                     if(results.length==0)
                     {var GameScore = Bmob.Object.extend("projectlog");
                         if(type==1){
