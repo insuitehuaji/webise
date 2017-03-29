@@ -1,4 +1,14 @@
+<script src
 <script>
+  function getprojectid(param)
+        {
+            var re = new RegExp("(\\\?|&)" + param + "=([^&]+)(&|$)", "i");
+            var m = location.href.match(re);
+            if (m)
+                return m[2];
+            else
+                return '';
+        }
 $(function(){
   if(getprojectid('code')!='')
   {
